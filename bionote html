@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bio Note | Kathlyne Anne Jance</title>
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-background">
+            <img src="assets/background.png" alt="Background">
+        </div>
+
+        <div class="hero-overlay"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-noise"></div>
+
+        <div class="spider-circle"></div>
+        <div class="web web1"></div>
+        <div class="web web2"></div>
+        <div class="web web3"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-text">
+
+                <div class="eyebrow">
+                    A Good Student
+                </div>
+
+                <h1 class="hero-title">
+                    HI I'M
+                    <span>Kathlyne</span>
+                </h1>
+
+            </div>
+
+            <div class="cutout-photo">
+                <img src="assets/cutout.png" alt="Cutout">
+            </div>
+
+            <div class="name-label">
+                CHINI
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about">
+
+        <div class="about-wrapper">
+
+            <div class="about-heading">
+
+                <h2>
+                    ABOUT
+                    <span>ME</span>
+                </h2>
+
+                <div class="about-line"></div>
+
+            </div>
+
+            <div class="about-card">
+
+                   <img src="assets/aboutcutout.png" class="about-hover-cutout" alt="About Me Cutout">
+
+                <p>
+                    Hi! Thisssss iss <strong>Kathlyne Anne Jance</strong>, 19-years old who enjoys weekends
+                    to play games and just scroll on my phonee.
+                </p>
+
+                <p>
+                    I love trying new things that challenge me and help me grow.
+                    Web designing is my weakness because i am suck at designing, but I am still
+                    trying my best to improve to be good at it.
+                </p>
+
+                <p>
+                    My biggest goal is to graduate and make my family proud.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- MINI CARDS -->
+        <div class="about-bottom">
+
+            <div class="mini-card">
+
+                <h3>
+                    <i ></i>
+                    My Previous Projects
+                </h3>
+
+                <ul>
+                    <li>Automated Flood Management System</li>
+                    <li>TerraTree Android Game</li>
+                    <li>Android Studio Project</li>
+                    <li>JavaFX High-Low Game</li>
+                </ul>
+
+                <div class="hover-cutouts hobbies-cutouts">
+                    <img src="assets/photo3.png" class="hobby-photo3" alt="Previous Project Photo 3">
+                    <img src="assets/cutout6.png" class="hobby-cutout6" alt="Previous Project Cutout 3">
+                    <img src="assets/cutout4.png" class="hobby-cutout4" alt="Previous Project Cutout 2">
+                </div>
+
+            </div>
+
+            <div class="mini-card">
+
+                <h3>
+                    <i></i>
+                    Things I Love
+                </h3>
+
+                <ul>
+                    <li>Spend time with friends</li>
+                    <li>Drinking coffee</li>
+                    <li>Building Lego's</li>
+                    <li>Shoes</li>
+                    <li>uniqlo</li>
+                </ul>
+
+                <div class="hover-cutouts love-cutouts">
+                    <img src="assets/cutout1.png" class="love-cutout1" alt="Things I Love Cutout 1">
+                    <img src="assets/cutout2.png" class="love-cutout2" alt="Things I Love Cutout 2">
+                    <img src="assets/cutout5.png" class="love-cutout5" alt="Things I Love Cutout 3">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SOCIALS -->
+    <section class="social-section">
+
+        <div class="social-card">
+
+            <div class="social-text">
+                <h3>CONNECT WITH ME</h3>
+            </div>
+
+            <div class="social-icons">
+
+                <a href="https://www.facebook.com/share/185uen48as/?mibextid=wwXIfr" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="https://www.instagram.com/jance.kath" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://www.tiktok.com/@caramelmacxhi" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+
+                <a href="https://open.spotify.com/user/31agarbur462cqtrpn66qnyqyea4" target="_blank">
+                    <i class="fab fa-spotify"></i>
+                </a>
+
+                <a href="https://youtube.com/@kathlyneannejance1880" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>

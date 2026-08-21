@@ -1,0 +1,733 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+.hero,
+.about,
+.social-section{
+    width:100%;
+}
+
+body{
+    min-height:100vh;
+    padding:0;
+    font-family:'Montserrat',sans-serif;
+    color:#ffffff;
+    overflow-x:hidden;
+    background:
+        radial-gradient(
+            circle at top,
+            #FFD700 0%,
+            #C8102E 18%,
+            #063B7A 48%,
+            #02152F 100%
+        );
+    background-attachment:fixed;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.15;
+    background:
+        linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:38px 38px;
+}
+
+.container{
+    width:100%;
+    max-width:none;
+    margin:0;
+    overflow:visible;
+    background:transparent;
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+}
+
+.hero{
+    position:relative;
+    min-height:560px;
+    overflow:hidden;
+    isolation:isolate;
+    background:
+        linear-gradient(
+            135deg,
+            #021B3D,
+            #063B7A,
+            #0057B8,
+            #C8102E
+        );
+}
+
+.hero-background{
+    position:absolute;
+    inset:0;
+    z-index:-5;
+}
+
+.hero-background img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:45% center;
+    filter:
+        grayscale(35%)
+        brightness(.48)
+        contrast(1.12)
+        saturate(.85);
+    transform:scale(1.05);
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:-4;
+    background:
+        linear-gradient(
+            100deg,
+            rgba(2,21,47,.94),
+            rgba(0,87,184,.58),
+            rgba(200,16,46,.28)
+        );
+}
+
+.hero-grid{
+    position:absolute;
+    inset:0;
+    z-index:-3;
+    opacity:.14;
+    background-image:
+        linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);
+    background-size:40px 40px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.15;
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(255,215,0,.10) 0 1px,
+            transparent 1px 34px
+        );
+    pointer-events:none;
+}
+
+.hero-content{
+    position:relative;
+    display:flex;
+    align-items:center;
+    width:min(1180px, 92%);
+    min-height:560px;
+    margin:0 auto;
+    padding:40px 20px;
+}
+
+.hero-text{
+    margin-left: -70px;
+    width:55%;
+    color:white;
+    z-index:5;
+}
+
+.eyebrow{
+    display:inline-block;
+    padding:8px 18px;
+    border:1px solid rgba(255,215,0,.75);
+    background:rgba(39,10,145,.30);
+    color:#FFD700;
+    border-radius:50px;
+    font-size:12px;
+    letter-spacing:3px;
+    margin-bottom:18px;
+    box-shadow:0 0 16px rgba(255,215,0,.10);
+}
+
+.hero-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:75px;
+    line-height:.88;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-shadow:
+        0 3px 0 rgba(0,0,0,.75),
+        0 0 20px rgba(0,87,184,.35);
+}
+
+.hero-title span{
+    display:block;
+    color:#000000;
+    text-shadow:
+        3px 3px 0 #292ccc,
+        0 0 20px rgba(255,215,0,.18);
+}
+
+.cutout-photo{
+    position:absolute;
+    left:80%;
+    bottom:-10%;
+    transform:translateX(-9%);
+    width:85%;
+    z-index:-4;
+}
+
+.cutout-photo img{
+    width:80%;
+    display:block;
+    background:none;
+    border:none;
+    box-shadow:none;
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.75));
+}
+
+.name-label{
+    position:absolute;
+    right:-105px;
+    bottom:28px;
+    background:#C8102E;
+    color:#ffffff;
+    padding:12px 18px;
+    font-weight:800;
+    letter-spacing:2px;
+    border-left:5px solid #FFD700;
+    transform:rotate(-4deg);
+    box-shadow:8px 8px 0 #0057B8;
+}
+
+.decor{
+    position:absolute;
+    color:#FFD700;
+    font-family:'Bebas Neue',sans-serif;
+}
+
+.decor-one{
+    top:35px;
+    right:40px;
+    font-size:50px;
+}
+
+.corner-lines{
+    position:absolute;
+    top:25px;
+    left:25px;
+    width:90px;
+    height:90px;
+    border-top:2px solid rgba(255,215,0,.85);
+    border-left:2px solid rgba(255,215,0,.85);
+}
+
+.corner-lines::after{
+    content:"";
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:55px;
+    height:55px;
+    border-top:1px solid rgba(200,16,46,.75);
+    border-left:1px solid rgba(200,16,46,.75);
+}
+
+.about{
+    padding:90px 5vw;
+    background:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
+        #041D3D;
+    background-size:32px 32px;
+}
+
+.about-wrapper{
+    width:min(1180px, 100%);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:70px;
+    align-items:start;
+    padding-top:0;
+}
+
+.about-heading{
+    margin-top:-50px;
+}
+
+.about-heading h2{
+    font-family:'Bebas Neue',sans-serif;
+    margin-left: -50px;
+    font-size:75px;
+    line-height:.9;
+    color:#000000;
+    letter-spacing:0;
+    text-shadow:2px 2px 0 rgba(28,41,223,.75);
+}
+
+.about-heading h2 span{
+    display:block;
+    color:#ffffff;
+    text-shadow:2px 2px 0 rgba(0,87,184,.75);
+}
+
+.about-line{
+    margin-left: -50px;
+    width:130px;
+    height:6px;
+    margin-top:18px;
+    background:
+        linear-gradient(
+            to right,
+            #C8102E,
+            #FFD700,
+            #0057B8
+        );
+}
+
+.about-card{
+    position:relative;
+    overflow:visible;
+    background:#06264D;
+    max-width:850px;
+    padding:45px;
+    margin-top:68px;
+    margin-left: 55px;
+    border-radius:20px;
+    border-left:7px solid #C8102E;
+    box-shadow:0 18px 40px rgba(0,0,0,.38);
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease,
+        border-left-color .45s ease;
+}
+
+
+.about-hover-cutout{
+    position:absolute;
+    top:-105px;
+    left:-75px;
+    width:135px;
+    max-height:170px;
+    object-fit:contain;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    z-index:20;
+    transform:translateY(18px);
+    filter:drop-shadow(0 12px 16px rgba(0,0,0,.55));
+    transition:
+        opacity .45s ease,
+        visibility .45s ease,
+        transform .45s ease;
+}
+
+.about-card:hover .about-hover-cutout{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.about-card:hover{
+    transform:translateY(-8px);
+    border-left-color:#FFD700;
+    box-shadow:
+        0 0 18px rgba(255,215,0,.20),
+        0 25px 50px rgba(0,87,184,.20);
+}
+
+.about-card p{
+    color:#E8F1FF;
+    font-size:16px;
+    line-height:1.9;
+    margin-bottom:15px;
+    text-align:justify;
+}
+.about-card strong{
+    color:#FFD700;
+}
+
+.about-bottom{
+    width:min(1180px, 100%);
+    margin:70px auto 0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+}
+
+.mini-card{
+    background:#06264D;
+    backdrop-filter:blur(10px);
+     max-width:550px;
+    border-radius:18px;
+     margin-top:70px;
+    padding:22px;
+    border-top:5px solid #C8102E;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    transition:
+        transform .45s ease,
+        border-top-color .45s ease,
+        box-shadow .45s ease;
+}
+
+.mini-card:hover{
+    transform:translateY(-8px);
+    border-top-color:#FFD700;
+    box-shadow:
+        0 0 16px rgba(255,215,0,.18),
+        0 25px 50px rgba(0,87,184,.18);
+}
+
+.mini-card h3{
+    font-family:'Bebas Neue',sans-serif;
+    color:#FFD700;
+    font-size:28px;
+    margin-bottom:15px;
+    letter-spacing:1px;
+    text-shadow:1px 2px 0 rgba(200,16,46,.70);
+}
+
+.mini-card h3 i{
+    color:#C8102E;
+    margin-right:8px;
+}
+
+.mini-card ul{
+    list-style:none;
+    padding:0;
+}
+
+.mini-card li{
+    margin:12px 0;
+    color:#E8F1FF;
+    font-size:16px;
+}
+
+.social-section{
+    position:relative;
+    overflow:visible;
+    min-height:auto;
+    padding:35px 5vw 70px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
+        #041D3D;
+    background-size:32px 32px;
+}
+
+.social-card{
+    width:min(1180px, 100%);
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+    background:
+        linear-gradient(
+            135deg,
+            #C8102E 0%,
+            #8E1026 33%,
+            #063B7A 68%,
+            #0057B8 100%
+        );
+    border-radius:20px;
+    padding:28px 35px;
+    border-left:6px solid #FFD700;
+    box-shadow:0 20px 40px rgba(0,0,0,.36);
+    transition:
+        border-left-color .45s ease,
+        box-shadow .45s ease,
+        transform .45s ease;
+}
+
+.social-card:hover{
+    border-left-color:#ffffff;
+    box-shadow:
+        0 0 18px rgba(255,215,0,.38),
+        0 0 35px rgba(0,87,184,.24),
+        0 20px 40px rgba(0,0,0,.48);
+    transform:translateY(-6px);
+}
+
+.social-text h3{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:38px;
+    color:#FFD700;
+    letter-spacing:2px;
+    border-top:4px solid #FFD700;
+    padding-top:-18px;
+    text-shadow:2px 2px 0 rgba(200,16,46,.65);
+    transition:
+        color .45s ease,
+        text-shadow .45s ease,
+        transform .45s ease;
+}
+
+.social-text h3:hover{
+    color:#ffffff;
+    border-top-color:#ffffff;
+    text-shadow:
+        0 0 12px rgba(255,215,0,.32),
+        0 4px 15px rgba(0,0,0,.65);
+    transform:translateY(-4px);
+}
+
+.social-icons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.social-icons a{
+    width:52px;
+    height:52px;
+    border-radius:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#FFD700;
+    background:rgba(2,21,47,.55);
+    border:1px solid rgba(255,215,0,.40);
+    text-decoration:none;
+    font-size:21px;
+    transition:.35s ease;
+}
+
+.social-icons a:hover{
+    background:#ffffff;
+    color:#01070f;
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(200,16,46,.35);
+}
+
+@media(max-width:900px){
+    .hero-content{
+        flex-direction:column;
+        justify-content:flex-start;
+        text-align:center;
+        padding:40px 25px;
+    }
+
+    .hero-text{
+        width:100%;
+    }
+
+    .hero-title{
+        font-size:68px;
+    }
+
+    .cutout-photo{
+        position:relative;
+        left:auto;
+        right:auto;
+        bottom:auto;
+        transform:none;
+        margin:35px auto 0;
+        width:min(520px, 90%);
+    }
+
+    .name-label{
+        right:20px;
+        bottom:20px;
+    }
+
+    .about{
+        padding:40px 25px;
+    }
+
+    .about-wrapper{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .about-heading{
+        margin-top:0;
+    }
+
+    .about-bottom{
+        grid-template-columns:1fr;
+    }
+
+    .social-section{
+        padding:30px 20px;
+    }
+
+    .social-card{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+@media(max-width:500px){
+    .hero-title{
+        font-size:52px;
+    }
+
+    .cutout-photo{
+        width:100%;
+    }
+
+    .about-card{
+        padding:24px;
+    }
+
+    .about-card p{
+        font-size:14px;
+    }
+}
+/* MINI CARDS - HOVER CUTOUT PHOTOS */
+.about-bottom .mini-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.hover-cutouts{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .40s ease, visibility .40s ease;
+    z-index:10;
+}
+
+/* EACH CUTOUT HAS ITS OWN STYLE SO YOU CAN EDIT THEM ONE BY ONE */
+
+/* PREVIOUS PROJECTS - photo 3 */
+.hobby-photo3{
+    position:absolute;
+    bottom:10px;
+    right:20px;
+    width:90px;
+    height:135px;
+    object-fit:cover;
+    object-position:center;
+    border-radius:12px;
+    border:3px solid #ffffff;
+    box-shadow:0 10px 18px rgba(0,0,0,.45);
+    transform:translateX(15px);
+    transition:transform .45s ease;
+}
+
+
+/* PREVIOUS PROJECTS - CUTOUT 6 */
+.hobby-cutout6{
+    position:absolute;
+    bottom:-10px;
+    right:90px;
+    width:195px;
+    max-height:185px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,.55));
+    transform:translateX(15px);
+    transition:transform .45s ease;
+}
+
+/* PREVIOUS PROJECTS - CUTOUT 4 */
+.hobby-cutout4{
+    position:absolute;
+    top:-55px;
+    right:15px;
+    width:130px;
+    max-height:150px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,.55));
+    transform:translateX(15px);
+    transition:transform .45s ease;
+}
+
+/* THINGS I LOVE - CUTOUT 1 */
+.love-cutout1{
+    position:absolute;
+    top:-35px;
+    right:20px;
+    width:190px;
+    max-height:170px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,.55));
+    transform:translateX(15px);
+    transition:transform .45s ease;
+}
+
+/* THINGS I LOVE - CUTOUT 2 */
+.love-cutout2{
+    position:absolute;
+    bottom:25px;
+    right:12px;
+    width:130px;
+    max-height:140px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,.55));
+    transform:translateX(15px);
+    transition:transform .45s ease;
+}
+
+/* THINGS I LOVE - CUTOUT 5 */
+.love-cutout5{
+    position:absolute;
+    bottom:15px;
+    right:110px;
+    width:180px;
+    max-height:170px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,.55));
+    transform:translateX(15px);
+    transition:transform .45s ease;
+}
+
+.about-bottom .mini-card:hover .hover-cutouts{
+    opacity:1;
+    visibility:visible;
+}
+
+.about-bottom .mini-card:hover .hover-cutouts img{
+    transform:translateX(0);
+}
+
+/* Keep the text readable when the pictures appear */
+.about-bottom .mini-card:hover ul{
+    padding-right:105px;
+    transition:padding-right .40s ease;
+}
+
+@media(max-width:700px){
+    .hobby-photo3,
+    .hobby-cutout6,
+    .hobby-cutout4,
+    .love-cutout1,
+    .love-cutout2,
+    .love-cutout5{
+        width:72px;
+        max-height:95px;
+    }
+
+
+    .hobby-photo3{
+        width:70px;
+        height:120px;
+        max-height:none;
+    }
+
+    .hobby-cutout6{
+        width:150px;
+        max-height:160px;
+        bottom:10px;
+        right:95px;
+    }
+
+    .about-bottom .mini-card:hover ul{
+        padding-right:75px;
+    }
+}
+
