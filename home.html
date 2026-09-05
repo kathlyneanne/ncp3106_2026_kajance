@@ -21,6 +21,57 @@
 
 
   <!-- =====================================================
+       PAGE LOADER
+       IMAGE ONLY: transparent -> fully visible
+  ====================================================== -->
+
+  <section class="page-loader" id="page-loader" aria-label="Loading website">
+
+    <div class="loader-image-wrap">
+
+      <img
+        src="assets/loading-picture.jpg"
+        class="loader-image"
+        id="loader-image"
+        alt="UE Computer Engineering">
+
+    </div>
+
+    <!-- Circuit loading bar: synchronized with the image reveal -->
+    <div class="loader-circuit" aria-hidden="true">
+
+      <div class="loader-circuit-track">
+
+        <span class="circuit-node node-1"></span>
+        <span class="circuit-node node-2"></span>
+        <span class="circuit-node node-3"></span>
+
+        <div class="loader-bar-fill" id="loader-bar-fill"></div>
+
+        <!-- Moving black computer -->
+        <div class="loader-chip" id="loader-chip">
+          <div class="loader-computer">
+            <div class="computer-monitor">
+              <div class="computer-screen">
+                <span>&gt;_</span>
+              </div>
+            </div>
+            <div class="computer-neck"></div>
+            <div class="computer-base"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Glitch is applied only to the loading picture and loading bar -->
+
+  </section>
+
+
+
+  <!-- =====================================================
        INTRO / OPENING SCREEN
   ====================================================== -->
 
@@ -217,308 +268,374 @@
       </div>
 
 
-
       <!-- ===================================================
-           PAGE LINKS
+           COMPUTER ENGINEERING INTRODUCTION
+           Scroll-driven text reveal
       ==================================================== -->
 
-      <section class="work-grid">
+      <section class="cpe-scroll-section cursor-dark-zone" id="cpe-introduction">
 
+        <div class="cpe-scroll-sticky">
 
-        <!-- =================================================
-             ABOUT CPE
-        ================================================== -->
+          <div class="container-fluid px-3 px-md-4 px-lg-5">
 
-        <article class="project">
+            <!-- =================================================
+                 01 / COMPUTER ENGINEERING
+            ================================================== -->
 
-          <div>
+            <div class="cpe-scroll-block">
 
-            <a href="about-cpe.html">
+              <p class="cpe-scroll-label">
+                01 / COMPUTER ENGINEERING
+              </p>
 
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="About Computer Engineering">
-
+              <div class="cpe-title-mask title-drop-mask">
+                <h2 class="cpe-scroll-title title-drop">
+                  COMPUTER ENGINEERING
+                </h2>
               </div>
 
 
-              <h2 class="project-title">
-                About CpE
-              </h2>
+              <div class="row mt-4 mt-lg-5">
 
-            </a>
+                <div class="col-lg-10 offset-lg-2">
 
+                  <p
+                    class="scroll-reveal-text"
+                    data-scroll-reveal>
+                    Computer Engineering is a four-year program that combines
+                    computer hardware and software. It focuses on how computers
+                    and electronic systems are designed, built, programmed, and
+                    improved. Students learn how hardware and software work
+                    together to create useful, reliable, and smart technology.
+                  </p>
 
-            <p class="project-desc">
-              Learn what Computer Engineering is and how
-              hardware and software work together.
-            </p>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             CPE AT UE
-        ================================================== -->
-
-        <article class="project">
-
-          <div>
-
-            <a href="cpe-at-ue.html">
-
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="Computer Engineering at UE">
+                </div>
 
               </div>
 
-
-              <h2 class="project-title">
-                CpE at UE
-              </h2>
-
-            </a>
+            </div>
 
 
-            <p class="project-desc">
-              Discover Computer Engineering at the
-              University of the East.
-            </p>
+            <!-- =================================================
+                 02 / UE COMPUTER ENGINEERING
+            ================================================== -->
 
-          </div>
+            <div class="cpe-scroll-block cpe-scroll-block-ue">
 
-        </article>
+              <p class="cpe-scroll-label">
+                02 / UE CPE
+              </p>
 
-
-
-        <!-- =================================================
-             SPECIALIZATION
-        ================================================== -->
-
-        <article class="project">
-
-          <div>
-
-            <a href="specialization.html">
-
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="Computer Engineering Specialization">
-
+              <div class="cpe-title-mask title-drop-mask">
+                <h2 class="cpe-scroll-title cpe-scroll-title-small title-drop">
+                  UE COMPUTER ENGINEERING
+                </h2>
               </div>
 
 
-              <h2 class="project-title">
-                Specialization
-              </h2>
+              <div class="row mt-4 mt-lg-5">
 
-            </a>
+                <div class="col-lg-10 offset-lg-2">
 
+                  <p
+                    class="scroll-reveal-text"
+                    data-scroll-reveal>
+                    The UE Bachelor of Science in Computer Engineering degree program 
+                    inspires learners to zero in on the design, development, and 
+                    integration of computer systems through combined principles 
+                    across electrical engineering and computer science. 
+                    Computer Engineering Warriors get to do deep dives into 
+                    the study of hardware components such as digital circuits, 
+                    microprocessors, and embedded systems, as well as software 
+                    development and system architecture and much more.
+                  </p>
 
-            <p class="project-desc">
-              Explore different areas and fields
-              of Computer Engineering.
-            </p>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             CAREERS
-        ================================================== -->
-
-        <article class="project">
-
-          <div>
-
-            <a href="careers.html">
-
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="Computer Engineering Careers">
+                </div>
 
               </div>
 
-
-              <h2 class="project-title">
-                Careers
-              </h2>
-
-            </a>
-
-
-            <p class="project-desc">
-              Discover different career opportunities
-              available for Computer Engineering graduates.
-            </p>
+            </div>
 
           </div>
 
-        </article>
+        </div>
+
+      </section>
 
 
 
-        <!-- =================================================
-             FACULTY
-        ================================================== -->
+      <!-- ===================================================
+           FEATURED PAGES
+      ==================================================== -->
 
-        <article class="project">
+      <section class="featured-section" id="featured">
 
-          <div>
+        <div class="featured-heading">
+          <p class="featured-kicker">03 </p>
 
-            <a href="faculty.html">
+          <div class="featured-heading-row">
+            <h2>Explore CpE</h2>
 
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="Computer Engineering Faculty">
-
-              </div>
+         
+          </div>
+        </div>
 
 
-              <h2 class="project-title">
-                Faculty
-              </h2>
+        <div class="container-fluid px-0">
 
-            </a>
+          <div class="row g-2 featured-collage">
+
+            <!-- LEFT COLUMN -->
+            <div class="col-12 col-md-4">
+
+              <a class="featured-card featured-card-large"
+                 href="about-cpe.html">
+
+                <div class="featured-image-wrap h-large">
+
+                  <img
+                    src="assets/featured-about.jpg"
+                    class="featured-card-img"
+                    alt="About Computer Engineering">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">01</span>
+
+                    <div>
+                      <span class="featured-small">Discover</span>
+                      <h3>About CpE</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
 
 
-            <p class="project-desc">
-              Meet the faculty members who guide and
-              support Computer Engineering students.
-            </p>
+              <a class="featured-card mt-2"
+                 href="careers.html">
+
+                <div class="featured-image-wrap h-small">
+
+                  <img
+                    src="assets/featured-careers.jpg"
+                    class="featured-card-img"
+                    alt="Computer Engineering Careers">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">04</span>
+
+                    <div>
+                      <span class="featured-small">Future opportunities</span>
+                      <h3>CpE Careers</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+            </div>
+
+
+            <!-- CENTER COLUMN -->
+            <div class="col-12 col-md-4">
+
+              <a class="featured-card"
+                 href="cpe-at-ue.html">
+
+                <div class="featured-image-wrap h-small">
+
+                  <img
+                    src="assets/featured-ue.jpg"
+                    class="featured-card-img"
+                    alt="Computer Engineering at UE">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">02</span>
+
+                    <div>
+                      <span class="featured-small">University of the East</span>
+                      <h3>CpE at UE</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+
+              <a class="featured-card mt-2"
+                 href="specialization.html">
+
+                <div class="featured-image-wrap h-large">
+
+                  <img
+                    src="assets/featured-specialization.jpg"
+                    class="featured-card-img"
+                    alt="Computer Engineering Specialization">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">03</span>
+
+                    <div>
+                      <span class="featured-small">Choose your field</span>
+                      <h3>Specialization</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+            </div>
+
+
+            <!-- RIGHT COLUMN -->
+            <div class="col-12 col-md-4">
+
+              <a class="featured-card"
+                 href="faculty.html">
+
+                <div class="featured-image-wrap h-large">
+
+                  <img
+                    src="assets/featured-faculty.jpg"
+                    class="featured-card-img"
+                    alt="Computer Engineering Faculty">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">05</span>
+
+                    <div>
+                      <span class="featured-small">Meet the department</span>
+                      <h3>Faculty</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+
+              <a class="featured-card mt-2"
+                 href="scpes.html">
+
+                <div class="featured-image-wrap h-small">
+
+                  <img
+                    src="assets/featured-scpes.jpg"
+                    class="featured-card-img"
+                    alt="SCPES">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">06</span>
+
+                    <div>
+                      <span class="featured-small">Student community</span>
+                      <h3>SCPES</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+            </div>
+
+
+            <!-- FULLER BOTTOM ROW -->
+            <div class="col-12 col-md-7">
+
+              <a class="featured-card mt-2"
+                 href="projects.html">
+
+                <div class="featured-image-wrap h-medium">
+
+                  <img
+                    src="assets/featured-projects.jpg"
+                    class="featured-card-img"
+                    alt="Student Projects">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">07</span>
+
+                    <div>
+                      <span class="featured-small">Built by CpE students</span>
+                      <h3>Student Projects</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+            </div>
+
+
+            <div class="col-12 col-md-5">
+
+              <a class="featured-card mt-2"
+                 href="events.html">
+
+                <div class="featured-image-wrap h-medium">
+
+                  <img
+                    src="assets/featured-events.jpg"
+                    class="featured-card-img"
+                    alt="Events and Activities">
+
+                  <div class="featured-overlay"></div>
+
+                  <div class="featured-card-info">
+                    <span class="featured-number">08</span>
+
+                    <div>
+                      <span class="featured-small">Campus life</span>
+                      <h3>Events & Activities</h3>
+                    </div>
+
+                    <span class="featured-arrow">↗</span>
+                  </div>
+
+                </div>
+
+              </a>
+
+            </div>
 
           </div>
 
-        </article>
-
-
-
-        <!-- =================================================
-             SCPES
-        ================================================== -->
-
-        <article class="project">
-
-          <div>
-
-            <a href="scpes.html">
-
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="SCPES Community">
-
-              </div>
-
-
-              <h2 class="project-title scramble-hover">
-                SCPES
-              </h2>
-
-            </a>
-
-
-            <p class="project-desc">
-              Explore the Computer Engineering student
-              community, activities, and events.
-            </p>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             PROJECTS
-        ================================================== -->
-
-        <article class="project">
-
-          <div>
-
-            <a href="projects.html">
-
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="Computer Engineering Projects">
-
-              </div>
-
-
-              <h2 class="project-title">
-                Projects
-              </h2>
-
-            </a>
-
-
-            <p class="project-desc">
-              See projects created using hardware,
-              software, and engineering skills.
-            </p>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             CONTACT
-        ================================================== -->
-
-        <article class="project">
-
-          <div>
-
-            <a href="contact.html">
-
-              <div class="project-media">
-
-                <img
-                  src=""
-                  alt="Contact UE Computer Engineering">
-
-              </div>
-
-
-              <h2 class="project-title">
-                Contact
-              </h2>
-
-            </a>
-
-
-            <p class="project-desc">
-              Find contact information and ways to
-              connect with the Computer Engineering community.
-            </p>
-
-          </div>
-
-        </article>
-
+        </div>
 
       </section>
 
