@@ -1,53 +1,98 @@
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 
-/* =====================================
-   0. PAGE LOADING EFFECT
-   IMAGE + BLACK COMPUTER + IMAGE/BAR GLITCH
-===================================== */
+/* =========================================================
+   0. CODED PUSHING PERSON LOADER
+========================================================= */
 
 const pageLoader =
   document.getElementById("page-loader");
 
+const pushStage =
+  document.getElementById("push-stage");
+
 const loaderImage =
   document.getElementById("loader-image");
 
-const loaderBarFill =
-  document.getElementById("loader-bar-fill");
+const pushDivider =
+  document.getElementById("push-divider");
 
-const loaderComputer =
-  document.getElementById("loader-chip");
+const cssPerson =
+  document.getElementById("css-person");
 
+const pushLoadingNumber =
+  document.getElementById("push-loading-number");
+
+
+function easeInOutCubic(value) {
+  return value < 0.5
+    ? 4 * value * value * value
+    : 1 - Math.pow(-2 * value + 2, 3) / 2;
+}
+
+
+/* =========================================================
+   START LOADER
+========================================================= */
 
 function startLoader() {
 
   if (
     !pageLoader ||
+    !pushStage ||
     !loaderImage ||
-    !loaderBarFill ||
-    !loaderComputer
+    !pushDivider ||
+    !cssPerson
   ) {
     return;
   }
 
 
-  let progress = 0;
-
-
-  /* =====================================
-     LOADING SPEED
-
-     8000 = 8 seconds
-     Change this if you want the loading
-     animation faster or slower.
-  ===================================== */
-
-  const loadingDuration = 8000;
+  const loadingDuration = 5000;
 
   let startTime = null;
 
 
-  function animateLoading(currentTime) {
+  pushStage.style.setProperty(
+    "--push-position",
+    "0%"
+  );
+
+
+  loaderImage.style.clipPath =
+    "inset(0 100% 0 0)";
+
+  loaderImage.style.webkitClipPath =
+    "inset(0 100% 0 0)";
+
+
+  loaderImage.style.filter =
+    "none";
+
+  loaderImage.style.mixBlendMode =
+    "normal";
+
+
+  pushDivider.classList.remove(
+    "is-finished"
+  );
+
+
+  cssPerson.classList.remove(
+    "is-leaving"
+  );
+
+
+  pageLoader.classList.remove(
+    "is-finished"
+  );
+
+  pageLoader.classList.add(
+    "is-pushing"
+  );
+
+
+  function animatePush(currentTime) {
 
     if (!startTime) {
       startTime = currentTime;
@@ -58,180 +103,198 @@ function startLoader() {
       currentTime - startTime;
 
 
-    progress =
+    const rawProgress =
       Math.min(
         elapsed / loadingDuration,
         1
       );
 
 
-    const percent =
+    const progress =
+      easeInOutCubic(rawProgress);
+
+
+    const percentage =
       progress * 100;
 
 
+    /* MOVE PERSON + LINE */
 
-    /* =====================================
-       LOADING BAR
-    ===================================== */
-
-    loaderBarFill.style.width =
-      percent + "%";
-
+    pushStage.style.setProperty(
+      "--push-position",
+      percentage + "%"
+    );
 
 
-    /* =====================================
-       MOVING BLACK COMPUTER
-       COMPUTER DOES NOT GLITCH
-    ===================================== */
-
-    loaderComputer.style.left =
-      percent + "%";
-
-
-
-    /* =====================================
-       PICTURE REVEAL
-       LEFT -> RIGHT
-    ===================================== */
+    /* REVEAL PICTURE */
 
     const hiddenRight =
-      100 - percent;
+      100 - percentage;
 
 
     loaderImage.style.clipPath =
       `inset(0 ${hiddenRight}% 0 0)`;
 
-
     loaderImage.style.webkitClipPath =
       `inset(0 ${hiddenRight}% 0 0)`;
 
 
+    /* NUMBER */
 
-    /* =====================================
-       CONTINUE LOADING
-    ===================================== */
+    if (pushLoadingNumber) {
 
-    if (progress < 1) {
-
-      requestAnimationFrame(
-        animateLoading
-      );
-
-    } else {
-
-
-      /* =====================================
-         FORCE LOADING TO 100%
-      ===================================== */
-
-      loaderBarFill.style.width =
-        "100%";
-
-
-      loaderComputer.style.left =
-        "100%";
-
-
-      loaderImage.style.clipPath =
-        "inset(0 0 0 0)";
-
-
-      loaderImage.style.webkitClipPath =
-        "inset(0 0 0 0)";
-
-
-
-      /* =====================================
-         GLITCH AFTER LOADING
-
-         ONLY:
-         - Loading picture
-         - Loading bar
-
-         NOT:
-         - Whole screen
-         - Computer
-      ===================================== */
-
-      setTimeout(() => {
-
-
-        /*
-          This class activates the CSS glitch.
-
-          The CSS only targets:
-          .loader-image
-          .loader-bar-fill
-        */
-
-        pageLoader.classList.add(
-          "glitch-out"
+      pushLoadingNumber.textContent =
+        String(
+          Math.round(
+            rawProgress * 100
+          )
+        ).padStart(
+          2,
+          "0"
         );
 
-
-        /*
-          Wait for the glitch animation
-          to finish.
-        */
-
-        setTimeout(() => {
+    }
 
 
-          /* Hide loading screen */
+    if (rawProgress < 1) {
 
-          pageLoader.classList.add(
-            "is-finished"
-          );
+      requestAnimationFrame(
+        animatePush
+      );
 
-
-          /*
-            Remove glitch class after
-            loader disappears.
-          */
-
-          setTimeout(() => {
-
-            pageLoader.classList.remove(
-              "glitch-out"
-            );
-
-          }, 100);
-
-
-        }, 950);
-
-
-      }, 250);
+      return;
 
     }
+
+
+    /* FINISH */
+
+    loaderImage.style.clipPath =
+      "inset(0 0 0 0)";
+
+    loaderImage.style.webkitClipPath =
+      "inset(0 0 0 0)";
+
+
+    if (pushLoadingNumber) {
+
+      pushLoadingNumber.textContent =
+        "100";
+
+    }
+
+
+    pageLoader.classList.remove(
+      "is-pushing"
+    );
+
+
+    pushDivider.classList.add(
+      "is-finished"
+    );
+
+
+    cssPerson.classList.add(
+      "is-leaving"
+    );
+
+
+    setTimeout(() => {
+
+      pageLoader.classList.add(
+        "is-finished"
+      );
+
+    }, 750);
 
   }
 
 
   requestAnimationFrame(
-    animateLoading
+    animatePush
   );
 
 }
 
 
-
-/* =====================================
-   START LOADER
-===================================== */
+/* =========================================================
+   LOAD HOMEPAGE
+========================================================= */
 
 window.addEventListener(
   "load",
-  startLoader
+  () => {
+
+    /*
+      RETURNING FROM ABOUT CPE
+    */
+
+    if (
+      window.location.hash === "#featured"
+    ) {
+
+      if (pageLoader) {
+
+        pageLoader.classList.add(
+          "is-finished"
+        );
+
+      }
+
+
+      const homeEnterSite =
+        document.getElementById(
+          "enter-site"
+        );
+
+
+      if (homeEnterSite) {
+
+        homeEnterSite.checked =
+          true;
+
+      }
+
+
+      const featuredSection =
+        document.getElementById(
+          "featured"
+        );
+
+
+      if (featuredSection) {
+
+        setTimeout(() => {
+
+          featuredSection.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+          });
+
+        }, 50);
+
+      }
+
+
+      return;
+
+    }
+
+
+    startLoader();
+
+  }
 );
 
 
+/* =========================================================
+   SCRAMBLE TEXT
+========================================================= */
 
-/* =====================================
-   1. SCRAMBLED LETTER EFFECT
-===================================== */
-
-function scrambleText(element, speed = 90) {
+function scrambleText(
+  element,
+  speed = 90
+) {
 
   const finalText =
     element.dataset.text ||
@@ -249,46 +312,44 @@ function scrambleText(element, speed = 90) {
   element.scrambleTimer =
     setInterval(() => {
 
-
       element.textContent =
         finalText
           .split("")
-          .map((char, index) => {
+          .map(
+            (char, index) => {
+
+              if (
+                char === " " ||
+                char === "/" ||
+                char === "." ||
+                char === "+" ||
+                char === "×" ||
+                char === "•"
+              ) {
+
+                return char;
+
+              }
 
 
-            /* KEEP SYMBOLS NORMAL */
+              if (
+                index < progress
+              ) {
 
-            if (
-              char === " " ||
-              char === "/" ||
-              char === "." ||
-              char === "+"
-            ) {
+                return finalText[index];
 
-              return char;
+              }
+
+
+              return chars[
+                Math.floor(
+                  Math.random() *
+                  chars.length
+                )
+              ];
 
             }
-
-
-            /* SHOW CORRECT LETTER */
-
-            if (index < progress) {
-
-              return finalText[index];
-
-            }
-
-
-            /* RANDOM LETTER */
-
-            return chars[
-              Math.floor(
-                Math.random() *
-                chars.length
-              )
-            ];
-
-          })
+          )
           .join("");
 
 
@@ -297,8 +358,6 @@ function scrambleText(element, speed = 90) {
           element.dataset.progress
         ) || 0.55;
 
-
-      /* FINISH */
 
       if (
         progress >=
@@ -315,16 +374,14 @@ function scrambleText(element, speed = 90) {
 
       }
 
-
     }, speed);
 
 }
 
 
-
-/* =====================================
-   2. SCRAMBLE AFTER OPENING WEBSITE
-===================================== */
+/* =========================================================
+   BLACK BOX INTRO
+========================================================= */
 
 const enterSite =
   document.getElementById(
@@ -341,7 +398,6 @@ function startPageScramble() {
     .forEach(
       (element, index) => {
 
-
         setTimeout(() => {
 
           scrambleText(
@@ -351,12 +407,10 @@ function startPageScramble() {
 
         }, index * 260);
 
-
       }
     );
 
 }
-
 
 
 if (enterSite) {
@@ -365,8 +419,9 @@ if (enterSite) {
     "change",
     () => {
 
-
-      if (enterSite.checked) {
+      if (
+        enterSite.checked
+      ) {
 
         setTimeout(() => {
 
@@ -376,12 +431,10 @@ if (enterSite) {
 
       }
 
-
     }
   );
 
 } else {
-
 
   setTimeout(() => {
 
@@ -392,17 +445,15 @@ if (enterSite) {
 }
 
 
-
-/* =====================================
-   3. SCRAMBLE WHEN HOVERING
-===================================== */
+/* =========================================================
+   HOVER SCRAMBLE
+========================================================= */
 
 document
   .querySelectorAll(
     ".scramble-hover"
   )
   .forEach(element => {
-
 
     element.dataset.text =
       element.textContent.trim();
@@ -412,24 +463,20 @@ document
       "mouseenter",
       () => {
 
-
         scrambleText(
           element,
           70
         );
 
-
       }
     );
-
 
   });
 
 
-
-/* =====================================
-   4. PIXEL CURSOR
-===================================== */
+/* =========================================================
+   PIXEL CURSOR
+========================================================= */
 
 if (
   window
@@ -438,9 +485,6 @@ if (
     )
     .matches
 ) {
-
-
-  /* MAIN CURSOR */
 
   const pixelCursor =
     document.createElement(
@@ -457,11 +501,6 @@ if (
   );
 
 
-
-  /* =====================================
-     CURSOR TRAIL
-  ===================================== */
-
   const trail = [];
 
   const trailCount = 8;
@@ -472,7 +511,6 @@ if (
     i < trailCount;
     i++
   ) {
-
 
     const pixel =
       document.createElement(
@@ -501,14 +539,8 @@ if (
 
     });
 
-
   }
 
-
-
-  /* =====================================
-     MOUSE POSITION
-  ===================================== */
 
   let mouseX =
     window.innerWidth / 2;
@@ -518,10 +550,6 @@ if (
     window.innerHeight / 2;
 
 
-  /* =====================================
-     MOUSE POSITION + CURSOR COLOR SENSOR
-  ===================================== */
-
   window.addEventListener(
     "mousemove",
     event => {
@@ -529,22 +557,18 @@ if (
       mouseX =
         event.clientX;
 
+
       mouseY =
         event.clientY;
 
 
-      /* MOVE MAIN CURSOR */
-
       pixelCursor.style.left =
         mouseX + "px";
+
 
       pixelCursor.style.top =
         mouseY + "px";
 
-
-      /* =====================================
-         CHECK IF CURSOR IS ON BLACK SECTION
-      ===================================== */
 
       const elementUnderCursor =
         document.elementFromPoint(
@@ -560,24 +584,16 @@ if (
 
 
       const isDark =
-        Boolean(darkSection);
+        Boolean(
+          darkSection
+        );
 
-
-      /* =====================================
-         MAIN CURSOR
-         BLACK -> WHITE
-      ===================================== */
 
       pixelCursor.classList.toggle(
         "cursor-on-dark",
         isDark
       );
 
-
-      /* =====================================
-         PIXEL TRAIL
-         BLACK -> WHITE
-      ===================================== */
 
       trail.forEach(pixel => {
 
@@ -592,12 +608,7 @@ if (
   );
 
 
-  /* =====================================
-     CURSOR TRAIL ANIMATION
-  ===================================== */
-
   function animateTrail() {
-
 
     let targetX =
       mouseX;
@@ -607,15 +618,12 @@ if (
       mouseY;
 
 
-
     trail.forEach(
       (pixel, index) => {
-
 
         const followSpeed =
           0.24 -
           (index * 0.012);
-
 
 
         pixel.x +=
@@ -626,14 +634,12 @@ if (
           followSpeed;
 
 
-
         pixel.y +=
           (
             targetY -
             pixel.y
           ) *
           followSpeed;
-
 
 
         pixel.element.style.left =
@@ -651,7 +657,6 @@ if (
         targetY =
           pixel.y;
 
-
       }
     );
 
@@ -668,10 +673,9 @@ if (
 }
 
 
-
-/* =====================================
-   5. CPE SCROLL ANIMATION
-===================================== */
+/* =========================================================
+   HOMEPAGE CPE SCROLL ANIMATION
+========================================================= */
 
 const cpeSection =
   document.querySelector(
@@ -691,14 +695,8 @@ const scrollRevealTexts =
   );
 
 
-
-/* =====================================
-   6. SPLIT DESCRIPTION INTO WORDS
-===================================== */
-
 scrollRevealTexts.forEach(
   text => {
-
 
     const words =
       text.textContent
@@ -710,33 +708,24 @@ scrollRevealTexts.forEach(
       words
         .map(word => {
 
-
           return `
             <span class="scroll-word">
               ${word}
             </span>
           `;
 
-
         })
         .join(" ");
-
 
   }
 );
 
-
-
-/* =====================================
-   7. CLAMP
-===================================== */
 
 function clamp(
   value,
   min = 0,
   max = 1
 ) {
-
 
   return Math.max(
     min,
@@ -746,17 +735,10 @@ function clamp(
     )
   );
 
-
 }
 
 
-
-/* =====================================
-   8. UPDATE CPE SCROLL ANIMATION
-===================================== */
-
 function updateCpeScrollAnimation() {
-
 
   if (!cpeSection) {
     return;
@@ -775,11 +757,6 @@ function updateCpeScrollAnimation() {
   const viewportHeight =
     window.innerHeight;
 
-
-
-  /* =====================================
-     WHOLE SECTION PROGRESS
-  ===================================== */
 
   let sectionProgress =
     (
@@ -801,20 +778,11 @@ function updateCpeScrollAnimation() {
     );
 
 
-
-  /* =====================================
-     BLACK BACKGROUND
-  ===================================== */
-
   const backgroundProgress =
     clamp(
-
-      sectionProgress /
-      0.20,
-
+      sectionProgress / 0.20,
       0,
       1
-
     );
 
 
@@ -832,7 +800,6 @@ function updateCpeScrollAnimation() {
   );
 
 
-
   const firstBlock =
     scrollBlocks[0];
 
@@ -841,29 +808,18 @@ function updateCpeScrollAnimation() {
     scrollBlocks[1];
 
 
-
-  /* =====================================
-     COMPUTER ENGINEERING
-  ===================================== */
-
   if (firstBlock) {
-
-
-    /* TITLE */
 
     const firstTitleProgress =
       clamp(
-
         (
           sectionProgress -
           0.20
         )
         /
         0.15,
-
         0,
         1
-
       );
 
 
@@ -873,9 +829,6 @@ function updateCpeScrollAnimation() {
     );
 
 
-
-    /* DESCRIPTION */
-
     const firstText =
       firstBlock.querySelector(
         "[data-scroll-reveal]"
@@ -884,20 +837,16 @@ function updateCpeScrollAnimation() {
 
     if (firstText) {
 
-
       const firstTextProgress =
         clamp(
-
           (
             sectionProgress -
             0.35
           )
           /
           0.25,
-
           0,
           1
-
         );
 
 
@@ -909,56 +858,39 @@ function updateCpeScrollAnimation() {
 
       const activeWords =
         Math.floor(
-
           firstTextProgress *
           words.length
-
         );
 
 
       words.forEach(
         (word, index) => {
 
-
           word.classList.toggle(
             "is-active",
             index < activeWords
           );
 
-
         }
       );
 
-
     }
-
 
   }
 
 
-
-  /* =====================================
-     UE COMPUTER ENGINEERING
-  ===================================== */
-
   if (secondBlock) {
-
-
-    /* TITLE */
 
     const secondTitleProgress =
       clamp(
-
         (
           sectionProgress -
           0.60
         )
         /
         0.15,
-
         0,
         1
-
       );
 
 
@@ -968,9 +900,6 @@ function updateCpeScrollAnimation() {
     );
 
 
-
-    /* DESCRIPTION */
-
     const secondText =
       secondBlock.querySelector(
         "[data-scroll-reveal]"
@@ -979,20 +908,16 @@ function updateCpeScrollAnimation() {
 
     if (secondText) {
 
-
       const secondTextProgress =
         clamp(
-
           (
             sectionProgress -
             0.72
           )
           /
           0.16,
-
           0,
           1
-
         );
 
 
@@ -1004,40 +929,28 @@ function updateCpeScrollAnimation() {
 
       const activeWords =
         Math.floor(
-
           secondTextProgress *
           words.length
-
         );
 
 
       words.forEach(
         (word, index) => {
 
-
           word.classList.toggle(
             "is-active",
             index < activeWords
           );
 
-
         }
       );
 
-
     }
-
 
   }
 
-
 }
 
-
-
-/* =====================================
-   9. SCROLL LISTENER
-===================================== */
 
 window.addEventListener(
   "scroll",
@@ -1048,20 +961,545 @@ window.addEventListener(
 );
 
 
-
-/* =====================================
-   10. RESIZE
-===================================== */
-
 window.addEventListener(
   "resize",
   updateCpeScrollAnimation
 );
 
 
-
-/* =====================================
-   11. RUN ON PAGE LOAD
-===================================== */
-
 updateCpeScrollAnimation();
+
+
+/* =========================================================
+   HOME <-> ABOUT PAGE TRANSITION
+========================================================= */
+
+const transitionOverlay =
+  document.createElement(
+    "div"
+  );
+
+
+transitionOverlay.className =
+  "page-transition-overlay";
+
+
+transitionOverlay.innerHTML = `
+
+  <div class="page-transition-text">
+    ABOUT CpE
+  </div>
+
+`;
+
+
+document.body.appendChild(
+  transitionOverlay
+);
+
+
+function startPageTransition(
+  destination,
+  message
+) {
+
+  const transitionText =
+    transitionOverlay.querySelector(
+      ".page-transition-text"
+    );
+
+
+  if (transitionText) {
+
+    transitionText.textContent =
+      message;
+
+  }
+
+
+  transitionOverlay.classList.remove(
+    "is-active"
+  );
+
+
+  void transitionOverlay.offsetWidth;
+
+
+  transitionOverlay.classList.add(
+    "is-active"
+  );
+
+
+  setTimeout(() => {
+
+    window.location.href =
+      destination;
+
+  }, 1050);
+
+}
+
+
+document
+  .querySelectorAll(
+    ".page-transition-link"
+  )
+  .forEach(link => {
+
+    link.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+
+        const destination =
+          link.getAttribute(
+            "href"
+          );
+
+
+        startPageTransition(
+          destination,
+          "ABOUT CpE"
+        );
+
+      }
+    );
+
+  });
+
+
+document
+  .querySelectorAll(
+    ".page-transition-back"
+  )
+  .forEach(link => {
+
+    link.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+
+        const destination =
+          link.getAttribute(
+            "href"
+          );
+
+
+        startPageTransition(
+          destination,
+          "EXPLORE CpE"
+        );
+
+      }
+    );
+
+  });
+
+
+window.addEventListener(
+  "pageshow",
+  () => {
+
+    transitionOverlay.classList.remove(
+      "is-active"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   ABOUT CPE SCROLL REVEALS
+========================================================= */
+
+const aboutRevealElements =
+  document.querySelectorAll(
+    ".about-reveal, .area-reveal"
+  );
+
+
+if (
+  aboutRevealElements.length > 0
+) {
+
+  const aboutRevealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              entry.isIntersecting
+            ) {
+
+              entry.target.classList.add(
+                "is-visible"
+              );
+
+
+              aboutRevealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold: 0.14
+      }
+    );
+
+
+  aboutRevealElements.forEach(
+    (element, index) => {
+
+      element.style.transitionDelay =
+        (
+          (index % 5) *
+          0.07
+        ) +
+        "s";
+
+
+      aboutRevealObserver.observe(
+        element
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   PIXELATED IMAGE REVEAL
+========================================================= */
+
+const pixelRevealImages =
+  document.querySelectorAll(
+    ".pixel-reveal"
+  );
+
+
+pixelRevealImages.forEach(
+  pixelImage => {
+
+    const pixelCover =
+      pixelImage.querySelector(
+        ".pixel-cover"
+      );
+
+
+    if (!pixelCover) {
+      return;
+    }
+
+
+    const pixelColor =
+      pixelImage.dataset.pixelColor ||
+      "#0b0b0b";
+
+
+    const columns = 12;
+
+    const rows = 8;
+
+    const totalPixels =
+      columns * rows;
+
+
+    for (
+      let index = 0;
+      index < totalPixels;
+      index++
+    ) {
+
+      const pixel =
+        document.createElement(
+          "span"
+        );
+
+
+      pixel.className =
+        "pixel-block";
+
+
+      pixel.style.setProperty(
+        "--pixel-color",
+        pixelColor
+      );
+
+
+      const column =
+        index % columns;
+
+
+      const row =
+        Math.floor(
+          index / columns
+        );
+
+
+      const delay =
+        (
+          column * 0.035
+        ) +
+        (
+          row * 0.015
+        ) +
+        (
+          Math.random() * 0.22
+        );
+
+
+      pixel.style.transitionDelay =
+        delay + "s";
+
+
+      pixel.style.setProperty(
+        "--pixel-rotation",
+        (
+          (
+            Math.random() *
+            40
+          ) -
+          20
+        ) +
+        "deg"
+      );
+
+
+      pixelCover.appendChild(
+        pixel
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ACTIVATE PIXEL REVEAL ON SCROLL
+========================================================= */
+
+if (
+  pixelRevealImages.length > 0
+) {
+
+  const pixelRevealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              entry.isIntersecting
+            ) {
+
+              const image =
+                entry.target;
+
+
+              image.classList.add(
+                "pixel-active"
+              );
+
+
+              setTimeout(() => {
+
+                image.classList.add(
+                  "pixel-finished"
+                );
+
+              }, 950);
+
+
+              pixelRevealObserver.unobserve(
+                image
+              );
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold: 0.22
+      }
+    );
+
+
+  pixelRevealImages.forEach(
+    image => {
+
+      pixelRevealObserver.observe(
+        image
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ABOUT IMAGE HOVER MOVEMENT
+========================================================= */
+
+const aboutPixelImages =
+  document.querySelectorAll(
+    ".pixel-image"
+  );
+
+
+aboutPixelImages.forEach(
+  imageBox => {
+
+    imageBox.addEventListener(
+      "mousemove",
+      event => {
+
+        const image =
+          imageBox.querySelector(
+            "img"
+          );
+
+
+        if (!image) {
+          return;
+        }
+
+
+        const rect =
+          imageBox.getBoundingClientRect();
+
+
+        const moveX =
+          (
+            (
+              event.clientX -
+              rect.left
+            ) -
+            rect.width / 2
+          )
+          /
+          (
+            rect.width / 2
+          );
+
+
+        const moveY =
+          (
+            (
+              event.clientY -
+              rect.top
+            ) -
+            rect.height / 2
+          )
+          /
+          (
+            rect.height / 2
+          );
+
+
+        image.style.transform =
+          `
+            scale(1.025)
+            translate(
+              ${moveX * -4}px,
+              ${moveY * -4}px
+            )
+          `;
+
+      }
+    );
+
+
+    imageBox.addEventListener(
+      "mouseleave",
+      () => {
+
+        const image =
+          imageBox.querySelector(
+            "img"
+          );
+
+
+        if (image) {
+
+          image.style.transform =
+            "scale(1)";
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   ABOUT HERO PARALLAX
+========================================================= */
+
+const aboutHero =
+  document.querySelector(
+    ".about-new-hero"
+  );
+
+
+const aboutHeroTitle =
+  document.querySelector(
+    ".about-new-title"
+  );
+
+
+if (
+  aboutHero &&
+  aboutHeroTitle
+) {
+
+  window.addEventListener(
+    "scroll",
+    () => {
+
+      const heroRect =
+        aboutHero
+          .getBoundingClientRect();
+
+
+      if (
+        heroRect.bottom > 0
+      ) {
+
+        const scrolled =
+          Math.max(
+            0,
+            -heroRect.top
+          );
+
+
+        aboutHeroTitle.style.transform =
+          `translateY(${scrolled * 0.13}px)`;
+
+      }
+
+    },
+    {
+      passive: true
+    }
+  );
+
+}
