@@ -1503,3 +1503,498 @@ if (
   );
 
 }
+
+/* =========================================================
+   UNIVERSAL MENU — WORKS ON EVERY PAGE
+   HOME + ALL CPE PAGES
+========================================================= */
+
+(function initUniversalMenu() {
+
+  const menuLinks = [
+    ["index.html#home", "Home", "00"],
+    ["about-cpe.html", "About CpE", "01"],
+    ["cpe-at-ue.html", "CpE at UE", "02"],
+    ["specialization.html", "Specialization", "03"],
+    ["careers.html", "CpE Careers", "04"],
+    ["faculty.html", "Faculty", "05"],
+    ["scpes.html", "SCPES", "06"],
+    ["projects.html", "Student Projects", "07"],
+    ["events.html", "Events & Activities", "08"]
+  ];
+
+  /* ---------------------------------------------------------
+     CURRENT PAGE
+  --------------------------------------------------------- */
+
+  const currentFile =
+    window.location.pathname
+      .split("/")
+      .pop()
+      .toLowerCase() || "index.html";
+
+
+  /* ---------------------------------------------------------
+     GET TOPBAR
+  --------------------------------------------------------- */
+
+  const topbar =
+    document.querySelector(".topbar");
+
+  if (!topbar) {
+    return;
+  }
+
+
+  /* ---------------------------------------------------------
+     GET / CREATE MENU CHECKBOX
+  --------------------------------------------------------- */
+
+  let menuToggle =
+    document.getElementById("menu-toggle");
+
+
+  /*
+     If an incorrect element has the menu-toggle ID,
+     remove it first.
+  */
+
+  if (
+    menuToggle &&
+    menuToggle.tagName !== "INPUT"
+  ) {
+
+    menuToggle.removeAttribute("id");
+    menuToggle.remove();
+
+    menuToggle = null;
+  }
+
+
+  /*
+     Create the checkbox if the page does not have one.
+  */
+
+  if (!menuToggle) {
+
+    menuToggle =
+      document.createElement("input");
+
+    menuToggle.type =
+      "checkbox";
+
+    menuToggle.id =
+      "menu-toggle";
+
+    menuToggle.className =
+      "menu-toggle";
+
+    menuToggle.setAttribute(
+      "aria-label",
+      "Toggle menu"
+    );
+  }
+
+
+  /*
+     IMPORTANT:
+     The checkbox MUST be immediately before the topbar.
+  */
+
+  if (
+    menuToggle.parentNode !==
+      topbar.parentNode ||
+    menuToggle.nextElementSibling !==
+      topbar
+  ) {
+
+    topbar.parentNode.insertBefore(
+      menuToggle,
+      topbar
+    );
+  }
+
+
+  /* ---------------------------------------------------------
+     CREATE / KEEP MENU BUTTON
+  --------------------------------------------------------- */
+
+  let menuButton =
+    topbar.querySelector(
+      'label[for="menu-toggle"]'
+    );
+
+
+  /*
+     Make sure we don't accidentally use
+     the Close button as MENU +.
+  */
+
+  if (
+    menuButton &&
+    menuButton.classList.contains(
+      "menu-close-btn"
+    )
+  ) {
+
+    menuButton = null;
+  }
+
+
+  if (!menuButton) {
+
+    const oldButton =
+      topbar.querySelector(
+        ".menu-toggle-btn, button.menu-toggle"
+      );
+
+    if (oldButton) {
+      oldButton.remove();
+    }
+
+
+    menuButton =
+      document.createElement("label");
+
+    menuButton.className =
+      "menu-open-btn";
+
+    menuButton.setAttribute(
+      "for",
+      "menu-toggle"
+    );
+
+    menuButton.setAttribute(
+      "aria-label",
+      "Open menu"
+    );
+
+    menuButton.textContent =
+      "MENU +";
+
+    topbar.appendChild(
+      menuButton
+    );
+  }
+
+
+  /* ---------------------------------------------------------
+     FIND / CREATE FULLSCREEN MENU
+  --------------------------------------------------------- */
+
+  let fullscreenMenu =
+    document.querySelector(
+      ".fullscreen-menu"
+    );
+
+
+  if (!fullscreenMenu) {
+
+    fullscreenMenu =
+      document.createElement("div");
+
+    fullscreenMenu.className =
+      "fullscreen-menu";
+
+    fullscreenMenu.setAttribute(
+      "aria-label",
+      "Main navigation"
+    );
+  }
+
+
+  /* ---------------------------------------------------------
+     HOME LOGIC
+
+     index.html:
+       Home is hidden.
+
+     Every other page:
+       Home appears at the top.
+  --------------------------------------------------------- */
+
+  const showHome =
+    currentFile !== "index.html";
+
+
+  /* ---------------------------------------------------------
+     BUILD MENU ITEMS
+  --------------------------------------------------------- */
+
+  const menuItems =
+    menuLinks
+
+      .filter(([href]) => {
+
+        const baseHref =
+          href.split("#")[0];
+
+        /*
+           Don't show Home on the homepage.
+        */
+
+        return (
+          showHome ||
+          baseHref !== "index.html"
+        );
+      })
+
+      .map(
+        ([href, title, number]) => {
+
+          const baseHref =
+            href.split("#")[0];
+
+
+          const isCurrent =
+            currentFile === baseHref
+              ? " is-current-page"
+              : "";
+
+
+          return `
+            <a
+              href="${href}"
+              class="fullscreen-menu-link${isCurrent}">
+
+              <span class="menu-link-title">
+                ${title}
+              </span>
+
+              <span class="menu-link-number">
+                ${number}
+              </span>
+
+            </a>
+          `;
+        }
+      )
+
+      .join("");
+
+
+  /* ---------------------------------------------------------
+     BUILD FULLSCREEN MENU
+  --------------------------------------------------------- */
+
+  fullscreenMenu.innerHTML = `
+
+    <div class="fullscreen-menu-top">
+
+      <a
+        class="fullscreen-menu-brand"
+        href="index.html#home">
+
+        UE / CpE.
+
+      </a>
+
+
+      <label
+        class="menu-close-btn"
+        for="menu-toggle">
+
+        Close ×
+
+      </label>
+
+    </div>
+
+
+    <nav
+      class="fullscreen-menu-nav"
+      aria-label="Main navigation">
+
+      ${menuItems}
+
+    </nav>
+
+  `;
+
+
+  /* ---------------------------------------------------------
+     IMPORTANT FIX
+
+     Put the fullscreen menu directly after the topbar.
+     This makes:
+
+     #menu-toggle:checked ~ .fullscreen-menu
+
+     work correctly.
+  --------------------------------------------------------- */
+
+  topbar.parentNode.insertBefore(
+    fullscreenMenu,
+    topbar.nextSibling
+  );
+
+
+  /* ---------------------------------------------------------
+     MENU OPEN / CLOSE STATE
+  --------------------------------------------------------- */
+
+  function syncMenuState() {
+
+    const isOpen =
+      menuToggle.checked;
+
+
+    fullscreenMenu.classList.toggle(
+      "is-open",
+      isOpen
+    );
+
+
+    fullscreenMenu.setAttribute(
+      "aria-hidden",
+      String(!isOpen)
+    );
+
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+
+    document.body.classList.toggle(
+      "menu-open",
+      isOpen
+    );
+  }
+
+
+  /* ---------------------------------------------------------
+     CHECKBOX CHANGE
+  --------------------------------------------------------- */
+
+  menuToggle.addEventListener(
+    "change",
+    syncMenuState
+  );
+
+
+  /* ---------------------------------------------------------
+     ESCAPE KEY
+  --------------------------------------------------------- */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        menuToggle.checked
+      ) {
+
+        menuToggle.checked =
+          false;
+
+        syncMenuState();
+      }
+
+    }
+  );
+
+
+  /* ---------------------------------------------------------
+     CLOSE MENU AFTER NAVIGATION
+  --------------------------------------------------------- */
+
+  fullscreenMenu
+    .querySelectorAll(
+      ".fullscreen-menu-link"
+    )
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          menuToggle.checked =
+            false;
+
+          syncMenuState();
+        }
+      );
+
+    });
+
+
+  /* ---------------------------------------------------------
+     INITIAL STATE
+  --------------------------------------------------------- */
+
+  syncMenuState();
+
+})();
+
+/* =========================================================
+   EXPLORE CPE — SCROLL DOWN REVEAL
+========================================================= */
+
+const featuredSection =
+  document.querySelector(".featured-section");
+
+if (featuredSection) {
+
+  const featuredCards =
+    featuredSection.querySelectorAll("[data-featured-card]");
+
+  let lastScrollY = window.scrollY;
+  let revealLocked = false;
+
+  featuredCards.forEach((card, index) => {
+    card.style.setProperty(
+      "--featured-delay",
+      `${0.08 + index * 0.07}s`
+    );
+  });
+
+  const revealFeatured = () => {
+    if (revealLocked) return;
+    revealLocked = true;
+    featuredSection.classList.add("is-revealed");
+  };
+
+  const featuredObserver =
+    new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const currentScrollY = window.scrollY;
+        const scrollingDown = currentScrollY > lastScrollY;
+        lastScrollY = currentScrollY;
+
+        if (entry.isIntersecting && scrollingDown) {
+          revealFeatured();
+          featuredObserver.unobserve(featuredSection);
+        }
+      });
+    }, {
+      threshold: 0.16,
+      rootMargin: "0px 0px -10% 0px"
+    });
+
+  featuredObserver.observe(featuredSection);
+
+  window.addEventListener("scroll", () => {
+    if (revealLocked) return;
+
+    const rect = featuredSection.getBoundingClientRect();
+    const scrollingDown = window.scrollY > lastScrollY;
+    lastScrollY = window.scrollY;
+
+    if (
+      scrollingDown &&
+      rect.top < window.innerHeight * 0.72 &&
+      rect.bottom > window.innerHeight * 0.18
+    ) {
+      revealFeatured();
+      featuredObserver.unobserve(featuredSection);
+    }
+  }, { passive: true });
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    featuredSection.classList.add("is-revealed");
+    revealLocked = true;
+  }
+}

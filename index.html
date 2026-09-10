@@ -111,7 +111,7 @@
 
     <!-- BIG TOP TEXT -->
     <div class="intro-big top">
-      CpE 26.
+    Computer Engineering
     </div>
 
 
@@ -164,7 +164,7 @@
     <!-- =====================================================
          HEADER
     ====================================================== -->
-
+<input type="checkbox" id="menu-toggle" class="menu-toggle">
     <header class="topbar">
 
       <a class="brand scramble-hover" href="index.html">
@@ -175,7 +175,76 @@
         01 / 09
       </div>
 
+       <label class="menu-open-btn" for="menu-toggle">
+        MENU +
+      </label>
+
     </header>
+
+    <!-- =====================================================
+         FULL SCREEN NAVIGATION MENU
+    ====================================================== -->
+
+    <div class="fullscreen-menu" aria-label="Main navigation">
+
+      <div class="fullscreen-menu-top">
+
+        <a class="fullscreen-menu-brand" href="index.html">
+          UE / CpE.
+        </a>
+
+        <label class="menu-close-btn" for="menu-toggle">
+          Close ×
+        </label>
+
+      </div>
+
+
+      <nav class="fullscreen-menu-nav">
+
+        <a class="fullscreen-menu-link" href="about-cpe.html">
+          <span class="menu-link-title">About CpE</span>
+          <span class="menu-link-number">01</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="cpe-at-ue.html">
+          <span class="menu-link-title">CpE at UE</span>
+          <span class="menu-link-number">02</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="specialization.html">
+          <span class="menu-link-title">Specialization</span>
+          <span class="menu-link-number">03</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="careers.html">
+          <span class="menu-link-title">CpE Careers</span>
+          <span class="menu-link-number">04</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="faculty.html">
+          <span class="menu-link-title">Faculty</span>
+          <span class="menu-link-number">05</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="scpes.html">
+          <span class="menu-link-title">SCPES</span>
+          <span class="menu-link-number">06</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="projects.html">
+          <span class="menu-link-title">Student Projects</span>
+          <span class="menu-link-number">07</span>
+        </a>
+
+        <a class="fullscreen-menu-link" href="events.html">
+          <span class="menu-link-title">Events &amp; Activities</span>
+          <span class="menu-link-number">08</span>
+        </a>
+
+      </nav>
+
+    </div>
 
 
 
@@ -291,7 +360,7 @@
            Scroll-driven text reveal
       ==================================================== -->
 
-      <section class="cpe-scroll-section cursor-dark-zone" id="cpe-introduction">
+      <section class="cpe-scroll-section cursor-dark-zone cpe-scroll-section-gated" id="cpe-introduction" data-cpe-gated="true">
 
         <div class="cpe-scroll-sticky">
 
@@ -320,11 +389,10 @@
                   <p
                     class="scroll-reveal-text"
                     data-scroll-reveal>
-                    Computer Engineering is a four-year program that combines
-                    computer hardware and software. It focuses on how computers
-                    and electronic systems are designed, built, programmed, and
-                    improved. Students learn how hardware and software work
-                    together to create useful, reliable, and smart technology.
+                   Is a four-year engineering program that embodies the science and technology 
+                    of design, development, implementation, maintenance, and integration 
+                    of software and hardware components in modern computing systems and 
+                    computer-controlled equipment.
                   </p>
 
                 </div>
@@ -381,14 +449,13 @@
       </section>
 
 
-
       <!-- ===================================================
            FEATURED PAGES
       ==================================================== -->
 
       <section class="featured-section" id="featured">
 
-        <div class="featured-heading">
+        <div class="featured-heading" data-featured-reveal="heading">
           <p class="featured-kicker">03 </p>
 
           <div class="featured-heading-row">
@@ -401,12 +468,12 @@
 
         <div class="container-fluid px-0">
 
-          <div class="row g-2 featured-collage">
+          <div class="row g-2 featured-collage" data-featured-reveal="cards">
 
             <!-- LEFT COLUMN -->
             <div class="col-12 col-md-4">
 
-              <a class="featured-card featured-card-large page-transition-link"
+              <a class="featured-card featured-card-large page-transition-link" data-featured-card
                  href="about-cpe.html">
 
                 <div class="featured-image-wrap h-large">
@@ -434,7 +501,7 @@
               </a>
 
 
-              <a class="featured-card mt-2"
+              <a class="featured-card mt-2" data-featured-card
                  href="careers.html">
 
                 <div class="featured-image-wrap h-small">
@@ -467,7 +534,7 @@
             <!-- CENTER COLUMN -->
             <div class="col-12 col-md-4">
 
-              <a class="featured-card"
+              <a class="featured-card" data-featured-card
                  href="cpe-at-ue.html">
 
                 <div class="featured-image-wrap h-small">
@@ -495,7 +562,7 @@
               </a>
 
 
-              <a class="featured-card mt-2"
+              <a class="featured-card mt-2" data-featured-card
                  href="specialization.html">
 
                 <div class="featured-image-wrap h-large">
@@ -528,7 +595,7 @@
             <!-- RIGHT COLUMN -->
             <div class="col-12 col-md-4">
 
-              <a class="featured-card"
+              <a class="featured-card" data-featured-card
                  href="faculty.html">
 
                 <div class="featured-image-wrap h-large">
@@ -556,7 +623,7 @@
               </a>
 
 
-              <a class="featured-card mt-2"
+              <a class="featured-card mt-2" data-featured-card
                  href="scpes.html">
 
                 <div class="featured-image-wrap h-small">
@@ -589,7 +656,7 @@
             <!-- FULLER BOTTOM ROW -->
             <div class="col-12 col-md-7">
 
-              <a class="featured-card mt-2"
+              <a class="featured-card mt-2" data-featured-card
                  href="projects.html">
 
                 <div class="featured-image-wrap h-medium">
@@ -621,7 +688,7 @@
 
             <div class="col-12 col-md-5">
 
-              <a class="featured-card mt-2"
+              <a class="featured-card mt-2" data-featured-card
                  href="events.html">
 
                 <div class="featured-image-wrap h-medium">
@@ -657,21 +724,165 @@
       </section>
 
 
+      <!-- ===================================================
+           PROGRAM HIGHLIGHTS
+
+      ==================================================== -->
+
+      <section class="program-highlights cursor-dark-zone" id="program-highlights">
+
+        <div class="highlights-orbit highlights-orbit-one" aria-hidden="true"></div>
+        <div class="highlights-orbit highlights-orbit-two" aria-hidden="true"></div>
+
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+
+          <div class="highlights-head">
+
+            <div>
+              <p class="highlights-kicker">04 / PROGRAM HIGHLIGHTS</p>
+              <h2>
+                <span
+                  class="scramble-scroll"
+                  data-scramble-scroll
+                  data-text="SPECIALIZATIONS"
+                  data-progress="0.65">
+                  SPECIALIZATIONS
+                </span>
+
+            
+              </h2>
+            </div>
+
+            <p class="highlights-intro">
+              Computer Engineering connects hardware, software, data,
+              and networks. Explore the five areas that show what
+              CpE students can build and work with.
+            </p>
+
+          </div>
+
+          <div class="row g-0 highlights-grid">
+
+            <a class="highlight-card col-12 col-md-6 col-lg" href="specialization.html">
+              <span class="highlight-no">01</span>
+
+              <div class="highlight-icon highlight-chip" aria-hidden="true">
+                <span></span>
+                <i></i><i></i><i></i><i></i>
+              </div>
+
+              <div class="highlight-copy">
+                <p>HARDWARE + INTELLIGENCE</p>
+                <h3>Embedded<br>Systems</h3>
+                <span>AI • Robotics • Microcontrollers</span>
+              </div>
+
+              <span class="highlight-arrow">↗</span>
+            </a>
+
+            <a class="highlight-card col-12 col-md-6 col-lg" href="specialization.html">
+              <span class="highlight-no">02</span>
+
+              <div class="highlight-icon highlight-nodes" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
+
+              <div class="highlight-copy">
+                <p>CONNECTED + DATA</p>
+                <h3>Internet of Things<br>with Data Analytics</h3>
+                <span>Sensors • Smart Devices • Data</span>
+              </div>
+
+              <span class="highlight-arrow">↗</span>
+            </a>
+
+            <a class="highlight-card col-12 col-md-6 col-lg" href="specialization.html">
+              <span class="highlight-no">03</span>
+
+              <div class="highlight-icon highlight-code" aria-hidden="true">
+                <span>&lt;/&gt;</span>
+              </div>
+
+              <div class="highlight-copy">
+                <p>CODE + CREATION</p>
+                <h3>Software<br>Development</h3>
+                <span>Web • Mobile • Programming</span>
+              </div>
+
+              <span class="highlight-arrow">↗</span>
+            </a>
+
+            <a class="highlight-card col-12 col-md-6 col-lg" href="specialization.html">
+              <span class="highlight-no">04</span>
+
+              <div class="highlight-icon highlight-network" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+
+              <div class="highlight-copy">
+                <p>SYSTEMS + CONNECTIONS</p>
+                <h3>Computer<br>Networks</h3>
+                <span>Networking • Infrastructure • Systems</span>
+              </div>
+
+              <span class="highlight-arrow">↗</span>
+            </a>
+
+            <a class="highlight-card col-12 col-md-6 col-lg" href="specialization.html">
+              <span class="highlight-no">05</span>
+
+              <div class="highlight-icon highlight-ai" aria-hidden="true">
+                <span>AI</span>
+              </div>
+
+              <div class="highlight-copy">
+                <p>INTELLIGENCE + LEARNING</p>
+                <h3>Artificial<br>Intelligence</h3>
+                <span>Machine Learning • Neural Networks • Automation</span>
+              </div>
+
+              <span class="highlight-arrow">↗</span>
+            </a>
+
+          </div>
+
+          <div class="highlights-bottom">
+
+            <div class="highlight-stat">
+              <strong>HW</strong>
+              <span>Hardware</span>
+            </div>
+
+            <div class="highlight-stat">
+              <strong>SW</strong>
+              <span>Software</span>
+            </div>
+
+            <div class="highlight-stat">
+              <strong>NET</strong>
+              <span>Networks</span>
+            </div>
+
+            <div class="highlight-stat">
+              <strong>DATA</strong>
+              <span>Analytics</span>
+            </div>
+
+            <a class="highlights-cta" href="specialization.html">
+              Explore Specializations <span>→</span>
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
     </main>
 
 
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer>
-
-      <span>
-        Computer Engineering • University of the East
-      </span>
-
-    </footer>
 
 
   </div>
