@@ -1,5 +1,15 @@
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+/* =========================================================
+   UE CPE WEBSITE
+   COMPLETE MERGED SCRIPT
+========================================================= */
 
+const chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+
+/* =========================================================
+   1. LOADER
+========================================================= */
 
 const pageLoader =
   document.getElementById("page-loader");
@@ -21,15 +31,17 @@ const pushLoadingNumber =
 
 
 function easeInOutCubic(value) {
+
   return value < 0.5
     ? 4 * value * value * value
-    : 1 - Math.pow(-2 * value + 2, 3) / 2;
+    : 1 -
+      Math.pow(
+        -2 * value + 2,
+        3
+      ) / 2;
+
 }
 
-
-/* =========================================================
-   START LOADER
-========================================================= */
 
 function startLoader() {
 
@@ -40,11 +52,14 @@ function startLoader() {
     !pushDivider ||
     !cssPerson
   ) {
+
     return;
+
   }
 
 
   const loadingDuration = 5000;
+
   let startTime = null;
 
 
@@ -60,7 +75,6 @@ function startLoader() {
   loaderImage.style.webkitClipPath =
     "inset(0 100% 0 0)";
 
-
   loaderImage.style.filter =
     "none";
 
@@ -72,11 +86,25 @@ function startLoader() {
     "is-finished"
   );
 
+  cssPerson.classList.remove(
+    "is-leaving"
+  );
+
+  pageLoader.classList.remove(
+    "is-finished"
+  );
+
+  pageLoader.classList.add(
+    "is-pushing"
+  );
+
 
   function animateLoader(timestamp) {
 
     if (!startTime) {
+
       startTime = timestamp;
+
     }
 
 
@@ -135,19 +163,45 @@ function startLoader() {
         animateLoader
       );
 
-    } else {
-
-      pushDivider.classList.add(
-        "is-finished"
-      );
-
-
-      setTimeout(
-        finishLoader,
-        350
-      );
+      return;
 
     }
+
+
+    loaderImage.style.clipPath =
+      "inset(0 0 0 0)";
+
+    loaderImage.style.webkitClipPath =
+      "inset(0 0 0 0)";
+
+
+    if (pushLoadingNumber) {
+
+      pushLoadingNumber.textContent =
+        "100";
+
+    }
+
+
+    pageLoader.classList.remove(
+      "is-pushing"
+    );
+
+
+    pushDivider.classList.add(
+      "is-finished"
+    );
+
+
+    cssPerson.classList.add(
+      "is-leaving"
+    );
+
+
+    setTimeout(
+      finishLoader,
+      600
+    );
 
   }
 
@@ -173,12 +227,83 @@ function startLoader() {
 }
 
 
-
-
-
 /* =========================================================
-   RUN LOADER
+   START LOADER / RETURN FROM ABOUT
 ========================================================= */
+
+function initializePage() {
+
+  /*
+    If we came back from About CpE,
+    skip loader + intro and go directly
+    to Explore CpE.
+  */
+
+  if (
+    window.location.hash ===
+    "#featured"
+  ) {
+
+    if (pageLoader) {
+
+      pageLoader.classList.add(
+        "is-finished"
+      );
+
+    }
+
+
+    const enterCheckbox =
+      document.getElementById(
+        "enter-site"
+      );
+
+
+    if (enterCheckbox) {
+
+      enterCheckbox.checked =
+        true;
+
+    }
+
+
+    document.body.classList.add(
+      "page-loaded"
+    );
+
+
+    const featured =
+      document.getElementById(
+        "featured"
+      );
+
+
+    if (featured) {
+
+      setTimeout(
+        () => {
+
+          featured.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+          });
+
+        },
+        50
+      );
+
+    }
+
+
+    return;
+
+  }
+
+
+  startLoader();
+
+}
+
 
 if (
   document.readyState ===
@@ -187,18 +312,18 @@ if (
 
   document.addEventListener(
     "DOMContentLoaded",
-    startLoader
+    initializePage
   );
 
 } else {
 
-  startLoader();
+  initializePage();
 
 }
 
 
 /* =========================================================
-   1. HERO SCRAMBLE
+   2. SCRAMBLE / HACKER TEXT
 ========================================================= */
 
 const heroScrambleElements =
@@ -209,17 +334,23 @@ const heroScrambleElements =
 
 function scrambleText(
   element,
-  speed = 80
+  speed = 60
 ) {
 
   if (!element) {
+
     return;
+
   }
 
 
   const finalText =
     element.dataset.text ||
     element.textContent.trim();
+
+
+  element.dataset.text =
+    finalText;
 
 
   clearInterval(
@@ -238,16 +369,23 @@ function scrambleText(
           finalText
             .split("")
             .map(
-              (character, index) => {
+              (
+                character,
+                index
+              ) => {
 
                 if (
                   character === " " ||
                   character === "/" ||
                   character === "." ||
                   character === "+" ||
-                  character === "-"
+                  character === "-" ||
+                  character === "×" ||
+                  character === "•"
                 ) {
+
                   return character;
+
                 }
 
 
@@ -255,7 +393,9 @@ function scrambleText(
                   index <
                   iteration
                 ) {
+
                   return character;
+
                 }
 
 
@@ -271,7 +411,7 @@ function scrambleText(
             .join("");
 
 
-        iteration += 1;
+        iteration += 0.28;
 
 
         if (
@@ -282,6 +422,7 @@ function scrambleText(
           clearInterval(
             element.scrambleTimer
           );
+
 
           element.textContent =
             finalText;
@@ -296,37 +437,167 @@ function scrambleText(
 
 
 /* =========================================================
-   HERO SCRAMBLE ON PAGE LOAD
+   HERO HACKER ANIMATION
 ========================================================= */
 
-heroScrambleElements.forEach(
-  (element, index) => {
-
-    const delay =
-      Number(
-        element.dataset.progress ||
-        0
-      ) * 1000;
+let heroScrambleStarted =
+  false;
 
 
-    setTimeout(
-      () => {
+function startHeroScramble() {
 
-        scrambleText(
-          element,
-          80
-        );
+  if (
+    heroScrambleStarted
+  ) {
 
-      },
-      delay
-    );
+    return;
 
   }
-);
+
+
+  heroScrambleStarted =
+    true;
+
+
+  heroScrambleElements.forEach(
+    (
+      element,
+      index
+    ) => {
+
+      const originalText =
+        element.dataset.text ||
+        element.textContent.trim();
+
+
+      element.dataset.text =
+        originalText;
+
+
+      setTimeout(
+        () => {
+
+          scrambleText(
+            element,
+            85
+          );
+
+        },
+        index * 650
+      );
+
+    }
+  );
+
+}
 
 
 /* =========================================================
-   2. MARQUEE
+   START HACKER ANIMATION AFTER BLACK INTRO
+========================================================= */
+
+const enterSiteCheckbox =
+  document.getElementById(
+    "enter-site"
+  );
+
+
+if (enterSiteCheckbox) {
+
+  enterSiteCheckbox.addEventListener(
+    "change",
+    () => {
+
+      if (
+        enterSiteCheckbox.checked
+      ) {
+
+        /*
+          Black box zoom happens first.
+          Then hacker text begins.
+        */
+
+        setTimeout(
+          () => {
+
+            startHeroScramble();
+
+          },
+          1250
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+    If homepage was already opened,
+    for example when returning with #featured.
+  */
+
+  if (
+    enterSiteCheckbox.checked &&
+    window.location.hash !==
+      "#featured"
+  ) {
+
+    setTimeout(
+      startHeroScramble,
+      1250
+    );
+
+  }
+
+} else {
+
+  /*
+    Pages without the intro,
+    such as About CpE.
+  */
+
+  setTimeout(
+    startHeroScramble,
+    450
+  );
+
+}
+
+
+/* =========================================================
+   SCRAMBLE ON HOVER
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".scramble-hover"
+  )
+  .forEach(
+    element => {
+
+      element.dataset.text =
+        element.textContent.trim();
+
+
+      element.addEventListener(
+        "mouseenter",
+        () => {
+
+          scrambleText(
+            element,
+            45
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   3. MARQUEE
 ========================================================= */
 
 const marqueeTrack =
@@ -342,11 +613,14 @@ if (marqueeTrack) {
 
   function animateMarquee() {
 
-    marqueePosition -= 0.25;
+    marqueePosition -=
+      0.25;
 
 
     if (
-      Math.abs(marqueePosition) >=
+      Math.abs(
+        marqueePosition
+      ) >=
       marqueeTrack.scrollWidth / 2
     ) {
 
@@ -372,7 +646,7 @@ if (marqueeTrack) {
 
 
 /* =========================================================
-   3. SMOOTH SCROLL
+   4. SMOOTH SCROLL
 ========================================================= */
 
 document.documentElement.style.scrollBehavior =
@@ -380,29 +654,32 @@ document.documentElement.style.scrollBehavior =
 
 
 /* =========================================================
-   4. PIXEL CURSOR
-   RESTORED CURSOR + TRAIL
+   5. PIXEL CURSOR + TRAIL
 ========================================================= */
 
 if (
-  window.matchMedia("(pointer: fine)").matches
+  window.matchMedia(
+    "(pointer: fine)"
+  ).matches
 ) {
 
-  /* =========================================
-     CREATE MAIN CURSOR
-  ========================================= */
-
   let pixelCursor =
-    document.querySelector(".pixel-cursor");
+    document.querySelector(
+      ".pixel-cursor"
+    );
 
 
   if (!pixelCursor) {
 
     pixelCursor =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     pixelCursor.className =
       "pixel-cursor";
+
 
     document.body.appendChild(
       pixelCursor
@@ -410,10 +687,6 @@ if (
 
   }
 
-
-  /* =========================================
-     CREATE CURSOR TRAIL
-  ========================================= */
 
   const trail = [];
 
@@ -427,7 +700,9 @@ if (
   ) {
 
     const pixel =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
 
     pixel.className =
@@ -441,7 +716,8 @@ if (
 
     trail.push({
 
-      element: pixel,
+      element:
+        pixel,
 
       x:
         window.innerWidth / 2,
@@ -454,20 +730,12 @@ if (
   }
 
 
-  /* =========================================
-     MOUSE POSITION
-  ========================================= */
-
   let mouseX =
     window.innerWidth / 2;
 
   let mouseY =
     window.innerHeight / 2;
 
-
-  /* =========================================
-     MOUSE MOVE
-  ========================================= */
 
   window.addEventListener(
     "mousemove",
@@ -480,18 +748,12 @@ if (
         event.clientY;
 
 
-      /* MAIN CURSOR */
-
       pixelCursor.style.left =
         mouseX + "px";
 
       pixelCursor.style.top =
         mouseY + "px";
 
-
-      /* =====================================
-         DETECT BLACK CPE AREA
-      ===================================== */
 
       const elementUnderCursor =
         document.elementFromPoint(
@@ -507,18 +769,16 @@ if (
 
 
       const isDark =
-        Boolean(darkSection);
+        Boolean(
+          darkSection
+        );
 
-
-      /* MAIN CURSOR COLOR */
 
       pixelCursor.classList.toggle(
         "cursor-on-dark",
         isDark
       );
 
-
-      /* TRAIL COLOR */
 
       trail.forEach(
         pixel => {
@@ -535,13 +795,16 @@ if (
   );
 
 
-  /* =========================================
-     CURSOR HOVER EFFECT
-  ========================================= */
-
   document
     .querySelectorAll(
-      "a, button, .menu-button"
+      `
+        a,
+        button,
+        label,
+        .menu-open-btn,
+        .menu-close-btn,
+        .featured-card
+      `
     )
     .forEach(
       element => {
@@ -573,10 +836,6 @@ if (
     );
 
 
-  /* =========================================
-     CURSOR TRAIL ANIMATION
-  ========================================= */
-
   function animateCursorTrail() {
 
     let targetX =
@@ -587,7 +846,10 @@ if (
 
 
     trail.forEach(
-      (pixel, index) => {
+      (
+        pixel,
+        index
+      ) => {
 
         const followSpeed =
           0.24 -
@@ -638,114 +900,86 @@ if (
   }
 
 
-  /* =========================================
-     START TRAIL
-  ========================================= */
-
   animateCursorTrail();
 
 }
 
-/* =========================================================
-   5. NAVIGATION MENU
-========================================================= */
-
-const menuButton =
-  document.querySelector(
-    ".menu-button"
-  );
-
-const menuOverlay =
-  document.querySelector(
-    ".menu-overlay"
-  );
-
-const menuClose =
-  document.querySelector(
-    ".menu-close"
-  );
-
-
-function openMenu() {
-
-  if (!menuOverlay) {
-    return;
-  }
-
-
-  menuOverlay.classList.add(
-    "is-open"
-  );
-
-
-  document.body.classList.add(
-    "menu-open"
-  );
-
-}
-
-
-function closeMenu() {
-
-  if (!menuOverlay) {
-    return;
-  }
-
-
-  menuOverlay.classList.remove(
-    "is-open"
-  );
-
-
-  document.body.classList.remove(
-    "menu-open"
-  );
-
-}
-
-
-if (menuButton) {
-
-  menuButton.addEventListener(
-    "click",
-    openMenu
-  );
-
-}
-
-
-if (menuClose) {
-
-  menuClose.addEventListener(
-    "click",
-    closeMenu
-  );
-
-}
-
 
 /* =========================================================
-   6. MENU ESCAPE KEY
+   6. FULLSCREEN CHECKBOX MENU
 ========================================================= */
 
-document.addEventListener(
-  "keydown",
-  event => {
+const menuToggle =
+  document.getElementById(
+    "menu-toggle"
+  );
 
-    if (
-      event.key === "Escape"
-    ) {
 
-      closeMenu();
+const fullscreenMenu =
+  document.querySelector(
+    ".fullscreen-menu"
+  );
+
+
+if (
+  menuToggle &&
+  fullscreenMenu
+) {
+
+  /*
+    ESC closes menu
+  */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key ===
+          "Escape" &&
+        menuToggle.checked
+      ) {
+
+        menuToggle.checked =
+          false;
+
+      }
 
     }
+  );
 
-  }
-);
+
+  /*
+    Close menu when link selected.
+  */
+
+  const fullscreenLinks =
+    fullscreenMenu.querySelectorAll(
+      "a"
+    );
+
+
+  fullscreenLinks.forEach(
+    link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          menuToggle.checked =
+            false;
+
+        }
+      );
+
+    }
+  );
+
+}
 
 
 /* =========================================================
-   7. FEATURED PAGE HOVER
+   7. FEATURED CARD HOVER
 ========================================================= */
 
 const featuredCards =
@@ -785,62 +1019,7 @@ featuredCards.forEach(
 
 
 /* =========================================================
-   8. PAGE TRANSITIONS
-========================================================= */
-
-const pageLinks =
-  document.querySelectorAll(
-    "[data-page-transition]"
-  );
-
-
-pageLinks.forEach(
-  link => {
-
-    link.addEventListener(
-      "click",
-      event => {
-
-        const destination =
-          link.getAttribute("href");
-
-
-        if (
-          !destination ||
-          destination.startsWith("#") ||
-          destination.startsWith("http")
-        ) {
-          return;
-        }
-
-
-        event.preventDefault();
-
-
-        document.body.classList.add(
-          "page-transitioning"
-        );
-
-
-        setTimeout(
-          () => {
-
-            window.location.href =
-              destination;
-
-          },
-          600
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   9. HOMEPAGE CPE SCROLL ANIMATION
+   8. HOMEPAGE CPE SCROLL ANIMATION
 ========================================================= */
 
 const cpeMainSection =
@@ -862,11 +1041,30 @@ const scrollRevealTexts =
 
 
 /* =========================================================
-   PREPARE DESCRIPTION WORDS
+   PREPARE WORDS
 ========================================================= */
 
 scrollRevealTexts.forEach(
   text => {
+
+    /*
+      Don't create duplicate spans
+      if script is somehow initialized again.
+    */
+
+    if (
+      text.dataset.wordsReady ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    text.dataset.wordsReady =
+      "true";
+
 
     const words =
       text.textContent
@@ -876,15 +1074,17 @@ scrollRevealTexts.forEach(
 
     text.innerHTML =
       words
-        .map(word => {
+        .map(
+          word => {
 
-          return `
-            <span class="scroll-word">
-              ${word}
-            </span>
-          `;
+            return `
+              <span class="scroll-word">
+                ${word}
+              </span>
+            `;
 
-        })
+          }
+        )
         .join(" ");
 
   }
@@ -913,7 +1113,7 @@ function clamp(
 
 
 /* =========================================================
-   GET SECTION PROGRESS
+   SECTION PROGRESS
 ========================================================= */
 
 function getSectionProgress(
@@ -921,7 +1121,9 @@ function getSectionProgress(
 ) {
 
   if (!section) {
+
     return 0;
+
   }
 
 
@@ -937,7 +1139,7 @@ function getSectionProgress(
     window.innerHeight;
 
 
-  let sectionProgress =
+  const progress =
     (
       viewportHeight -
       sectionRect.top
@@ -950,7 +1152,7 @@ function getSectionProgress(
 
 
   return clamp(
-    sectionProgress,
+    progress,
     0,
     1
   );
@@ -959,7 +1161,7 @@ function getSectionProgress(
 
 
 /* =========================================================
-   REVEAL WORDS
+   WORD REVEAL
 ========================================================= */
 
 function revealWords(
@@ -968,7 +1170,9 @@ function revealWords(
 ) {
 
   if (!text) {
+
     return;
+
   }
 
 
@@ -988,11 +1192,15 @@ function revealWords(
 
 
   words.forEach(
-    (word, index) => {
+    (
+      word,
+      index
+    ) => {
 
       word.classList.toggle(
         "is-active",
-        index < activeWords
+        index <
+          activeWords
       );
 
     }
@@ -1002,7 +1210,7 @@ function revealWords(
 
 
 /* =========================================================
-   10. UPDATE CPE SCROLL ANIMATIONS
+   UPDATE HOMEPAGE SCROLL
 ========================================================= */
 
 function updateCpeScrollAnimation() {
@@ -1010,9 +1218,6 @@ function updateCpeScrollAnimation() {
 
   /* =====================================================
      01 / COMPUTER ENGINEERING
-     
-     THIS SECTION NOW USES ITS OWN
-     INDEPENDENT SCROLL PROGRESS.
   ===================================================== */
 
   if (cpeMainSection) {
@@ -1023,14 +1228,14 @@ function updateCpeScrollAnimation() {
       );
 
 
-    /* =================================================
-       BLACK BACKGROUND OPENING
-    ================================================= */
+    /*
+      Black background opening
+    */
 
     const backgroundProgress =
       clamp(
         mainProgress /
-        0.20,
+          0.20,
         0,
         1
       );
@@ -1050,10 +1255,6 @@ function updateCpeScrollAnimation() {
     );
 
 
-    /* =================================================
-       COMPUTER ENGINEERING BLOCK
-    ================================================= */
-
     const mainBlock =
       cpeMainSection.querySelector(
         ".cpe-scroll-block"
@@ -1062,13 +1263,9 @@ function updateCpeScrollAnimation() {
 
     if (mainBlock) {
 
-
-      /* ===============================================
-         TITLE REVEAL
-         
-         SAME ORIGINAL TIMING
-         20% -> 35%
-      =============================================== */
+      /*
+        Title
+      */
 
       const titleProgress =
         clamp(
@@ -1089,12 +1286,9 @@ function updateCpeScrollAnimation() {
       );
 
 
-      /* ===============================================
-         DESCRIPTION REVEAL
-         
-         SAME ORIGINAL TIMING
-         35% -> 60%
-      =============================================== */
+      /*
+        Description
+      */
 
       const mainText =
         mainBlock.querySelector(
@@ -1127,14 +1321,6 @@ function updateCpeScrollAnimation() {
 
   /* =====================================================
      02 / UE COMPUTER ENGINEERING
-
-     IMPORTANT:
-     THIS IS A SEPARATE STICKY SECTION.
-
-     IT MUST NOT USE THE SCROLL PROGRESS
-     FROM 01 / COMPUTER ENGINEERING.
-
-     IT CALCULATES ITS OWN PROGRESS.
   ===================================================== */
 
   if (ueCpeSection) {
@@ -1153,15 +1339,9 @@ function updateCpeScrollAnimation() {
 
     if (ueBlock) {
 
-
-      /* ===============================================
-         UE TITLE REVEAL
-
-         SAME VISUAL ANIMATION AS
-         01 / COMPUTER ENGINEERING
-
-         18% -> 38%
-      =============================================== */
+      /*
+        UE title
+      */
 
       const ueTitleProgress =
         clamp(
@@ -1182,14 +1362,9 @@ function updateCpeScrollAnimation() {
       );
 
 
-      /* ===============================================
-         UE DESCRIPTION REVEAL
-
-         SAME WORD-BY-WORD ANIMATION AS
-         01 / COMPUTER ENGINEERING
-
-         38% -> 88%
-      =============================================== */
+      /*
+        UE description
+      */
 
       const ueText =
         ueBlock.querySelector(
@@ -1216,10 +1391,6 @@ function updateCpeScrollAnimation() {
       );
 
 
-      /* ===============================================
-         UE READING COMPLETE
-      =============================================== */
-
       ueCpeSection.classList.toggle(
         "reading-complete",
         ueTextProgress >= 1
@@ -1232,10 +1403,6 @@ function updateCpeScrollAnimation() {
 }
 
 
-/* =========================================================
-   11. SCROLL LISTENER
-========================================================= */
-
 window.addEventListener(
   "scroll",
   updateCpeScrollAnimation,
@@ -1245,153 +1412,17 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   12. RESIZE
-========================================================= */
-
 window.addEventListener(
   "resize",
   updateCpeScrollAnimation
 );
 
 
-/* =========================================================
-   INITIAL UPDATE
-========================================================= */
-
 updateCpeScrollAnimation();
 
 
 /* =========================================================
-   HOME <-> ABOUT PAGE TRANSITION
-========================================================= */
-
-const transitionOverlay =
-  document.createElement(
-    "div"
-  );
-
-
-transitionOverlay.className =
-  "page-transition-overlay";
-
-
-transitionOverlay.innerHTML = `
-
-  <div class="page-transition-text">
-    ABOUT CpE
-  </div>
-
-`;
-
-
-document.body.appendChild(
-  transitionOverlay
-);
-
-
-/* =========================================================
-   PAGE TRANSITION FUNCTION
-========================================================= */
-
-function startPageTransition(
-  destination,
-  message
-) {
-
-  const transitionText =
-    transitionOverlay.querySelector(
-      ".page-transition-text"
-    );
-
-
-  if (transitionText) {
-
-    transitionText.textContent =
-      message;
-
-  }
-
-
-  transitionOverlay.classList.remove(
-    "is-active"
-  );
-
-
-  void transitionOverlay.offsetWidth;
-
-
-  transitionOverlay.classList.add(
-    "is-active"
-  );
-
-
-  setTimeout(
-    () => {
-
-      window.location.href =
-        destination;
-
-    },
-    700
-  );
-
-}
-
-
-/* =========================================================
-   PAGE LINKS
-========================================================= */
-
-document
-  .querySelectorAll(
-    "a[href]"
-  )
-  .forEach(
-    link => {
-
-      const href =
-        link.getAttribute("href");
-
-
-      if (
-        !href ||
-        href.startsWith("#") ||
-        href.startsWith("http") ||
-        href.startsWith("mailto:") ||
-        href.startsWith("tel:")
-      ) {
-        return;
-      }
-
-
-      link.addEventListener(
-        "click",
-        event => {
-
-          event.preventDefault();
-
-
-          const text =
-            link.textContent
-              .trim()
-              .toUpperCase();
-
-
-          startPageTransition(
-            href,
-            text || "UE CpE"
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   13. SCROLL REVEAL FOR GENERAL ELEMENTS
+   9. GENERAL SCROLL REVEALS
 ========================================================= */
 
 const generalRevealElements =
@@ -1410,7 +1441,8 @@ function updateGeneralReveal() {
 
 
       const trigger =
-        window.innerHeight * 0.85;
+        window.innerHeight *
+        0.85;
 
 
       if (
@@ -1442,9 +1474,10 @@ window.addEventListener(
 updateGeneralReveal();
 
 
-/* =====================================================
-   PROGRAM HIGHLIGHTS — SPECIALIZATION SCRAMBLE
-===================================================== */
+/* =========================================================
+   10. PROGRAM HIGHLIGHTS
+   SPECIALIZATION HACKER SCRAMBLE
+========================================================= */
 
 const programHighlights =
   document.getElementById(
@@ -1452,39 +1485,38 @@ const programHighlights =
   );
 
 
-/* ONLY SPECIALIZATION TEXT */
-
 const specializationElements =
   document.querySelectorAll(
     "[data-specialization-scramble]"
   );
 
 
-/*
-  false = outside Program Highlights
-  true  = inside Program Highlights
-*/
-
 let specializationInside =
   false;
 
 
-/* =====================================================
-   TURN SPECIALIZATION INTO RANDOM LETTERS
-===================================================== */
+/* =========================================================
+   MAKE RANDOM
+========================================================= */
 
 function makeSpecializationScrambled(
   element
 ) {
 
   if (!element) {
+
     return;
+
   }
 
 
   const finalText =
     element.dataset.text ||
     element.textContent.trim();
+
+
+  element.dataset.text =
+    finalText;
 
 
   clearInterval(
@@ -1495,50 +1527,55 @@ function makeSpecializationScrambled(
   element.textContent =
     finalText
       .split("")
-      .map(character => {
+      .map(
+        character => {
 
-        /* KEEP SPACES AND SYMBOLS */
+          if (
+            character === " " ||
+            character === "/" ||
+            character === "." ||
+            character === "+" ||
+            character === "-"
+          ) {
 
-        if (
-          character === " " ||
-          character === "/" ||
-          character === "." ||
-          character === "+" ||
-          character === "-"
-        ) {
+            return character;
 
-          return character;
+          }
+
+
+          return chars[
+            Math.floor(
+              Math.random() *
+              chars.length
+            )
+          ];
 
         }
-
-
-        /* RANDOM LETTER */
-
-        return chars[
-          Math.floor(
-            Math.random() *
-            chars.length
-          )
-        ];
-
-      })
+      )
       .join("");
 
 }
 
 
-/* =====================================================
-   RANDOM LETTERS → REAL SPECIALIZATION
-===================================================== */
+/* =========================================================
+   RANDOM -> REAL TEXT
+========================================================= */
 
 function startSpecializationScramble() {
 
   specializationElements.forEach(
-    (element, index) => {
+    (
+      element,
+      index
+    ) => {
 
       const finalText =
         element.dataset.text ||
         element.textContent.trim();
+
+
+      element.dataset.text =
+        finalText;
 
 
       clearInterval(
@@ -1549,92 +1586,82 @@ function startSpecializationScramble() {
       let iteration = 0;
 
 
-      /*
-        Each specialization starts
-        slightly after the previous one.
-      */
+      setTimeout(
+        () => {
 
-      setTimeout(() => {
+          element.specializationTimer =
+            setInterval(
+              () => {
 
-        element.specializationTimer =
-          setInterval(() => {
+                element.textContent =
+                  finalText
+                    .split("")
+                    .map(
+                      (
+                        character,
+                        charIndex
+                      ) => {
 
-            element.textContent =
-              finalText
-                .split("")
-                .map(
-                  (character, charIndex) => {
+                        if (
+                          character === " " ||
+                          character === "/" ||
+                          character === "." ||
+                          character === "+" ||
+                          character === "-"
+                        ) {
 
-                    /* KEEP SYMBOLS */
+                          return character;
 
-                    if (
-                      character === " " ||
-                      character === "/" ||
-                      character === "." ||
-                      character === "+" ||
-                      character === "-"
-                    ) {
-
-                      return character;
-
-                    }
+                        }
 
 
-                    /*
-                      REVEAL CORRECT CHARACTER
-                    */
+                        if (
+                          charIndex <
+                          iteration
+                        ) {
 
-                    if (
-                      charIndex <
-                      iteration
-                    ) {
+                          return character;
 
-                      return character;
-
-                    }
+                        }
 
 
-                    /*
-                      RANDOM CHARACTER
-                    */
+                        return chars[
+                          Math.floor(
+                            Math.random() *
+                            chars.length
+                          )
+                        ];
 
-                    return chars[
-                      Math.floor(
-                        Math.random() *
-                        chars.length
-                      )
-                    ];
-
-                  }
-                )
-                .join("");
+                      }
+                    )
+                    .join("");
 
 
-            iteration += 1;
+                iteration += 1;
 
 
-            /*
-              FINISHED
-            */
+                if (
+                  iteration >=
+                  finalText.length
+                ) {
 
-            if (
-              iteration >=
-              finalText.length
-            ) {
-
-              clearInterval(
-                element.specializationTimer
-              );
+                  clearInterval(
+                    element.specializationTimer
+                  );
 
 
-              element.textContent =
-                finalText;
+                  element.textContent =
+                    finalText;
 
-            }
+                }
 
-          }, 70);
+              },
+              70
+            );
 
-      }, index * 180);
+        },
+        index * 180
+      );
 
     }
   );
@@ -1642,9 +1669,9 @@ function startSpecializationScramble() {
 }
 
 
-/* =====================================================
-   RESET SPECIALIZATION TO SCRAMBLED LETTERS
-===================================================== */
+/* =========================================================
+   RESET SPECIALIZATION
+========================================================= */
 
 function resetSpecializationScramble() {
 
@@ -1661,9 +1688,9 @@ function resetSpecializationScramble() {
 }
 
 
-/* =====================================================
-   CHECK IF PROGRAM HIGHLIGHTS IS ON SCREEN
-===================================================== */
+/* =========================================================
+   CHECK SPECIALIZATION SECTION
+========================================================= */
 
 function updateSpecializationScramble() {
 
@@ -1681,25 +1708,16 @@ function updateSpecializationScramble() {
     programHighlights.getBoundingClientRect();
 
 
-  /*
-    SCRAMBLE STARTS WHEN THE
-    PROGRAM HIGHLIGHTS SECTION
-    REACHES THIS POINT.
-  */
-
   const enterPoint =
     window.innerHeight *
     0.78;
 
 
   const isInside =
-    rect.top <= enterPoint &&
+    rect.top <=
+      enterPoint &&
     rect.bottom > 0;
 
-
-  /* ===================================================
-     ENTER PROGRAM HIGHLIGHTS
-  =================================================== */
 
   if (
     isInside &&
@@ -1710,36 +1728,26 @@ function updateSpecializationScramble() {
       true;
 
 
-    /*
-      FIRST SHOW RANDOM LETTERS
-    */
-
     resetSpecializationScramble();
 
 
-    /*
-      THEN TURN THEM INTO
-      THEIR REAL WORDS
-    */
+    setTimeout(
+      () => {
 
-    setTimeout(() => {
+        if (
+          specializationInside
+        ) {
 
-      if (
-        specializationInside
-      ) {
+          startSpecializationScramble();
 
-        startSpecializationScramble();
+        }
 
-      }
-
-    }, 80);
+      },
+      80
+    );
 
   }
 
-
-  /* ===================================================
-     LEAVE PROGRAM HIGHLIGHTS
-  =================================================== */
 
   if (
     !isInside &&
@@ -1750,21 +1758,12 @@ function updateSpecializationScramble() {
       false;
 
 
-    /*
-      SCRAMBLE AGAIN WHEN
-      USER LEAVES THE SECTION
-    */
-
     resetSpecializationScramble();
 
   }
 
 }
 
-
-/* =====================================================
-   RUN WHEN SCROLLING
-===================================================== */
 
 window.addEventListener(
   "scroll",
@@ -1775,18 +1774,879 @@ window.addEventListener(
 );
 
 
-/* =====================================================
-   RUN WHEN RESIZING
-===================================================== */
-
 window.addEventListener(
   "resize",
   updateSpecializationScramble
 );
 
 
-/* =====================================================
-   INITIAL CHECK
-===================================================== */
-
 updateSpecializationScramble();
+
+
+/* =========================================================
+   11. HOME <-> ABOUT PAGE TRANSITION
+========================================================= */
+
+const transitionOverlay =
+  document.createElement(
+    "div"
+  );
+
+
+transitionOverlay.className =
+  "page-transition-overlay";
+
+
+transitionOverlay.innerHTML = `
+
+  <div class="page-transition-text">
+    ABOUT CpE
+  </div>
+
+`;
+
+
+document.body.appendChild(
+  transitionOverlay
+);
+
+
+/* =========================================================
+   START PAGE TRANSITION
+========================================================= */
+
+let transitionRunning =
+  false;
+
+
+function startPageTransition(
+  destination,
+  message
+) {
+
+  if (
+    transitionRunning ||
+    !destination
+  ) {
+
+    return;
+
+  }
+
+
+  transitionRunning =
+    true;
+
+
+  const transitionText =
+    transitionOverlay.querySelector(
+      ".page-transition-text"
+    );
+
+
+  if (transitionText) {
+
+    transitionText.textContent =
+      message;
+
+  }
+
+
+  transitionOverlay.classList.remove(
+    "is-active"
+  );
+
+
+  void transitionOverlay.offsetWidth;
+
+
+  transitionOverlay.classList.add(
+    "is-active"
+  );
+
+
+  /*
+    SLOWER transition.
+
+    This was 700ms before.
+    Now the user has enough time to
+    actually see the Discover/About animation.
+  */
+
+  setTimeout(
+    () => {
+
+      window.location.href =
+        destination;
+
+    },
+    1350
+  );
+
+}
+
+
+/* =========================================================
+   ABOUT CPE CARD
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".page-transition-link"
+  )
+  .forEach(
+    link => {
+
+      link.addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+
+          event.stopPropagation();
+
+
+          const destination =
+            link.getAttribute(
+              "href"
+            );
+
+
+          startPageTransition(
+            destination,
+            "DISCOVER ABOUT CpE"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   ABOUT CPE BACK BUTTON
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".page-transition-back"
+  )
+  .forEach(
+    link => {
+
+      link.addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+
+          event.stopPropagation();
+
+
+          const destination =
+            link.getAttribute(
+              "href"
+            );
+
+
+          startPageTransition(
+            destination,
+            "EXPLORE CpE"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   RESET TRANSITION WHEN BROWSER GOES BACK
+========================================================= */
+
+window.addEventListener(
+  "pageshow",
+  () => {
+
+    transitionRunning =
+      false;
+
+
+    transitionOverlay.classList.remove(
+      "is-active"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   12. ABOUT CPE
+   NORMAL SCROLL REVEALS
+========================================================= */
+
+const aboutRevealElements =
+  document.querySelectorAll(
+    ".about-reveal, .area-reveal"
+  );
+
+
+if (
+  aboutRevealElements.length >
+  0
+) {
+
+  const aboutRevealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              entry.isIntersecting
+            ) {
+
+              entry.target.classList.add(
+                "is-visible"
+              );
+
+
+              aboutRevealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold: 0.14,
+        rootMargin:
+          "0px 0px -6% 0px"
+      }
+    );
+
+
+  aboutRevealElements.forEach(
+    (
+      element,
+      index
+    ) => {
+
+      element.style.transitionDelay =
+        (
+          (
+            index %
+            5
+          ) *
+          0.07
+        ) +
+        "s";
+
+
+      aboutRevealObserver.observe(
+        element
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   13. ABOUT CPE
+   PIXELATED IMAGE REVEAL
+========================================================= */
+
+const pixelRevealImages =
+  document.querySelectorAll(
+    ".pixel-reveal"
+  );
+
+
+pixelRevealImages.forEach(
+  pixelImage => {
+
+    const pixelCover =
+      pixelImage.querySelector(
+        ".pixel-cover"
+      );
+
+
+    if (!pixelCover) {
+
+      return;
+
+    }
+
+
+    /*
+      Prevent duplicate pixel generation.
+    */
+
+    if (
+      pixelCover.dataset.pixelBuilt ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    pixelCover.dataset.pixelBuilt =
+      "true";
+
+
+    const pixelColor =
+      pixelImage.dataset.pixelColor ||
+      "#0b0b0b";
+
+
+    const columns = 12;
+
+    const rows = 8;
+
+    const totalPixels =
+      columns * rows;
+
+
+    for (
+      let index = 0;
+      index < totalPixels;
+      index++
+    ) {
+
+      const pixel =
+        document.createElement(
+          "span"
+        );
+
+
+      pixel.className =
+        "pixel-block";
+
+
+      pixel.style.setProperty(
+        "--pixel-color",
+        pixelColor
+      );
+
+
+      const column =
+        index %
+        columns;
+
+
+      const row =
+        Math.floor(
+          index /
+          columns
+        );
+
+
+      /*
+        Creates the pixel-wave effect.
+      */
+
+      const delay =
+        (
+          column *
+          0.035
+        ) +
+        (
+          row *
+          0.015
+        ) +
+        (
+          Math.random() *
+          0.22
+        );
+
+
+      pixel.style.transitionDelay =
+        delay + "s";
+
+
+      const rotation =
+        (
+          Math.random() *
+          40
+        ) -
+        20;
+
+
+      pixel.style.setProperty(
+        "--pixel-rotation",
+        rotation + "deg"
+      );
+
+
+      pixelCover.appendChild(
+        pixel
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ACTIVATE PIXEL REVEAL WHEN SCROLLING
+========================================================= */
+
+if (
+  pixelRevealImages.length >
+  0
+) {
+
+  const pixelRevealObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              !entry.isIntersecting
+            ) {
+
+              return;
+
+            }
+
+
+            const image =
+              entry.target;
+
+
+            image.classList.add(
+              "pixel-active"
+            );
+
+
+            setTimeout(
+              () => {
+
+                image.classList.add(
+                  "pixel-finished"
+                );
+
+              },
+              950
+            );
+
+
+            pixelRevealObserver.unobserve(
+              image
+            );
+
+          }
+        );
+
+      },
+      {
+        threshold: 0.22,
+        rootMargin:
+          "0px 0px -4% 0px"
+      }
+    );
+
+
+  pixelRevealImages.forEach(
+    image => {
+
+      pixelRevealObserver.observe(
+        image
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   14. ABOUT CPE IMAGE HOVER
+========================================================= */
+
+const aboutPixelImages =
+  document.querySelectorAll(
+    ".about-cpe-body .pixel-image"
+  );
+
+
+aboutPixelImages.forEach(
+  imageBox => {
+
+    imageBox.addEventListener(
+      "mousemove",
+      event => {
+
+        const image =
+          imageBox.querySelector(
+            "img"
+          );
+
+
+        if (!image) {
+
+          return;
+
+        }
+
+
+        const rect =
+          imageBox.getBoundingClientRect();
+
+
+        const moveX =
+          (
+            (
+              event.clientX -
+              rect.left
+            ) -
+            (
+              rect.width /
+              2
+            )
+          )
+          /
+          (
+            rect.width /
+            2
+          );
+
+
+        const moveY =
+          (
+            (
+              event.clientY -
+              rect.top
+            ) -
+            (
+              rect.height /
+              2
+            )
+          )
+          /
+          (
+            rect.height /
+            2
+          );
+
+
+        image.style.transform =
+          `
+            scale(1.025)
+            translate(
+              ${moveX * -4}px,
+              ${moveY * -4}px
+            )
+          `;
+
+      }
+    );
+
+
+    imageBox.addEventListener(
+      "mouseleave",
+      () => {
+
+        const image =
+          imageBox.querySelector(
+            "img"
+          );
+
+
+        if (image) {
+
+          image.style.transform =
+            "scale(1)";
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   15. ABOUT HERO PARALLAX
+========================================================= */
+
+const aboutHero =
+  document.querySelector(
+    ".about-new-hero"
+  );
+
+
+const aboutHeroTitle =
+  document.querySelector(
+    ".about-new-title"
+  );
+
+
+if (
+  aboutHero &&
+  aboutHeroTitle
+) {
+
+  function updateAboutHeroParallax() {
+
+    const heroRect =
+      aboutHero.getBoundingClientRect();
+
+
+    if (
+      heroRect.bottom <= 0
+    ) {
+
+      return;
+
+    }
+
+
+    const scrolled =
+      Math.max(
+        0,
+        -heroRect.top
+      );
+
+
+    aboutHeroTitle.style.transform =
+      `
+        translateY(
+          ${scrolled * 0.13}px
+        )
+      `;
+
+  }
+
+
+  window.addEventListener(
+    "scroll",
+    updateAboutHeroParallax,
+    {
+      passive: true
+    }
+  );
+
+
+  updateAboutHeroParallax();
+
+}
+
+
+/* =========================================================
+   16. ABOUT APPLICATION MARQUEE
+========================================================= */
+
+const applicationTrack =
+  document.querySelector(
+    ".application-track"
+  );
+
+
+if (applicationTrack) {
+
+  let applicationPosition =
+    0;
+
+
+  function animateApplicationMarquee() {
+
+    applicationPosition -=
+      0.35;
+
+
+    if (
+      Math.abs(
+        applicationPosition
+      ) >=
+      applicationTrack.scrollWidth /
+        2
+    ) {
+
+      applicationPosition =
+        0;
+
+    }
+
+
+    applicationTrack.style.transform =
+      `
+        translateX(
+          ${applicationPosition}px
+        )
+      `;
+
+
+    requestAnimationFrame(
+      animateApplicationMarquee
+    );
+
+  }
+
+
+  animateApplicationMarquee();
+
+}
+
+
+/* =========================================================
+   17. IMAGE FALLBACK
+========================================================= */
+
+const aboutImages =
+  document.querySelectorAll(
+    ".about-cpe-body img"
+  );
+
+
+aboutImages.forEach(
+  image => {
+
+    image.addEventListener(
+      "error",
+      () => {
+
+        if (
+          image.dataset.fallbackUsed ===
+          "true"
+        ) {
+
+          return;
+
+        }
+
+
+        image.dataset.fallbackUsed =
+          "true";
+
+
+        image.src =
+          "assets/featured-about.jpg";
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   18. FEATURED SECTION REVEAL
+========================================================= */
+
+const featuredSection =
+  document.getElementById(
+    "featured"
+  );
+
+
+if (featuredSection) {
+
+  const featuredRevealItems =
+    featuredSection.querySelectorAll(
+      `
+        [data-featured-reveal],
+        [data-featured-card]
+      `
+    );
+
+
+  if (
+    featuredRevealItems.length >
+    0
+  ) {
+
+    const featuredObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "is-visible"
+                );
+
+
+                featuredObserver.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    featuredRevealItems.forEach(
+      (
+        item,
+        index
+      ) => {
+
+        item.style.transitionDelay =
+          (
+            index *
+            0.08
+          ) +
+          "s";
+
+
+        featuredObserver.observe(
+          item
+        );
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   19. KEEP MENU STATE CLEAN
+========================================================= */
+
+window.addEventListener(
+  "pageshow",
+  () => {
+
+    if (menuToggle) {
+
+      menuToggle.checked =
+        false;
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   END OF SCRIPT.JS
+========================================================= */

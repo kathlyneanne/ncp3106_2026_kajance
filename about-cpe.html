@@ -8,9 +8,204 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="about-cpe-body">
-  <header class="topbar">
-    <a class="brand scramble-hover" href="index.html">UE / CpE.</a>
-    <div class="page-no">02 / 09</div>
+  <!-- =====================================================
+     MENU CHECKBOX
+====================================================== -->
+
+<input
+  type="checkbox"
+  id="menu-toggle"
+  class="menu-toggle">
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="topbar">
+
+  <a
+    class="brand scramble-hover"
+    href="index.html">
+
+    UE / CpE.
+
+  </a>
+
+
+  <div class="page-no">
+    02 / 09
+  </div>
+
+
+  <label
+    class="menu-open-btn"
+    for="menu-toggle">
+
+    MENU +
+
+  </label>
+
+</header>
+
+
+<!-- =====================================================
+     FULLSCREEN NAVIGATION MENU
+====================================================== -->
+
+<div
+  class="fullscreen-menu"
+  aria-label="Main navigation">
+
+
+  <div class="fullscreen-menu-top">
+
+    <a
+      class="fullscreen-menu-brand"
+      href="index.html">
+
+      UE / CpE.
+
+    </a>
+
+
+    <label
+      class="menu-close-btn"
+      for="menu-toggle">
+
+      Close ×
+
+    </label>
+
+  </div>
+
+
+  <nav class="fullscreen-menu-nav">
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="about-cpe.html">
+
+      <span class="menu-link-title">
+        About CpE
+      </span>
+
+      <span class="menu-link-number">
+        01
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="cpe-at-ue.html">
+
+      <span class="menu-link-title">
+        CpE at UE
+      </span>
+
+      <span class="menu-link-number">
+        02
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="specialization.html">
+
+      <span class="menu-link-title">
+        Specialization
+      </span>
+
+      <span class="menu-link-number">
+        03
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="careers.html">
+
+      <span class="menu-link-title">
+        CpE Careers
+      </span>
+
+      <span class="menu-link-number">
+        04
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="faculty.html">
+
+      <span class="menu-link-title">
+        Faculty
+      </span>
+
+      <span class="menu-link-number">
+        05
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="scpes.html">
+
+      <span class="menu-link-title">
+        SCPES
+      </span>
+
+      <span class="menu-link-number">
+        06
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="projects.html">
+
+      <span class="menu-link-title">
+        Student Projects
+      </span>
+
+      <span class="menu-link-number">
+        07
+      </span>
+
+    </a>
+
+
+    <a
+      class="fullscreen-menu-link"
+      href="events.html">
+
+      <span class="menu-link-title">
+        Events & Activities
+      </span>
+
+      <span class="menu-link-number">
+        08
+      </span>
+
+    </a>
+
+
+  </nav>
+
+</div>
   </header>
 
   <main class="about-cpe-main">
@@ -62,7 +257,7 @@
     <section class="about-photo-feature">
       <div class="container-fluid px-4 px-md-5">
         <div class="pixel-image pixel-reveal" data-pixel-color="#0b0b0b">
-          <img src="assets/featured-about.jpg" alt="Computer Engineering" onerror="this.src='assets/featured-about.jpg'">
+          <img src="assets/featured-about.jpg" alt="Computer Engineering" data-fallback="assets/featured-about.jpg">
           <div class="pixel-cover"></div>
           <div class="photo-label">
             <span>COMPUTER ENGINEERING</span>
@@ -109,7 +304,7 @@
         <div class="row align-items-center g-5">
           <div class="col-12 col-lg-7">
             <div class="pixel-image story-image pixel-reveal" data-pixel-color="#f5f3ed">
-              <img src="assets/about-hardware.jpg" alt="Computer hardware" onerror="this.src='assets/featured-about.jpg'">
+              <img src="assets/about-hardware.jpg" alt="Computer hardware" data-fallback="assets/featured-about.jpg">
               <div class="pixel-cover"></div>
             </div>
           </div>
@@ -145,15 +340,15 @@
       <div class="container-fluid px-4 px-md-5">
         <div class="about-collage-grid">
           <div class="collage-photo collage-large pixel-image pixel-reveal" data-pixel-color="#0b0b0b">
-            <img src="assets/about-embedded.jpg" alt="Embedded systems" onerror="this.src='assets/featured-about.jpg'">
+            <img src="assets/about-embedded.jpg" alt="Embedded systems" data-fallback="assets/featured-about.jpg">
             <div class="pixel-cover"></div><span>EMBEDDED SYSTEMS</span>
           </div>
           <div class="collage-photo pixel-image pixel-reveal" data-pixel-color="#f5f3ed">
-            <img src="assets/about-robotics.jpg" alt="Robotics" onerror="this.src='assets/featured-about.jpg'">
+            <img src="assets/about-robotics.jpg" alt="Robotics" data-fallback="assets/featured-about.jpg">
             <div class="pixel-cover"></div><span>ROBOTICS</span>
           </div>
           <div class="collage-photo pixel-image pixel-reveal" data-pixel-color="#0b0b0b">
-            <img src="assets/about-network.jpg" alt="Computer networking" onerror="this.src='assets/featured-about.jpg'">
+            <img src="assets/about-network.jpg" alt="Computer networking" data-fallback="assets/featured-about.jpg">
             <div class="pixel-cover"></div><span>NETWORKS</span>
           </div>
         </div>
@@ -183,7 +378,7 @@
     <section class="about-application-photo">
       <div class="container-fluid px-4 px-md-5">
         <div class="pixel-image application-photo pixel-reveal" data-pixel-color="#0b0b0b">
-          <img src="assets/about-applications.jpg" alt="Computer Engineering applications" onerror="this.src='assets/featured-about.jpg'">
+          <img src="assets/about-applications.jpg" alt="Computer Engineering applications" data-fallback="assets/featured-about.jpg">
           <div class="pixel-cover"></div>
           <div class="application-photo-text"><span>FROM CODE</span><span class="photo-serif">TO REALITY.</span></div>
         </div>
@@ -224,7 +419,7 @@
     <section class="society-photo-section">
       <div class="container-fluid px-4 px-md-5">
         <div class="pixel-image society-photo pixel-reveal" data-pixel-color="#f5f3ed">
-          <img src="assets/about-society.jpg" alt="Technology in society" onerror="this.src='assets/featured-about.jpg'">
+          <img src="assets/about-society.jpg" alt="Technology in society" data-fallback="assets/featured-about.jpg">
           <div class="pixel-cover"></div>
         </div>
       </div>
