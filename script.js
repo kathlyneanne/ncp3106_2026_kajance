@@ -1,10 +1,6 @@
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 
-/* =========================================================
-   0. CODED PUSHING PERSON LOADER
-========================================================= */
-
 const pageLoader =
   document.getElementById("page-loader");
 
@@ -49,7 +45,6 @@ function startLoader() {
 
 
   const loadingDuration = 5000;
-
   let startTime = null;
 
 
@@ -78,29 +73,15 @@ function startLoader() {
   );
 
 
-  cssPerson.classList.remove(
-    "is-leaving"
-  );
-
-
-  pageLoader.classList.remove(
-    "is-finished"
-  );
-
-  pageLoader.classList.add(
-    "is-pushing"
-  );
-
-
-  function animatePush(currentTime) {
+  function animateLoader(timestamp) {
 
     if (!startTime) {
-      startTime = currentTime;
+      startTime = timestamp;
     }
 
 
     const elapsed =
-      currentTime - startTime;
+      timestamp - startTime;
 
 
     const rawProgress =
@@ -111,41 +92,33 @@ function startLoader() {
 
 
     const progress =
-      easeInOutCubic(rawProgress);
+      easeInOutCubic(
+        rawProgress
+      );
 
 
-    const percentage =
+    const position =
       progress * 100;
 
 
-    /* MOVE PERSON + LINE */
-
     pushStage.style.setProperty(
       "--push-position",
-      percentage + "%"
+      position + "%"
     );
 
 
-    /* REVEAL PICTURE */
-
-    const hiddenRight =
-      100 - percentage;
-
-
     loaderImage.style.clipPath =
-      `inset(0 ${hiddenRight}% 0 0)`;
+      `inset(0 ${100 - position}% 0 0)`;
 
     loaderImage.style.webkitClipPath =
-      `inset(0 ${hiddenRight}% 0 0)`;
+      `inset(0 ${100 - position}% 0 0)`;
 
-
-    /* NUMBER */
 
     if (pushLoadingNumber) {
 
       pushLoadingNumber.textContent =
         String(
-          Math.round(
+          Math.floor(
             rawProgress * 100
           )
         ).padStart(
@@ -159,149 +132,94 @@ function startLoader() {
     if (rawProgress < 1) {
 
       requestAnimationFrame(
-        animatePush
+        animateLoader
       );
 
-      return;
+    } else {
+
+      pushDivider.classList.add(
+        "is-finished"
+      );
+
+
+      setTimeout(
+        finishLoader,
+        350
+      );
 
     }
 
-
-    /* FINISH */
-
-    loaderImage.style.clipPath =
-      "inset(0 0 0 0)";
-
-    loaderImage.style.webkitClipPath =
-      "inset(0 0 0 0)";
+  }
 
 
-    if (pushLoadingNumber) {
+  function finishLoader() {
 
-      pushLoadingNumber.textContent =
-        "100";
-
-    }
-
-
-    pageLoader.classList.remove(
-      "is-pushing"
-    );
-
-
-    pushDivider.classList.add(
+    pageLoader.classList.add(
       "is-finished"
     );
 
 
-    cssPerson.classList.add(
-      "is-leaving"
+    document.body.classList.add(
+      "page-loaded"
     );
-
-
-    setTimeout(() => {
-
-      pageLoader.classList.add(
-        "is-finished"
-      );
-
-    }, 750);
 
   }
 
 
   requestAnimationFrame(
-    animatePush
+    animateLoader
   );
 
 }
 
 
-/* =========================================================
-   LOAD HOMEPAGE
-========================================================= */
 
-window.addEventListener(
-  "load",
-  () => {
-
-    /*
-      RETURNING FROM ABOUT CPE
-    */
-
-    if (
-      window.location.hash === "#featured"
-    ) {
-
-      if (pageLoader) {
-
-        pageLoader.classList.add(
-          "is-finished"
-        );
-
-      }
-
-
-      const homeEnterSite =
-        document.getElementById(
-          "enter-site"
-        );
-
-
-      if (homeEnterSite) {
-
-        homeEnterSite.checked =
-          true;
-
-      }
-
-
-      const featuredSection =
-        document.getElementById(
-          "featured"
-        );
-
-
-      if (featuredSection) {
-
-        setTimeout(() => {
-
-          featuredSection.scrollIntoView({
-            behavior: "auto",
-            block: "start"
-          });
-
-        }, 50);
-
-      }
-
-
-      return;
-
-    }
-
-
-    startLoader();
-
-  }
-);
 
 
 /* =========================================================
-   SCRAMBLE TEXT
+   RUN LOADER
 ========================================================= */
+
+if (
+  document.readyState ===
+  "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    startLoader
+  );
+
+} else {
+
+  startLoader();
+
+}
+
+
+/* =========================================================
+   1. HERO SCRAMBLE
+========================================================= */
+
+const heroScrambleElements =
+  document.querySelectorAll(
+    "[data-scramble]"
+  );
+
 
 function scrambleText(
   element,
-  speed = 90
+  speed = 80
 ) {
+
+  if (!element) {
+    return;
+  }
+
 
   const finalText =
     element.dataset.text ||
     element.textContent.trim();
-
-
-  let progress = 0;
 
 
   clearInterval(
@@ -309,197 +227,193 @@ function scrambleText(
   );
 
 
+  let iteration = 0;
+
+
   element.scrambleTimer =
-    setInterval(() => {
-
-      element.textContent =
-        finalText
-          .split("")
-          .map(
-            (char, index) => {
-
-              if (
-                char === " " ||
-                char === "/" ||
-                char === "." ||
-                char === "+" ||
-                char === "×" ||
-                char === "•"
-              ) {
-
-                return char;
-
-              }
-
-
-              if (
-                index < progress
-              ) {
-
-                return finalText[index];
-
-              }
-
-
-              return chars[
-                Math.floor(
-                  Math.random() *
-                  chars.length
-                )
-              ];
-
-            }
-          )
-          .join("");
-
-
-      progress +=
-        Number(
-          element.dataset.progress
-        ) || 0.55;
-
-
-      if (
-        progress >=
-        finalText.length
-      ) {
-
-        clearInterval(
-          element.scrambleTimer
-        );
-
+    setInterval(
+      () => {
 
         element.textContent =
-          finalText;
+          finalText
+            .split("")
+            .map(
+              (character, index) => {
 
-      }
-
-    }, speed);
-
-}
-
-
-/* =========================================================
-   BLACK BOX INTRO
-========================================================= */
-
-const enterSite =
-  document.getElementById(
-    "enter-site"
-  );
+                if (
+                  character === " " ||
+                  character === "/" ||
+                  character === "." ||
+                  character === "+" ||
+                  character === "-"
+                ) {
+                  return character;
+                }
 
 
-function startPageScramble() {
+                if (
+                  index <
+                  iteration
+                ) {
+                  return character;
+                }
 
-  document
-    .querySelectorAll(
-      "[data-scramble]"
-    )
-    .forEach(
-      (element, index) => {
 
-        setTimeout(() => {
+                return chars[
+                  Math.floor(
+                    Math.random() *
+                    chars.length
+                  )
+                ];
 
-          scrambleText(
-            element,
-            85
+              }
+            )
+            .join("");
+
+
+        iteration += 1;
+
+
+        if (
+          iteration >=
+          finalText.length
+        ) {
+
+          clearInterval(
+            element.scrambleTimer
           );
 
-        }, index * 260);
+          element.textContent =
+            finalText;
 
-      }
+        }
+
+      },
+      speed
     );
 
 }
 
 
-if (enterSite) {
-
-  enterSite.addEventListener(
-    "change",
-    () => {
-
-      if (
-        enterSite.checked
-      ) {
-
-        setTimeout(() => {
-
-          startPageScramble();
-
-        }, 1250);
-
-      }
-
-    }
-  );
-
-} else {
-
-  setTimeout(() => {
-
-    startPageScramble();
-
-  }, 400);
-
-}
-
-
 /* =========================================================
-   HOVER SCRAMBLE
+   HERO SCRAMBLE ON PAGE LOAD
 ========================================================= */
 
-document
-  .querySelectorAll(
-    ".scramble-hover"
-  )
-  .forEach(element => {
+heroScrambleElements.forEach(
+  (element, index) => {
 
-    element.dataset.text =
-      element.textContent.trim();
+    const delay =
+      Number(
+        element.dataset.progress ||
+        0
+      ) * 1000;
 
 
-    element.addEventListener(
-      "mouseenter",
+    setTimeout(
       () => {
 
         scrambleText(
           element,
-          70
+          80
         );
 
-      }
+      },
+      delay
     );
 
-  });
+  }
+);
 
 
 /* =========================================================
-   PIXEL CURSOR
+   2. MARQUEE
+========================================================= */
+
+const marqueeTrack =
+  document.querySelector(
+    ".marquee-track"
+  );
+
+
+if (marqueeTrack) {
+
+  let marqueePosition = 0;
+
+
+  function animateMarquee() {
+
+    marqueePosition -= 0.25;
+
+
+    if (
+      Math.abs(marqueePosition) >=
+      marqueeTrack.scrollWidth / 2
+    ) {
+
+      marqueePosition = 0;
+
+    }
+
+
+    marqueeTrack.style.transform =
+      `translateX(${marqueePosition}px)`;
+
+
+    requestAnimationFrame(
+      animateMarquee
+    );
+
+  }
+
+
+  animateMarquee();
+
+}
+
+
+/* =========================================================
+   3. SMOOTH SCROLL
+========================================================= */
+
+document.documentElement.style.scrollBehavior =
+  "smooth";
+
+
+/* =========================================================
+   4. PIXEL CURSOR
+   RESTORED CURSOR + TRAIL
 ========================================================= */
 
 if (
-  window
-    .matchMedia(
-      "(pointer: fine)"
-    )
-    .matches
+  window.matchMedia("(pointer: fine)").matches
 ) {
 
-  const pixelCursor =
-    document.createElement(
-      "div"
+  /* =========================================
+     CREATE MAIN CURSOR
+  ========================================= */
+
+  let pixelCursor =
+    document.querySelector(".pixel-cursor");
+
+
+  if (!pixelCursor) {
+
+    pixelCursor =
+      document.createElement("div");
+
+    pixelCursor.className =
+      "pixel-cursor";
+
+    document.body.appendChild(
+      pixelCursor
     );
 
-
-  pixelCursor.className =
-    "pixel-cursor";
+  }
 
 
-  document.body.appendChild(
-    pixelCursor
-  );
-
+  /* =========================================
+     CREATE CURSOR TRAIL
+  ========================================= */
 
   const trail = [];
 
@@ -513,9 +427,7 @@ if (
   ) {
 
     const pixel =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
 
     pixel.className =
@@ -542,13 +454,20 @@ if (
   }
 
 
+  /* =========================================
+     MOUSE POSITION
+  ========================================= */
+
   let mouseX =
     window.innerWidth / 2;
-
 
   let mouseY =
     window.innerHeight / 2;
 
+
+  /* =========================================
+     MOUSE MOVE
+  ========================================= */
 
   window.addEventListener(
     "mousemove",
@@ -557,18 +476,22 @@ if (
       mouseX =
         event.clientX;
 
-
       mouseY =
         event.clientY;
 
 
+      /* MAIN CURSOR */
+
       pixelCursor.style.left =
         mouseX + "px";
-
 
       pixelCursor.style.top =
         mouseY + "px";
 
+
+      /* =====================================
+         DETECT BLACK CPE AREA
+      ===================================== */
 
       const elementUnderCursor =
         document.elementFromPoint(
@@ -584,10 +507,10 @@ if (
 
 
       const isDark =
-        Boolean(
-          darkSection
-        );
+        Boolean(darkSection);
 
+
+      /* MAIN CURSOR COLOR */
 
       pixelCursor.classList.toggle(
         "cursor-on-dark",
@@ -595,24 +518,69 @@ if (
       );
 
 
-      trail.forEach(pixel => {
+      /* TRAIL COLOR */
 
-        pixel.element.classList.toggle(
-          "cursor-on-dark",
-          isDark
-        );
+      trail.forEach(
+        pixel => {
 
-      });
+          pixel.element.classList.toggle(
+            "cursor-on-dark",
+            isDark
+          );
+
+        }
+      );
 
     }
   );
 
 
-  function animateTrail() {
+  /* =========================================
+     CURSOR HOVER EFFECT
+  ========================================= */
+
+  document
+    .querySelectorAll(
+      "a, button, .menu-button"
+    )
+    .forEach(
+      element => {
+
+        element.addEventListener(
+          "mouseenter",
+          () => {
+
+            pixelCursor.classList.add(
+              "is-hovering"
+            );
+
+          }
+        );
+
+
+        element.addEventListener(
+          "mouseleave",
+          () => {
+
+            pixelCursor.classList.remove(
+              "is-hovering"
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================================
+     CURSOR TRAIL ANIMATION
+  ========================================= */
+
+  function animateCursorTrail() {
 
     let targetX =
       mouseX;
-
 
     let targetY =
       mouseY;
@@ -623,7 +591,10 @@ if (
 
         const followSpeed =
           0.24 -
-          (index * 0.012);
+          (
+            index *
+            0.012
+          );
 
 
         pixel.x +=
@@ -653,7 +624,6 @@ if (
         targetX =
           pixel.x;
 
-
         targetY =
           pixel.y;
 
@@ -662,30 +632,226 @@ if (
 
 
     requestAnimationFrame(
-      animateTrail
+      animateCursorTrail
     );
 
   }
 
 
-  animateTrail();
+  /* =========================================
+     START TRAIL
+  ========================================= */
+
+  animateCursorTrail();
+
+}
+
+/* =========================================================
+   5. NAVIGATION MENU
+========================================================= */
+
+const menuButton =
+  document.querySelector(
+    ".menu-button"
+  );
+
+const menuOverlay =
+  document.querySelector(
+    ".menu-overlay"
+  );
+
+const menuClose =
+  document.querySelector(
+    ".menu-close"
+  );
+
+
+function openMenu() {
+
+  if (!menuOverlay) {
+    return;
+  }
+
+
+  menuOverlay.classList.add(
+    "is-open"
+  );
+
+
+  document.body.classList.add(
+    "menu-open"
+  );
+
+}
+
+
+function closeMenu() {
+
+  if (!menuOverlay) {
+    return;
+  }
+
+
+  menuOverlay.classList.remove(
+    "is-open"
+  );
+
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+
+}
+
+
+if (menuButton) {
+
+  menuButton.addEventListener(
+    "click",
+    openMenu
+  );
+
+}
+
+
+if (menuClose) {
+
+  menuClose.addEventListener(
+    "click",
+    closeMenu
+  );
 
 }
 
 
 /* =========================================================
-   HOMEPAGE CPE SCROLL ANIMATION
+   6. MENU ESCAPE KEY
 ========================================================= */
 
-const cpeSection =
-  document.querySelector(
-    ".cpe-scroll-section"
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   7. FEATURED PAGE HOVER
+========================================================= */
+
+const featuredCards =
+  document.querySelectorAll(
+    ".featured-card"
   );
 
 
-const scrollBlocks =
+featuredCards.forEach(
+  card => {
+
+    card.addEventListener(
+      "mouseenter",
+      () => {
+
+        card.classList.add(
+          "is-hovered"
+        );
+
+      }
+    );
+
+
+    card.addEventListener(
+      "mouseleave",
+      () => {
+
+        card.classList.remove(
+          "is-hovered"
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   8. PAGE TRANSITIONS
+========================================================= */
+
+const pageLinks =
   document.querySelectorAll(
-    ".cpe-scroll-block"
+    "[data-page-transition]"
+  );
+
+
+pageLinks.forEach(
+  link => {
+
+    link.addEventListener(
+      "click",
+      event => {
+
+        const destination =
+          link.getAttribute("href");
+
+
+        if (
+          !destination ||
+          destination.startsWith("#") ||
+          destination.startsWith("http")
+        ) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        document.body.classList.add(
+          "page-transitioning"
+        );
+
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              destination;
+
+          },
+          600
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   9. HOMEPAGE CPE SCROLL ANIMATION
+========================================================= */
+
+const cpeMainSection =
+  document.querySelector(
+    ".cpe-scroll-section-main"
+  );
+
+
+const ueCpeSection =
+  document.querySelector(
+    ".cpe-scroll-section-ue"
   );
 
 
@@ -694,6 +860,10 @@ const scrollRevealTexts =
     "[data-scroll-reveal]"
   );
 
+
+/* =========================================================
+   PREPARE DESCRIPTION WORDS
+========================================================= */
 
 scrollRevealTexts.forEach(
   text => {
@@ -721,6 +891,10 @@ scrollRevealTexts.forEach(
 );
 
 
+/* =========================================================
+   CLAMP
+========================================================= */
+
 function clamp(
   value,
   min = 0,
@@ -738,20 +912,25 @@ function clamp(
 }
 
 
-function updateCpeScrollAnimation() {
+/* =========================================================
+   GET SECTION PROGRESS
+========================================================= */
 
-  if (!cpeSection) {
-    return;
+function getSectionProgress(
+  section
+) {
+
+  if (!section) {
+    return 0;
   }
 
 
   const sectionRect =
-    cpeSection
-      .getBoundingClientRect();
+    section.getBoundingClientRect();
 
 
   const sectionHeight =
-    cpeSection.offsetHeight;
+    section.offsetHeight;
 
 
   const viewportHeight =
@@ -770,77 +949,163 @@ function updateCpeScrollAnimation() {
     );
 
 
-  sectionProgress =
-    clamp(
-      sectionProgress,
-      0,
-      1
-    );
-
-
-  const backgroundProgress =
-    clamp(
-      sectionProgress / 0.20,
-      0,
-      1
-    );
-
-
-  const bgInset =
-    50 -
-    (
-      backgroundProgress *
-      50
-    );
-
-
-  cpeSection.style.setProperty(
-    "--bg-open",
-    bgInset + "%"
+  return clamp(
+    sectionProgress,
+    0,
+    1
   );
 
-
-  const firstBlock =
-    scrollBlocks[0];
+}
 
 
-  const secondBlock =
-    scrollBlocks[1];
+/* =========================================================
+   REVEAL WORDS
+========================================================= */
+
+function revealWords(
+  text,
+  progress
+) {
+
+  if (!text) {
+    return;
+  }
 
 
-  if (firstBlock) {
+  const words =
+    text.querySelectorAll(
+      ".scroll-word"
+    );
 
-    const firstTitleProgress =
+
+  const activeWords =
+    progress >= 1
+      ? words.length
+      : Math.ceil(
+          progress *
+          words.length
+        );
+
+
+  words.forEach(
+    (word, index) => {
+
+      word.classList.toggle(
+        "is-active",
+        index < activeWords
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   10. UPDATE CPE SCROLL ANIMATIONS
+========================================================= */
+
+function updateCpeScrollAnimation() {
+
+
+  /* =====================================================
+     01 / COMPUTER ENGINEERING
+     
+     THIS SECTION NOW USES ITS OWN
+     INDEPENDENT SCROLL PROGRESS.
+  ===================================================== */
+
+  if (cpeMainSection) {
+
+    const mainProgress =
+      getSectionProgress(
+        cpeMainSection
+      );
+
+
+    /* =================================================
+       BLACK BACKGROUND OPENING
+    ================================================= */
+
+    const backgroundProgress =
       clamp(
-        (
-          sectionProgress -
-          0.20
-        )
-        /
-        0.15,
+        mainProgress /
+        0.20,
         0,
         1
       );
 
 
-    firstBlock.style.setProperty(
-      "--title-drop-progress",
-      firstTitleProgress
-    );
-
-
-    const firstText =
-      firstBlock.querySelector(
-        "[data-scroll-reveal]"
+    const bgInset =
+      50 -
+      (
+        backgroundProgress *
+        50
       );
 
 
-    if (firstText) {
+    cpeMainSection.style.setProperty(
+      "--bg-open",
+      bgInset + "%"
+    );
 
-      const firstTextProgress =
+
+    /* =================================================
+       COMPUTER ENGINEERING BLOCK
+    ================================================= */
+
+    const mainBlock =
+      cpeMainSection.querySelector(
+        ".cpe-scroll-block"
+      );
+
+
+    if (mainBlock) {
+
+
+      /* ===============================================
+         TITLE REVEAL
+         
+         SAME ORIGINAL TIMING
+         20% -> 35%
+      =============================================== */
+
+      const titleProgress =
         clamp(
           (
-            sectionProgress -
+            mainProgress -
+            0.20
+          )
+          /
+          0.15,
+          0,
+          1
+        );
+
+
+      mainBlock.style.setProperty(
+        "--title-drop-progress",
+        titleProgress
+      );
+
+
+      /* ===============================================
+         DESCRIPTION REVEAL
+         
+         SAME ORIGINAL TIMING
+         35% -> 60%
+      =============================================== */
+
+      const mainText =
+        mainBlock.querySelector(
+          "[data-scroll-reveal]"
+        );
+
+
+      const mainTextProgress =
+        clamp(
+          (
+            mainProgress -
             0.35
           )
           /
@@ -850,28 +1115,9 @@ function updateCpeScrollAnimation() {
         );
 
 
-      const words =
-        firstText.querySelectorAll(
-          ".scroll-word"
-        );
-
-
-      const activeWords =
-        Math.floor(
-          firstTextProgress *
-          words.length
-        );
-
-
-      words.forEach(
-        (word, index) => {
-
-          word.classList.toggle(
-            "is-active",
-            index < activeWords
-          );
-
-        }
+      revealWords(
+        mainText,
+        mainTextProgress
       );
 
     }
@@ -879,70 +1125,104 @@ function updateCpeScrollAnimation() {
   }
 
 
-  if (secondBlock) {
+  /* =====================================================
+     02 / UE COMPUTER ENGINEERING
 
-    const secondTitleProgress =
-      clamp(
-        (
-          sectionProgress -
-          0.60
-        )
-        /
-        0.15,
-        0,
-        1
+     IMPORTANT:
+     THIS IS A SEPARATE STICKY SECTION.
+
+     IT MUST NOT USE THE SCROLL PROGRESS
+     FROM 01 / COMPUTER ENGINEERING.
+
+     IT CALCULATES ITS OWN PROGRESS.
+  ===================================================== */
+
+  if (ueCpeSection) {
+
+    const ueProgress =
+      getSectionProgress(
+        ueCpeSection
       );
 
 
-    secondBlock.style.setProperty(
-      "--title-drop-progress",
-      secondTitleProgress
-    );
-
-
-    const secondText =
-      secondBlock.querySelector(
-        "[data-scroll-reveal]"
+    const ueBlock =
+      ueCpeSection.querySelector(
+        ".cpe-scroll-block-ue"
       );
 
 
-    if (secondText) {
+    if (ueBlock) {
 
-      const secondTextProgress =
+
+      /* ===============================================
+         UE TITLE REVEAL
+
+         SAME VISUAL ANIMATION AS
+         01 / COMPUTER ENGINEERING
+
+         18% -> 38%
+      =============================================== */
+
+      const ueTitleProgress =
         clamp(
           (
-            sectionProgress -
-            0.72
+            ueProgress -
+            0.18
           )
           /
-          0.16,
+          0.20,
           0,
           1
         );
 
 
-      const words =
-        secondText.querySelectorAll(
-          ".scroll-word"
+      ueBlock.style.setProperty(
+        "--title-drop-progress",
+        ueTitleProgress
+      );
+
+
+      /* ===============================================
+         UE DESCRIPTION REVEAL
+
+         SAME WORD-BY-WORD ANIMATION AS
+         01 / COMPUTER ENGINEERING
+
+         38% -> 88%
+      =============================================== */
+
+      const ueText =
+        ueBlock.querySelector(
+          "[data-scroll-reveal]"
         );
 
 
-      const activeWords =
-        Math.floor(
-          secondTextProgress *
-          words.length
+      const ueTextProgress =
+        clamp(
+          (
+            ueProgress -
+            0.38
+          )
+          /
+          0.50,
+          0,
+          1
         );
 
 
-      words.forEach(
-        (word, index) => {
+      revealWords(
+        ueText,
+        ueTextProgress
+      );
 
-          word.classList.toggle(
-            "is-active",
-            index < activeWords
-          );
 
-        }
+      /* ===============================================
+         UE READING COMPLETE
+      =============================================== */
+
+      ueCpeSection.classList.toggle(
+        "reading-complete",
+        ueTextProgress >= 1
       );
 
     }
@@ -951,6 +1231,10 @@ function updateCpeScrollAnimation() {
 
 }
 
+
+/* =========================================================
+   11. SCROLL LISTENER
+========================================================= */
 
 window.addEventListener(
   "scroll",
@@ -961,11 +1245,19 @@ window.addEventListener(
 );
 
 
+/* =========================================================
+   12. RESIZE
+========================================================= */
+
 window.addEventListener(
   "resize",
   updateCpeScrollAnimation
 );
 
+
+/* =========================================================
+   INITIAL UPDATE
+========================================================= */
 
 updateCpeScrollAnimation();
 
@@ -997,6 +1289,10 @@ document.body.appendChild(
   transitionOverlay
 );
 
+
+/* =========================================================
+   PAGE TRANSITION FUNCTION
+========================================================= */
 
 function startPageTransition(
   destination,
@@ -1030,146 +1326,332 @@ function startPageTransition(
   );
 
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    window.location.href =
-      destination;
+      window.location.href =
+        destination;
 
-  }, 1050);
+    },
+    700
+  );
 
 }
 
 
-document
-  .querySelectorAll(
-    ".page-transition-link"
-  )
-  .forEach(link => {
-
-    link.addEventListener(
-      "click",
-      event => {
-
-        event.preventDefault();
-
-
-        const destination =
-          link.getAttribute(
-            "href"
-          );
-
-
-        startPageTransition(
-          destination,
-          "ABOUT CpE"
-        );
-
-      }
-    );
-
-  });
-
+/* =========================================================
+   PAGE LINKS
+========================================================= */
 
 document
   .querySelectorAll(
-    ".page-transition-back"
+    "a[href]"
   )
-  .forEach(link => {
+  .forEach(
+    link => {
 
-    link.addEventListener(
-      "click",
-      event => {
-
-        event.preventDefault();
+      const href =
+        link.getAttribute("href");
 
 
-        const destination =
-          link.getAttribute(
-            "href"
+      if (
+        !href ||
+        href.startsWith("#") ||
+        href.startsWith("http") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:")
+      ) {
+        return;
+      }
+
+
+      link.addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+
+
+          const text =
+            link.textContent
+              .trim()
+              .toUpperCase();
+
+
+          startPageTransition(
+            href,
+            text || "UE CpE"
           );
 
+        }
+      );
 
-        startPageTransition(
-          destination,
-          "EXPLORE CpE"
+    }
+  );
+
+
+/* =========================================================
+   13. SCROLL REVEAL FOR GENERAL ELEMENTS
+========================================================= */
+
+const generalRevealElements =
+  document.querySelectorAll(
+    "[data-reveal]"
+  );
+
+
+function updateGeneralReveal() {
+
+  generalRevealElements.forEach(
+    element => {
+
+      const rect =
+        element.getBoundingClientRect();
+
+
+      const trigger =
+        window.innerHeight * 0.85;
+
+
+      if (
+        rect.top <
+        trigger
+      ) {
+
+        element.classList.add(
+          "is-visible"
         );
 
       }
-    );
 
-  });
+    }
+  );
+
+}
 
 
 window.addEventListener(
-  "pageshow",
-  () => {
-
-    transitionOverlay.classList.remove(
-      "is-active"
-    );
-
+  "scroll",
+  updateGeneralReveal,
+  {
+    passive: true
   }
 );
 
 
-/* =========================================================
-   ABOUT CPE SCROLL REVEALS
-========================================================= */
+updateGeneralReveal();
 
-const aboutRevealElements =
-  document.querySelectorAll(
-    ".about-reveal, .area-reveal"
+
+/* =====================================================
+   PROGRAM HIGHLIGHTS — SPECIALIZATION SCRAMBLE
+===================================================== */
+
+const programHighlights =
+  document.getElementById(
+    "program-highlights"
   );
 
 
-if (
-  aboutRevealElements.length > 0
+/* ONLY SPECIALIZATION TEXT */
+
+const specializationElements =
+  document.querySelectorAll(
+    "[data-specialization-scramble]"
+  );
+
+
+/*
+  false = outside Program Highlights
+  true  = inside Program Highlights
+*/
+
+let specializationInside =
+  false;
+
+
+/* =====================================================
+   TURN SPECIALIZATION INTO RANDOM LETTERS
+===================================================== */
+
+function makeSpecializationScrambled(
+  element
 ) {
 
-  const aboutRevealObserver =
-    new IntersectionObserver(
-      entries => {
+  if (!element) {
+    return;
+  }
 
-        entries.forEach(
-          entry => {
+
+  const finalText =
+    element.dataset.text ||
+    element.textContent.trim();
+
+
+  clearInterval(
+    element.specializationTimer
+  );
+
+
+  element.textContent =
+    finalText
+      .split("")
+      .map(character => {
+
+        /* KEEP SPACES AND SYMBOLS */
+
+        if (
+          character === " " ||
+          character === "/" ||
+          character === "." ||
+          character === "+" ||
+          character === "-"
+        ) {
+
+          return character;
+
+        }
+
+
+        /* RANDOM LETTER */
+
+        return chars[
+          Math.floor(
+            Math.random() *
+            chars.length
+          )
+        ];
+
+      })
+      .join("");
+
+}
+
+
+/* =====================================================
+   RANDOM LETTERS → REAL SPECIALIZATION
+===================================================== */
+
+function startSpecializationScramble() {
+
+  specializationElements.forEach(
+    (element, index) => {
+
+      const finalText =
+        element.dataset.text ||
+        element.textContent.trim();
+
+
+      clearInterval(
+        element.specializationTimer
+      );
+
+
+      let iteration = 0;
+
+
+      /*
+        Each specialization starts
+        slightly after the previous one.
+      */
+
+      setTimeout(() => {
+
+        element.specializationTimer =
+          setInterval(() => {
+
+            element.textContent =
+              finalText
+                .split("")
+                .map(
+                  (character, charIndex) => {
+
+                    /* KEEP SYMBOLS */
+
+                    if (
+                      character === " " ||
+                      character === "/" ||
+                      character === "." ||
+                      character === "+" ||
+                      character === "-"
+                    ) {
+
+                      return character;
+
+                    }
+
+
+                    /*
+                      REVEAL CORRECT CHARACTER
+                    */
+
+                    if (
+                      charIndex <
+                      iteration
+                    ) {
+
+                      return character;
+
+                    }
+
+
+                    /*
+                      RANDOM CHARACTER
+                    */
+
+                    return chars[
+                      Math.floor(
+                        Math.random() *
+                        chars.length
+                      )
+                    ];
+
+                  }
+                )
+                .join("");
+
+
+            iteration += 1;
+
+
+            /*
+              FINISHED
+            */
 
             if (
-              entry.isIntersecting
+              iteration >=
+              finalText.length
             ) {
 
-              entry.target.classList.add(
-                "is-visible"
+              clearInterval(
+                element.specializationTimer
               );
 
 
-              aboutRevealObserver.unobserve(
-                entry.target
-              );
+              element.textContent =
+                finalText;
 
             }
 
-          }
-        );
+          }, 70);
 
-      },
-      {
-        threshold: 0.14
-      }
-    );
+      }, index * 180);
 
+    }
+  );
 
-  aboutRevealElements.forEach(
-    (element, index) => {
-
-      element.style.transitionDelay =
-        (
-          (index % 5) *
-          0.07
-        ) +
-        "s";
+}
 
 
-      aboutRevealObserver.observe(
+/* =====================================================
+   RESET SPECIALIZATION TO SCRAMBLED LETTERS
+===================================================== */
+
+function resetSpecializationScramble() {
+
+  specializationElements.forEach(
+    element => {
+
+      makeSpecializationScrambled(
         element
       );
 
@@ -1179,822 +1661,132 @@ if (
 }
 
 
-/* =========================================================
-   PIXELATED IMAGE REVEAL
-========================================================= */
+/* =====================================================
+   CHECK IF PROGRAM HIGHLIGHTS IS ON SCREEN
+===================================================== */
 
-const pixelRevealImages =
-  document.querySelectorAll(
-    ".pixel-reveal"
-  );
+function updateSpecializationScramble() {
 
+  if (
+    !programHighlights ||
+    !specializationElements.length
+  ) {
 
-pixelRevealImages.forEach(
-  pixelImage => {
-
-    const pixelCover =
-      pixelImage.querySelector(
-        ".pixel-cover"
-      );
-
-
-    if (!pixelCover) {
-      return;
-    }
-
-
-    const pixelColor =
-      pixelImage.dataset.pixelColor ||
-      "#0b0b0b";
-
-
-    const columns = 12;
-
-    const rows = 8;
-
-    const totalPixels =
-      columns * rows;
-
-
-    for (
-      let index = 0;
-      index < totalPixels;
-      index++
-    ) {
-
-      const pixel =
-        document.createElement(
-          "span"
-        );
-
-
-      pixel.className =
-        "pixel-block";
-
-
-      pixel.style.setProperty(
-        "--pixel-color",
-        pixelColor
-      );
-
-
-      const column =
-        index % columns;
-
-
-      const row =
-        Math.floor(
-          index / columns
-        );
-
-
-      const delay =
-        (
-          column * 0.035
-        ) +
-        (
-          row * 0.015
-        ) +
-        (
-          Math.random() * 0.22
-        );
-
-
-      pixel.style.transitionDelay =
-        delay + "s";
-
-
-      pixel.style.setProperty(
-        "--pixel-rotation",
-        (
-          (
-            Math.random() *
-            40
-          ) -
-          20
-        ) +
-        "deg"
-      );
-
-
-      pixelCover.appendChild(
-        pixel
-      );
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   ACTIVATE PIXEL REVEAL ON SCROLL
-========================================================= */
-
-if (
-  pixelRevealImages.length > 0
-) {
-
-  const pixelRevealObserver =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(
-          entry => {
-
-            if (
-              entry.isIntersecting
-            ) {
-
-              const image =
-                entry.target;
-
-
-              image.classList.add(
-                "pixel-active"
-              );
-
-
-              setTimeout(() => {
-
-                image.classList.add(
-                  "pixel-finished"
-                );
-
-              }, 950);
-
-
-              pixelRevealObserver.unobserve(
-                image
-              );
-
-            }
-
-          }
-        );
-
-      },
-      {
-        threshold: 0.22
-      }
-    );
-
-
-  pixelRevealImages.forEach(
-    image => {
-
-      pixelRevealObserver.observe(
-        image
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   ABOUT IMAGE HOVER MOVEMENT
-========================================================= */
-
-const aboutPixelImages =
-  document.querySelectorAll(
-    ".pixel-image"
-  );
-
-
-aboutPixelImages.forEach(
-  imageBox => {
-
-    imageBox.addEventListener(
-      "mousemove",
-      event => {
-
-        const image =
-          imageBox.querySelector(
-            "img"
-          );
-
-
-        if (!image) {
-          return;
-        }
-
-
-        const rect =
-          imageBox.getBoundingClientRect();
-
-
-        const moveX =
-          (
-            (
-              event.clientX -
-              rect.left
-            ) -
-            rect.width / 2
-          )
-          /
-          (
-            rect.width / 2
-          );
-
-
-        const moveY =
-          (
-            (
-              event.clientY -
-              rect.top
-            ) -
-            rect.height / 2
-          )
-          /
-          (
-            rect.height / 2
-          );
-
-
-        image.style.transform =
-          `
-            scale(1.025)
-            translate(
-              ${moveX * -4}px,
-              ${moveY * -4}px
-            )
-          `;
-
-      }
-    );
-
-
-    imageBox.addEventListener(
-      "mouseleave",
-      () => {
-
-        const image =
-          imageBox.querySelector(
-            "img"
-          );
-
-
-        if (image) {
-
-          image.style.transform =
-            "scale(1)";
-
-        }
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   ABOUT HERO PARALLAX
-========================================================= */
-
-const aboutHero =
-  document.querySelector(
-    ".about-new-hero"
-  );
-
-
-const aboutHeroTitle =
-  document.querySelector(
-    ".about-new-title"
-  );
-
-
-if (
-  aboutHero &&
-  aboutHeroTitle
-) {
-
-  window.addEventListener(
-    "scroll",
-    () => {
-
-      const heroRect =
-        aboutHero
-          .getBoundingClientRect();
-
-
-      if (
-        heroRect.bottom > 0
-      ) {
-
-        const scrolled =
-          Math.max(
-            0,
-            -heroRect.top
-          );
-
-
-        aboutHeroTitle.style.transform =
-          `translateY(${scrolled * 0.13}px)`;
-
-      }
-
-    },
-    {
-      passive: true
-    }
-  );
-
-}
-
-/* =========================================================
-   UNIVERSAL MENU — WORKS ON EVERY PAGE
-   HOME + ALL CPE PAGES
-========================================================= */
-
-(function initUniversalMenu() {
-
-  const menuLinks = [
-    ["index.html#home", "Home", "00"],
-    ["about-cpe.html", "About CpE", "01"],
-    ["cpe-at-ue.html", "CpE at UE", "02"],
-    ["specialization.html", "Specialization", "03"],
-    ["careers.html", "CpE Careers", "04"],
-    ["faculty.html", "Faculty", "05"],
-    ["scpes.html", "SCPES", "06"],
-    ["projects.html", "Student Projects", "07"],
-    ["events.html", "Events & Activities", "08"]
-  ];
-
-  /* ---------------------------------------------------------
-     CURRENT PAGE
-  --------------------------------------------------------- */
-
-  const currentFile =
-    window.location.pathname
-      .split("/")
-      .pop()
-      .toLowerCase() || "index.html";
-
-
-  /* ---------------------------------------------------------
-     GET TOPBAR
-  --------------------------------------------------------- */
-
-  const topbar =
-    document.querySelector(".topbar");
-
-  if (!topbar) {
     return;
+
   }
 
 
-  /* ---------------------------------------------------------
-     GET / CREATE MENU CHECKBOX
-  --------------------------------------------------------- */
-
-  let menuToggle =
-    document.getElementById("menu-toggle");
+  const rect =
+    programHighlights.getBoundingClientRect();
 
 
   /*
-     If an incorrect element has the menu-toggle ID,
-     remove it first.
+    SCRAMBLE STARTS WHEN THE
+    PROGRAM HIGHLIGHTS SECTION
+    REACHES THIS POINT.
   */
+
+  const enterPoint =
+    window.innerHeight *
+    0.78;
+
+
+  const isInside =
+    rect.top <= enterPoint &&
+    rect.bottom > 0;
+
+
+  /* ===================================================
+     ENTER PROGRAM HIGHLIGHTS
+  =================================================== */
 
   if (
-    menuToggle &&
-    menuToggle.tagName !== "INPUT"
+    isInside &&
+    !specializationInside
   ) {
 
-    menuToggle.removeAttribute("id");
-    menuToggle.remove();
+    specializationInside =
+      true;
 
-    menuToggle = null;
-  }
 
+    /*
+      FIRST SHOW RANDOM LETTERS
+    */
 
-  /*
-     Create the checkbox if the page does not have one.
-  */
+    resetSpecializationScramble();
 
-  if (!menuToggle) {
 
-    menuToggle =
-      document.createElement("input");
+    /*
+      THEN TURN THEM INTO
+      THEIR REAL WORDS
+    */
 
-    menuToggle.type =
-      "checkbox";
-
-    menuToggle.id =
-      "menu-toggle";
-
-    menuToggle.className =
-      "menu-toggle";
-
-    menuToggle.setAttribute(
-      "aria-label",
-      "Toggle menu"
-    );
-  }
-
-
-  /*
-     IMPORTANT:
-     The checkbox MUST be immediately before the topbar.
-  */
-
-  if (
-    menuToggle.parentNode !==
-      topbar.parentNode ||
-    menuToggle.nextElementSibling !==
-      topbar
-  ) {
-
-    topbar.parentNode.insertBefore(
-      menuToggle,
-      topbar
-    );
-  }
-
-
-  /* ---------------------------------------------------------
-     CREATE / KEEP MENU BUTTON
-  --------------------------------------------------------- */
-
-  let menuButton =
-    topbar.querySelector(
-      'label[for="menu-toggle"]'
-    );
-
-
-  /*
-     Make sure we don't accidentally use
-     the Close button as MENU +.
-  */
-
-  if (
-    menuButton &&
-    menuButton.classList.contains(
-      "menu-close-btn"
-    )
-  ) {
-
-    menuButton = null;
-  }
-
-
-  if (!menuButton) {
-
-    const oldButton =
-      topbar.querySelector(
-        ".menu-toggle-btn, button.menu-toggle"
-      );
-
-    if (oldButton) {
-      oldButton.remove();
-    }
-
-
-    menuButton =
-      document.createElement("label");
-
-    menuButton.className =
-      "menu-open-btn";
-
-    menuButton.setAttribute(
-      "for",
-      "menu-toggle"
-    );
-
-    menuButton.setAttribute(
-      "aria-label",
-      "Open menu"
-    );
-
-    menuButton.textContent =
-      "MENU +";
-
-    topbar.appendChild(
-      menuButton
-    );
-  }
-
-
-  /* ---------------------------------------------------------
-     FIND / CREATE FULLSCREEN MENU
-  --------------------------------------------------------- */
-
-  let fullscreenMenu =
-    document.querySelector(
-      ".fullscreen-menu"
-    );
-
-
-  if (!fullscreenMenu) {
-
-    fullscreenMenu =
-      document.createElement("div");
-
-    fullscreenMenu.className =
-      "fullscreen-menu";
-
-    fullscreenMenu.setAttribute(
-      "aria-label",
-      "Main navigation"
-    );
-  }
-
-
-  /* ---------------------------------------------------------
-     HOME LOGIC
-
-     index.html:
-       Home is hidden.
-
-     Every other page:
-       Home appears at the top.
-  --------------------------------------------------------- */
-
-  const showHome =
-    currentFile !== "index.html";
-
-
-  /* ---------------------------------------------------------
-     BUILD MENU ITEMS
-  --------------------------------------------------------- */
-
-  const menuItems =
-    menuLinks
-
-      .filter(([href]) => {
-
-        const baseHref =
-          href.split("#")[0];
-
-        /*
-           Don't show Home on the homepage.
-        */
-
-        return (
-          showHome ||
-          baseHref !== "index.html"
-        );
-      })
-
-      .map(
-        ([href, title, number]) => {
-
-          const baseHref =
-            href.split("#")[0];
-
-
-          const isCurrent =
-            currentFile === baseHref
-              ? " is-current-page"
-              : "";
-
-
-          return `
-            <a
-              href="${href}"
-              class="fullscreen-menu-link${isCurrent}">
-
-              <span class="menu-link-title">
-                ${title}
-              </span>
-
-              <span class="menu-link-number">
-                ${number}
-              </span>
-
-            </a>
-          `;
-        }
-      )
-
-      .join("");
-
-
-  /* ---------------------------------------------------------
-     BUILD FULLSCREEN MENU
-  --------------------------------------------------------- */
-
-  fullscreenMenu.innerHTML = `
-
-    <div class="fullscreen-menu-top">
-
-      <a
-        class="fullscreen-menu-brand"
-        href="index.html#home">
-
-        UE / CpE.
-
-      </a>
-
-
-      <label
-        class="menu-close-btn"
-        for="menu-toggle">
-
-        Close ×
-
-      </label>
-
-    </div>
-
-
-    <nav
-      class="fullscreen-menu-nav"
-      aria-label="Main navigation">
-
-      ${menuItems}
-
-    </nav>
-
-  `;
-
-
-  /* ---------------------------------------------------------
-     IMPORTANT FIX
-
-     Put the fullscreen menu directly after the topbar.
-     This makes:
-
-     #menu-toggle:checked ~ .fullscreen-menu
-
-     work correctly.
-  --------------------------------------------------------- */
-
-  topbar.parentNode.insertBefore(
-    fullscreenMenu,
-    topbar.nextSibling
-  );
-
-
-  /* ---------------------------------------------------------
-     MENU OPEN / CLOSE STATE
-  --------------------------------------------------------- */
-
-  function syncMenuState() {
-
-    const isOpen =
-      menuToggle.checked;
-
-
-    fullscreenMenu.classList.toggle(
-      "is-open",
-      isOpen
-    );
-
-
-    fullscreenMenu.setAttribute(
-      "aria-hidden",
-      String(!isOpen)
-    );
-
-
-    menuToggle.setAttribute(
-      "aria-expanded",
-      String(isOpen)
-    );
-
-
-    document.body.classList.toggle(
-      "menu-open",
-      isOpen
-    );
-  }
-
-
-  /* ---------------------------------------------------------
-     CHECKBOX CHANGE
-  --------------------------------------------------------- */
-
-  menuToggle.addEventListener(
-    "change",
-    syncMenuState
-  );
-
-
-  /* ---------------------------------------------------------
-     ESCAPE KEY
-  --------------------------------------------------------- */
-
-  document.addEventListener(
-    "keydown",
-    event => {
+    setTimeout(() => {
 
       if (
-        event.key === "Escape" &&
-        menuToggle.checked
+        specializationInside
       ) {
 
-        menuToggle.checked =
-          false;
+        startSpecializationScramble();
 
-        syncMenuState();
       }
 
-    }
-  );
+    }, 80);
 
-
-  /* ---------------------------------------------------------
-     CLOSE MENU AFTER NAVIGATION
-  --------------------------------------------------------- */
-
-  fullscreenMenu
-    .querySelectorAll(
-      ".fullscreen-menu-link"
-    )
-    .forEach(link => {
-
-      link.addEventListener(
-        "click",
-        () => {
-
-          menuToggle.checked =
-            false;
-
-          syncMenuState();
-        }
-      );
-
-    });
-
-
-  /* ---------------------------------------------------------
-     INITIAL STATE
-  --------------------------------------------------------- */
-
-  syncMenuState();
-
-})();
-
-/* =========================================================
-   EXPLORE CPE — SCROLL DOWN REVEAL
-========================================================= */
-
-const featuredSection =
-  document.querySelector(".featured-section");
-
-if (featuredSection) {
-
-  const featuredCards =
-    featuredSection.querySelectorAll("[data-featured-card]");
-
-  let lastScrollY = window.scrollY;
-  let revealLocked = false;
-
-  featuredCards.forEach((card, index) => {
-    card.style.setProperty(
-      "--featured-delay",
-      `${0.08 + index * 0.07}s`
-    );
-  });
-
-  const revealFeatured = () => {
-    if (revealLocked) return;
-    revealLocked = true;
-    featuredSection.classList.add("is-revealed");
-  };
-
-  const featuredObserver =
-    new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const currentScrollY = window.scrollY;
-        const scrollingDown = currentScrollY > lastScrollY;
-        lastScrollY = currentScrollY;
-
-        if (entry.isIntersecting && scrollingDown) {
-          revealFeatured();
-          featuredObserver.unobserve(featuredSection);
-        }
-      });
-    }, {
-      threshold: 0.16,
-      rootMargin: "0px 0px -10% 0px"
-    });
-
-  featuredObserver.observe(featuredSection);
-
-  window.addEventListener("scroll", () => {
-    if (revealLocked) return;
-
-    const rect = featuredSection.getBoundingClientRect();
-    const scrollingDown = window.scrollY > lastScrollY;
-    lastScrollY = window.scrollY;
-
-    if (
-      scrollingDown &&
-      rect.top < window.innerHeight * 0.72 &&
-      rect.bottom > window.innerHeight * 0.18
-    ) {
-      revealFeatured();
-      featuredObserver.unobserve(featuredSection);
-    }
-  }, { passive: true });
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    featuredSection.classList.add("is-revealed");
-    revealLocked = true;
   }
+
+
+  /* ===================================================
+     LEAVE PROGRAM HIGHLIGHTS
+  =================================================== */
+
+  if (
+    !isInside &&
+    specializationInside
+  ) {
+
+    specializationInside =
+      false;
+
+
+    /*
+      SCRAMBLE AGAIN WHEN
+      USER LEAVES THE SECTION
+    */
+
+    resetSpecializationScramble();
+
+  }
+
 }
+
+
+/* =====================================================
+   RUN WHEN SCROLLING
+===================================================== */
+
+window.addEventListener(
+  "scroll",
+  updateSpecializationScramble,
+  {
+    passive: true
+  }
+);
+
+
+/* =====================================================
+   RUN WHEN RESIZING
+===================================================== */
+
+window.addEventListener(
+  "resize",
+  updateSpecializationScramble
+);
+
+
+/* =====================================================
+   INITIAL CHECK
+===================================================== */
+
+updateSpecializationScramble();

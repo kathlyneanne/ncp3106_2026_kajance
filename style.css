@@ -1638,11 +1638,11 @@ main {
     0;
 
   font-family:
-    "Space Grotesk",
+    "Anton",
     sans-serif;
 
   font-size:
-    clamp(2.8rem, 7vw, 6.8rem);
+    clamp(3.0rem, 9vw, 7rem);
 
   font-weight:
     500;
@@ -2198,6 +2198,7 @@ footer {
     0
     70px;
 }
+
 
 
 /* =========================================================
@@ -2928,142 +2929,171 @@ footer {
 
 /* =========================================================
    PROGRAM HIGHLIGHTS
-   REFERENCE DESIGN — BLACK / WHITE HOVER WIPE
-   ONLY THIS HOMEPAGE SECTION
+   Final homepage section
 ========================================================= */
 
 .program-highlights {
   position: relative;
   min-height: 100vh;
-  padding: 105px 0 0;
+  padding: 120px 0 90px;
   overflow: hidden;
-  background: #0b0b0b;
-  background-image: none;
-  color: #f5f3ed;
   isolation: isolate;
+
+  /*
+    Starts with the same light background as Explore CpE.
+    While you scroll into this section, it gradually becomes black.
+  */
+  background: var(--bg);
+  color: #f4f1e9;
+
+  view-timeline-name: --program-highlights-bg;
+  view-timeline-axis: block;
+
+  animation-name: programHighlightsBackground;
+  animation-duration: 1ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+
+  animation-timeline: --program-highlights-bg;
+
+  /*
+    Change 70% if you want the background to turn black
+    faster or slower while entering the section.
+  */
+  animation-range:
+    entry 0%
+    entry 70%;
 }
 
-/* GRID BACKGROUND */
+@keyframes programHighlightsBackground {
+
+  0% {
+    background: var(--bg);
+  }
+
+  18% {
+    background: #ddd9d0;
+  }
+
+  38% {
+    background: #aaa69f;
+  }
+
+  58% {
+    background: #66635f;
+  }
+
+  78% {
+    background: #292929;
+  }
+
+  100% {
+    background: #0b0b0b;
+  }
+
+}
+
+
 .program-highlights::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  background-image:
-    linear-gradient(
-      rgba(245,243,237,.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(245,243,237,.035) 1px,
-      transparent 1px
-    );
-
-  background-size: 72px 72px;
-  opacity: .45;
+  z-index: -2;
+  opacity: .13;
+  background:
+    linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
 }
 
-/* LARGE CIRCULAR DETAIL */
 .program-highlights::after {
   content: "";
   position: absolute;
-
-  width: 720px;
-  height: 720px;
-
-  right: -180px;
-  bottom: -360px;
-
-  border: 1px solid rgba(245,243,237,.10);
+  width: 42vw;
+  height: 42vw;
+  right: -15vw;
+  bottom: -20vw;
+  z-index: -1;
   border-radius: 50%;
-
+  border: 1px solid rgba(244,241,233,.16);
   box-shadow:
-    0 0 0 85px rgba(245,243,237,.018),
-    0 0 0 170px rgba(245,243,237,.012);
+    0 0 0 70px rgba(244,241,233,.025),
+    0 0 0 140px rgba(244,241,233,.018),
+    0 0 0 210px rgba(244,241,233,.012);
+  animation: highlightOrb 12s ease-in-out infinite alternate;
+}
 
+.highlights-orbit {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgba(244,241,233,.12);
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
 }
 
-.program-highlights .container-fluid {
-  position: relative;
-  z-index: 3;
+.highlights-orbit-one {
+  width: 220px;
+  height: 220px;
+  left: -80px;
+  top: 28%;
+  animation: highlightFloat 8s ease-in-out infinite;
 }
 
-
-/* =========================================================
-   HEADING
-========================================================= */
+.highlights-orbit-two {
+  width: 90px;
+  height: 90px;
+  left: 18%;
+  bottom: 8%;
+  animation: highlightFloat 6s ease-in-out infinite reverse;
+}
 
 .highlights-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-
-  align-items: start;
-
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, .65fr);
   gap: 70px;
-  margin-bottom: 48px;
+  align-items: end;
+  padding-bottom: 55px;
+  border-bottom: 1px solid rgba(244,241,233,.22);
 }
 
 .highlights-kicker {
   margin: 0 0 22px;
-
-  color: rgba(245,243,237,.55);
-
-  font-size: .68rem;
-  font-weight: 600;
-
+  font-size: .72rem;
   letter-spacing: .18em;
-  text-transform: uppercase;
+  color: rgba(244,241,233,.55);
 }
 
 .highlights-head h2 {
   margin: 0;
-
+  max-width: 900px;
   font-family: "Space Grotesk", sans-serif;
-
-  font-size: clamp(4.5rem, 9.2vw, 10.5rem);
+  font-size: clamp(4rem, 8vw, 9rem);
   font-weight: 500;
-
   line-height: .78;
   letter-spacing: -.075em;
-
-  white-space: nowrap;
 }
 
-/* OUTLINE SPECIALIZATIONS */
-.highlights-head h2 .scramble-scroll {
+.highlights-head h2 span {
+  display: block;
   color: transparent;
-  -webkit-text-stroke: 1.35px rgba(245,243,237,.70);
+  -webkit-text-stroke: 1px rgba(244,241,233,.65);
 }
 
 .highlights-intro {
-  max-width: 390px;
-
-  margin: 2px 0 0 auto;
-
-  color: rgba(245,243,237,.62);
-
-  font-size: .92rem;
+  margin: 0;
+  max-width: 430px;
+  font-size: clamp(.95rem, 1.2vw, 1.15rem);
   line-height: 1.65;
+  color: rgba(244,241,233,.62);
 }
 
 
-/* =========================================================
-   FIVE VERTICAL PANELS
-========================================================= */
-
 .highlights-grid {
-  position: relative;
-
   display: flex;
-  flex-wrap: nowrap;
-
-  border-top: 1px solid rgba(245,243,237,.22);
-  border-left: 1px solid rgba(245,243,237,.22);
+  flex-wrap: wrap;
+  border-left: 1px solid rgba(244,241,233,.20);
 }
 
 .highlight-card {
@@ -3383,6 +3413,101 @@ footer {
 }
 
 
+/*
+  Keep this bottom strip fully visible.
+  It no longer blurs/fades while scrolling.
+*/
+.highlights-bottom {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+}
+
+@keyframes highlightReveal {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes highlightOrb {
+  from { transform: translate3d(0, 0, 0) scale(.92); }
+  to { transform: translate3d(-50px, -30px, 0) scale(1.08); }
+}
+
+@keyframes highlightFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-24px) rotate(12deg); }
+}
+
+@media (max-width: 1100px) {
+  .highlight-card {
+    min-height: 430px;
+  }
+
+  .highlights-bottom {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .highlights-cta {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .program-highlights {
+    padding: 90px 0 60px;
+  }
+
+  .highlights-head {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-bottom: 38px;
+  }
+
+  .highlight-card {
+    min-height: 380px;
+  }
+
+  .highlights-bottom {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .highlights-cta {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-highlights::after,
+  .highlights-orbit {
+    animation: none;
+  }
+
+  .highlight-card,
+  .highlight-icon,
+  .highlight-arrow {
+    transition-duration: .01ms;
+  }
+}
+
+
+@supports not (animation-timeline: view()) {
+  .program-highlights {
+    background: #0b0b0b;
+  }
+}
+
+
+
 /* =========================================================
    05 / ARTIFICIAL INTELLIGENCE ICON
    Added only for the fifth card.
@@ -3432,6 +3557,169 @@ footer {
 .highlight-card:hover .highlight-ai span {
   background: #f4f1e9;
 }
+
+
+/* =========================================================
+   TITLE SCROLL ANIMATIONS
+   Explore CpE + Find Your Field
+========================================================= */
+
+/*
+  EXPLORE CPE:
+  slides upward, sharpens from blur, and slightly expands
+  as the title enters the screen.
+*/
+.featured-heading-row h2 {
+  transform-origin: left center;
+  will-change: transform, opacity, filter, letter-spacing;
+}
+
+@supports (animation-timeline: view()) {
+
+  .featured-heading-row h2 {
+    animation-name: exploreTitleReveal;
+    animation-duration: 1ms;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 34%;
+  }
+
+  /*
+    FIND YOUR FIELD:
+    stronger reveal because it enters the dark section.
+  */
+  .highlights-head h2 {
+    transform-origin: left bottom;
+    will-change: transform, opacity, filter, letter-spacing;
+    animation-name: fieldTitleReveal;
+    animation-duration: 1ms;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 38%;
+  }
+
+  .highlights-head h2 span {
+    display: block;
+    will-change: transform, opacity;
+    animation-name: fieldOutlineReveal;
+    animation-duration: 1ms;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: view();
+    animation-range: entry 8% cover 44%;
+  }
+}
+
+
+@keyframes exploreTitleReveal {
+
+  0% {
+    opacity: 0;
+    transform:
+      translateY(80px)
+      scale(.92)
+      skewY(4deg);
+
+    filter: blur(10px);
+    letter-spacing: -.10em;
+  }
+
+  45% {
+    opacity: .65;
+
+    filter: blur(3px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1)
+      skewY(0deg);
+
+    filter: blur(0);
+    letter-spacing: -.06em;
+  }
+}
+
+
+@keyframes fieldTitleReveal {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateX(-70px)
+      translateY(55px)
+      scale(.9);
+
+    filter: blur(11px);
+
+    letter-spacing: -.12em;
+  }
+
+  55% {
+    opacity: .72;
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(1);
+
+    filter: blur(0);
+
+    letter-spacing: -.075em;
+  }
+}
+
+
+@keyframes fieldOutlineReveal {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateX(120px);
+
+    -webkit-text-stroke-color:
+      rgba(244, 241, 233, 0);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+
+    -webkit-text-stroke-color:
+      rgba(244, 241, 233, .65);
+  }
+}
+
+
+/*
+  Fallback for browsers without CSS scroll-driven animations.
+*/
+@supports not (animation-timeline: view()) {
+
+  .featured-heading-row h2,
+  .highlights-head h2,
+  .highlights-head h2 span {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+
+
 
 /* =========================================================
    MENU + BUTTON
@@ -3901,138 +4189,313 @@ body:has(#menu-toggle:checked) {
 }
 
 /* =========================================================
-   EXPLORE CPE — SCROLL DOWN REVEAL
-   Added without changing the existing layout, menu, loader,
-   robot animation, or card hover design.
+   FEATURED PAGES
+   Bootstrap uneven collage
 ========================================================= */
 
 .featured-section {
   position: relative;
+
+  padding:
+    90px
+    24px
+    110px;
+
+  /*
+    IMPORTANT:
+    The Featured / Explore CpE section now STARTS BLACK,
+    matching the UE CpE section above it.
+
+    While the section enters the screen, the background
+    gradually changes from black -> gray -> light -> var(--bg).
+    This is controlled by SCROLL using CSS only.
+  */
+  background: #0b0b0b;
+
+  color: #0b0b0b;
+
   overflow: hidden;
   isolation: isolate;
+
+  view-timeline-name: --featured-bg-reveal;
+  view-timeline-axis: block;
+
+  animation-name: featuredBackgroundScroll;
+  animation-duration: 1ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+
+  animation-timeline: --featured-bg-reveal;
+
+  /*
+    Change these percentages if you want the
+    black -> white transition to finish earlier/later.
+  */
+  animation-range:
+    entry 0%
+    entry 85%;
 }
 
-.featured-section::after {
+
+/* =========================================================
+   FEATURED / EXPLORE CPE
+   SCROLL-DRIVEN BLACK -> WHITE BACKGROUND
+   NO JAVASCRIPT NEEDED
+========================================================= */
+
+@keyframes featuredBackgroundScroll {
+
+  0% {
+    background: #0b0b0b;
+  }
+
+  20% {
+    background: #1f1f1f;
+  }
+
+  42% {
+    background: #5f5e5a;
+  }
+
+  62% {
+    background: #aaa7a0;
+  }
+
+  82% {
+    background: #dedbd3;
+  }
+
+  100% {
+    background: var(--bg);
+  }
+
+}
+
+
+/*
+  Soft light bloom that appears during the transition.
+  This prevents the black -> light change from looking flat.
+*/
+.featured-section::before {
   content: "";
+
   position: absolute;
-  inset: 0;
-  z-index: 10;
+
+  z-index: -1;
+
+  left: 50%;
+  top: -30vh;
+
+  width: 120vw;
+  height: 85vh;
+
+  transform:
+    translateX(-50%)
+    scale(.35);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(245, 243, 237, .95) 0%,
+      rgba(245, 243, 237, .55) 35%,
+      rgba(245, 243, 237, .15) 58%,
+      rgba(245, 243, 237, 0) 74%
+    );
+
+  opacity: 0;
+
+  filter: blur(18px);
+
   pointer-events: none;
-  background: var(--bg);
-  transform: translateY(0);
-  transition: transform 1.05s cubic-bezier(.16, 1, .3, 1);
+
+  animation-name: featuredLightBloom;
+  animation-duration: 1ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+
+  animation-timeline: --featured-bg-reveal;
+
+  animation-range:
+    entry 0%
+    entry 85%;
 }
 
-.featured-section.is-revealed::after {
-  transform: translateY(-100%);
-}
 
-.featured-section .featured-heading {
-  opacity: 0;
-  transform: translateY(70px);
-  transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1);
-}
+@keyframes featuredLightBloom {
 
-.featured-section.is-revealed .featured-heading {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .18s;
-}
-
-.featured-section .featured-kicker {
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity .55s ease, transform .65s cubic-bezier(.16, 1, .3, 1);
-}
-
-.featured-section.is-revealed .featured-kicker {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .28s;
-}
-
-.featured-section .featured-heading-row h2 {
-  opacity: 0;
-  transform: translateY(55px);
-  transition: opacity .75s cubic-bezier(.16, 1, .3, 1), transform .85s cubic-bezier(.16, 1, .3, 1);
-}
-
-.featured-section.is-revealed .featured-heading-row h2 {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .34s;
-}
-
-.featured-section .featured-collage {
-  opacity: 0;
-  transform: translateY(80px);
-  transition: opacity .85s cubic-bezier(.16, 1, .3, 1), transform 1s cubic-bezier(.16, 1, .3, 1);
-}
-
-.featured-section.is-revealed .featured-collage {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .24s;
-}
-
-.featured-section .featured-card {
-  opacity: 0;
-  transform: translateY(75px) scale(.975);
-  transition: opacity .72s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1);
-  transition-delay: 0s;
-}
-
-.featured-section.is-revealed .featured-card {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  transition-delay: var(--featured-delay, .1s);
-}
-
-.featured-section .featured-card-img {
-  transform: scale(1.06);
-}
-
-.featured-section.is-revealed .featured-card-img {
-  transform: scale(1.001);
-  transition-delay: calc(var(--featured-delay, .1s) + .05s);
-}
-
-.featured-section .featured-card:hover .featured-card-img {
-  transform: scale(1.04);
-}
-
-@media (max-width: 767px) {
-  .featured-section .featured-card {
-    transform: translateY(55px) scale(.98);
+  0% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(.35);
   }
 
-  .featured-section.is-revealed .featured-card {
-    transform: translateY(0) scale(1);
+  35% {
+    opacity: .18;
   }
+
+  70% {
+    opacity: .65;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      scale(1.35);
+  }
+
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .featured-section::after,
-  .featured-section .featured-heading,
-  .featured-section .featured-kicker,
-  .featured-section .featured-heading-row h2,
-  .featured-section .featured-collage,
-  .featured-section .featured-card,
-  .featured-section .featured-card-img {
-    transition: none !important;
-    animation: none !important;
+
+/*
+  Explore CpE heading appears as the background becomes light.
+*/
+.featured-heading {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 30px;
+
+  animation-name: featuredHeadingReveal;
+  animation-duration: 1ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+
+  animation-timeline: --featured-bg-reveal;
+
+  animation-range:
+    entry 35%
+    entry 90%;
+}
+
+
+@keyframes featuredHeadingReveal {
+
+  0% {
+    opacity: 0;
+    transform: translateY(42px);
+    filter: blur(8px);
   }
 
-  .featured-section::after {
-    transform: translateY(-100%);
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 
-  .featured-section .featured-heading,
-  .featured-section .featured-kicker,
-  .featured-section .featured-heading-row h2,
-  .featured-section .featured-collage,
-  .featured-section .featured-card {
+}
+
+
+/*
+  Cards follow the heading a little later.
+*/
+.featured-collage {
+  position: relative;
+  z-index: 2;
+
+  animation-name: featuredCardsReveal;
+  animation-duration: 1ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+
+  animation-timeline: --featured-bg-reveal;
+
+  animation-range:
+    entry 55%
+    entry 100%;
+}
+
+
+@keyframes featuredCardsReveal {
+
+  0% {
+    opacity: 0;
+    transform: translateY(55px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/*
+  Fallback for browsers that do not support
+  scroll-driven CSS animations.
+*/
+@supports not (animation-timeline: view()) {
+
+  .featured-section {
+    background: var(--bg);
+  }
+
+  .featured-heading,
+  .featured-collage {
     opacity: 1;
     transform: none;
+    filter: none;
+  }
+
+  .featured-section::before {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   INDEPENDENT CPE STICKY SECTIONS
+
+   01 and 02 now scroll independently.
+   02 / UE CPE gets its own sticky screen and enough
+   scroll space for its description to finish before
+   Featured / Explore CpE can appear.
+========================================================= */
+
+.cpe-scroll-section-main {
+  min-height: 330vh;
+}
+
+.cpe-scroll-section-ue {
+  min-height: 350vh;
+  background: #0b0b0b;
+}
+
+.cpe-scroll-section-ue::before {
+  clip-path: inset(0 0 0 0);
+}
+
+.cpe-scroll-section-ue .cpe-scroll-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+}
+
+.cpe-scroll-section-ue .cpe-scroll-block-ue {
+  margin-top: 0;
+}
+
+/* Keep the UE section in front while it is sticky. */
+.cpe-scroll-section-ue {
+  isolation: isolate;
+  z-index: 1;
+}
+
+.cpe-scroll-section-ue.reading-complete .scroll-word {
+  color: #f4f4f4;
+}
+
+@media (max-width: 991px) {
+  .cpe-scroll-section-main {
+    min-height: 300vh;
+  }
+
+  .cpe-scroll-section-ue {
+    min-height: 350vh;
   }
 }
