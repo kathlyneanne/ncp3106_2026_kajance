@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CpE at UE | UE CpE</title>
+
+    <!-- BOOTSTRAP -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- YOUR PAGE CSS -->
+    <link rel="stylesheet" href="cpe-at-ue.css">
+    <!-- BACK TO EXPLORE CPE BUTTON -->
+    <style>
+        .back-explore-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 110px;
+            padding-bottom: 90px;
+        }
+
+        .back-explore-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 245px;
+            height: 54px;
+            padding: 0 24px;
+            border: 1px solid #202124;
+            background: transparent;
+            color: #202124;
+            text-decoration: none;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            transition: background 350ms ease, color 350ms ease, transform 350ms cubic-bezier(.16,1,.3,1);
+        }
+
+        .back-explore-button span:first-child {
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 350ms cubic-bezier(.16,1,.3,1);
+        }
+
+        .back-explore-button:hover {
+            background: #202124;
+            color: #f4f1e9;
+            transform: translateY(-3px);
+        }
+
+        .back-explore-button:hover span:first-child {
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .back-explore-wrap {
+                margin-top: 80px;
+                padding-bottom: 70px;
+            }
+
+            .back-explore-button {
+                min-width: 220px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     PIXEL CURSOR
+===================================================== -->
+
+<div class="pixel-cursor"></div>
+<div class="pixel-cursor-trail"></div>
+
+
+<!-- =====================================================
+     PAGE LOADER
+===================================================== -->
+
+<div id="page-loader">
+
+    <div class="loader-grid"></div>
+
+    <div class="loader-content">
+
+        <div class="loader-small">
+            UNIVERSITY OF THE EAST
+        </div>
+
+        <div class="loader-title">
+            CpE
+        </div>
+
+        <div class="loader-line">
+            <span></span>
+        </div>
+
+        <div class="loader-status">
+            LOADING / 02
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FIXED HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="brand">
+        UE / CpE.
+    </div>
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+    >
+        <span>MENU</span>
+        <span class="menu-symbol">+</span>
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     MENU OVERLAY
+===================================================== -->
+
+<div class="menu-overlay" id="menuOverlay">
+
+    <div class="menu-top">
+
+        <div class="menu-label">
+            UE / CpE.
+        </div>
+
+        <button
+            class="close-menu"
+            id="closeMenu"
+            type="button"
+        >
+            CLOSE ×
+        </button>
+
+    </div>
+
+    <div class="menu-list">
+
+
+
+        <a href="about-cpe.html" class="menu-item">
+
+            <span class="menu-number">01</span>
+
+            <span class="menu-name">
+                About CpE
+            </span>
+
+        </a>
+
+
+        <a href="cpe-at-ue.html" class="menu-item active">
+
+            <span class="menu-number">02</span>
+
+            <span class="menu-name">
+                CpE at UE
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <span class="menu-number">03</span>
+
+            <span class="menu-name">
+                Specialization
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <span class="menu-number">04</span>
+
+            <span class="menu-name">
+                CpE Careers
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <span class="menu-number">05</span>
+
+            <span class="menu-name">
+                Faculty
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <span class="menu-number">06</span>
+
+            <span class="menu-name">
+                SCPES
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <span class="menu-number">07</span>
+
+            <span class="menu-name">
+                Student Projects
+            </span>
+
+        </a>
+
+
+        <a href="#" class="menu-item">
+
+            <span class="menu-number">08</span>
+
+            <span class="menu-name">
+                Events & Activities
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main>
+
+<section class="hero-section">
+
+    <div class="hero-grid"></div>
+
+    <div class="hero-orbit orbit-one"></div>
+    <div class="hero-orbit orbit-two"></div>
+    <div class="hero-orbit orbit-three"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-index">
+           UNIVERSITY OF THE EAST
+        </div>
+
+        <div class="hero-cpe">
+
+            <span class="hero-letter c">C</span>
+            <span class="hero-letter p">p</span>
+            <span class="hero-letter e">E</span>
+
+        </div>
+
+        <div class="hero-caption">
+
+            <div class="caption-line"></div>
+
+            <p>
+                COMPUTER ENGINEERING
+                <br>
+                AT THE UNIVERSITY OF THE EAST
+            </p>
+
+        </div>
+
+        <div class="hero-description">
+
+            Discover the BS Computer Engineering program
+            at the University of the East — where computing,
+            electronics, systems, and innovation meet.
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-scroll">
+
+        <span>
+            SCROLL TO EXPLORE
+        </span>
+
+        <div class="scroll-circle">
+            ↓
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     01 / PROGRAM OVERVIEW
+===================================================== -->
+
+<section class="content-section section-one" id="overview">
+
+    <div class="container-fluid">
+
+        <div class="section-heading">
+
+ <div>
+            <div>
+                <span class="eyebrow">
+                    PROGRAM
+                </span>
+
+                <h2>
+                    A PROGRAM BUILT
+                    <br>
+                    FOR THE DIGITAL WORLD.
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-5">
+
+                <div class="large-statement reveal">
+
+                    The BS Computer Engineering
+                    program combines computing,
+                    electronics, systems, and
+                    innovation.
+
+                </div>
+
+                <p class="section-text reveal">
+
+                    The program provides students with
+                    learning experiences designed to
+                    develop knowledge and skills related
+                    to Computer Engineering.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-7">
+
+                <!-- PICTURE INSERTIONS -->
+
+                <div class="image-grid four-images reveal">
+
+                    <div class="image-slot image-large">
+
+                        <!-- INSERT YOUR PICTURE HERE -->
+
+                        <img
+                            src="assets/cpe-ue-01.jpg"
+                            alt="Computer Engineering at UE"
+                        >
+
+                        <span class="image-label">
+                            PROGRAM
+                        </span>
+
+                    </div>
+
+
+                    <div class="image-slot">
+
+                        <img
+                            src="assets/cpe-ue-02.jpg"
+                            alt="Computer Engineering"
+                        >
+
+                        <span class="image-label">
+                            LEARNING
+                        </span>
+
+                    </div>
+
+
+                    <div class="image-slot">
+
+                        <img
+                            src="assets/cpe-ue-03.jpg"
+                            alt="CpE Students"
+                        >
+
+                        <span class="image-label">
+                            STUDENTS
+                        </span>
+
+                    </div>
+
+
+            
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     02 / PROGRAM OBJECTIVES
+===================================================== -->
+
+<section class="content-section objective-section">
+
+    <div class="container-fluid">
+
+        <div class="section-heading">
+
+           <div></div>
+            <div>
+                <span class="eyebrow">
+                    OBJECTIVES
+                </span>
+
+                <h2>
+                    LEARNING WITH
+                    <br>
+                    PURPOSE.
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="objective-layout">
+
+            <div class="objective-intro reveal">
+
+              
+
+                <p>
+                    The program focuses on developing
+                    students through academic learning,
+                    practical experiences, and
+                    Computer Engineering activities.
+                </p>
+
+            </div>
+
+
+            <div class="objective-list">
+
+                <div class="objective-row reveal">
+
+                    <span>01</span>
+
+                    <div>
+                        <h3>
+                            UNDERSTANDING
+                        </h3>
+
+                        <p>
+                            Build knowledge related to
+                            Computer Engineering.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="objective-row reveal">
+
+                    <span>02</span>
+
+                    <div>
+                        <h3>
+                            SKILL DEVELOPMENT
+                        </h3>
+
+                        <p>
+                            Develop skills through
+                            academic and practical
+                            learning experiences.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="objective-row reveal">
+
+                    <span>03</span>
+
+                    <div>
+                        <h3>
+                            INNOVATION
+                        </h3>
+
+                        <p>
+                            Encourage students to explore
+                            technology and innovative ideas.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     03 / SKILLS
+===================================================== -->
+
+<section class="content-section skills-section">
+
+    <div class="container-fluid">
+
+        <div class="section-heading">
+
+           
+
+            <div>
+                <span class="eyebrow">
+                    SKILLS
+                </span>
+</div>
+                <h2>
+                    WHAT STUDENTS
+                    <br>
+                    DEVELOP.
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="bootstrap-card reveal">
+
+                    <div class="card-top">
+                        01
+                    </div>
+
+                    <div class="card-icon">
+                        &lt;/&gt;
+                    </div>
+
+                    <h3>
+                        COMPUTING
+                    </h3>
+
+                    <p>
+                        Build knowledge and skills
+                        related to computing and
+                        computer systems.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="bootstrap-card reveal">
+
+                    <div class="card-top">
+                        02
+                    </div>
+
+                    <div class="card-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        ELECTRONICS
+                    </h3>
+
+                    <p>
+                        Explore concepts connected
+                        to electronics and
+                        engineering systems.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="bootstrap-card reveal">
+
+                    <div class="card-top">
+                        03
+                    </div>
+
+                    <div class="card-icon">
+                        ⌁
+                    </div>
+
+                    <h3>
+                        SYSTEMS
+                    </h3>
+
+                    <p>
+                        Develop an understanding of
+                        systems and how different
+                        technologies work together.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="bootstrap-card reveal">
+
+                    <div class="card-top">
+                        04
+                    </div>
+
+                    <div class="card-icon">
+                        +
+                    </div>
+
+                    <h3>
+                        INNOVATION
+                    </h3>
+
+                    <p>
+                        Encourage creative thinking,
+                        exploration, and technology-based
+                        ideas.
+                    </p>
+
+                    <div class="card-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     04 / LEARNING EXPERIENCES
+===================================================== -->
+
+<section class="content-section learning-section">
+
+    <div class="container-fluid">
+
+        <div class="learning-panel reveal">
+
+           
+
+            <div class="learning-content">
+
+                <span class="eyebrow">
+                    LEARNING EXPERIENCES
+                </span>
+
+                <h2>
+                    LEARN.
+                    <br>
+                    BUILD.
+                    <br>
+                    EXPLORE.
+                </h2>
+
+                <p>
+                    Computer Engineering students
+                    experience learning through academic
+                    activities, practical work, projects,
+                    laboratories, and technology-focused
+                    activities.
+                </p>
+
+            </div>
+
+            <div class="learning-decoration">
+
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     05 / LABORATORIES & FACILITIES
+===================================================== -->
+
+<section class="content-section facilities-section">
+
+    <div class="container-fluid">
+
+        <div class="section-heading">
+
+           
+          <div></div>
+
+            <div>
+                <span class="eyebrow">
+                    FACILITIES
+                </span>
+
+                <h2>
+                    SPACES TO
+                    <br>
+                    LEARN & BUILD.
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- FACILITY IMAGE 1 -->
+
+            <div class="col-lg-6">
+
+                <div class="facility-card reveal">
+
+                    <div class="facility-image">
+
+                        <img
+                            src="assets/facility-01.jpg"
+                            alt="UE CpE Facility"
+                        >
+
+                    </div>
+
+                    <div class="facility-info">
+
+                        
+
+                        <h3>
+                            COMPUTER ENGINEERING
+                            LABORATORY
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FACILITY IMAGE 2 -->
+
+            <div class="col-lg-6">
+
+                <div class="facility-card reveal">
+
+                    <div class="facility-image">
+
+                        <img
+                            src="assets/facility-02.jpg"
+                            alt="UE Laboratory"
+                        >
+
+                    </div>
+
+                    <div class="facility-info">
+
+                    
+
+                        <h3>
+                            LIBRARY & STUDY AREA
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FACILITY IMAGE 3 -->
+
+            <div class="col-lg-6">
+
+                <div class="facility-card reveal">
+
+                    <div class="facility-image">
+
+                        <img
+                            src="assets/facility-03.jpg"
+                            alt="UE Computer Laboratory"
+                        >
+
+
+                    </div>
+
+                    <div class="facility-info">
+
+                        
+                        <h3>
+                            TECHNOLOGY SPACE
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FACILITY IMAGE 4 -->
+
+            <div class="col-lg-6">
+
+                <div class="facility-card reveal">
+
+                    <div class="facility-image">
+
+                        <img
+                            src="assets/facility-04.jpg"
+                            alt="UE Engineering Facility"
+                        >
+
+                        
+
+                    </div>
+
+                    <div class="facility-info">
+
+                    
+
+                        <h3>
+                            ENGINEERING ENVIRONMENT
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     06 / STUDENT PROJECTS
+===================================================== -->
+
+<section class="content-section projects-section">
+
+    <div class="container-fluid">
+
+        <div class="section-heading">
+
+          
+
+            <div>
+                <span class="eyebrow">
+                    STUDENT PROJECTS
+                </span>
+ </div>
+                <h2>
+    <span>IDEAS</span>
+    <span>INTO</span>
+    <br>
+    PROJECTS.
+</h2>
+            </div>
+
+        </div>
+
+
+        <div class="projects-grid">
+
+            <!-- PROJECT 1 -->
+
+            <article class="project-card project-large reveal">
+
+                <div class="project-image">
+
+                    <img
+                        src="assets/project-01.jpg"
+                        alt="Student Project"
+                    >
+
+                </div>
+
+                <div class="project-details">
+
+                    <span>
+                        STUDENT PROJECT
+                    </span>
+
+                    <h3>
+                        PROJECT
+                    </h3>
+
+                    <p>
+                        Insert your student project
+                        description here.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 2 -->
+
+            <article class="project-card reveal">
+
+                <div class="project-image">
+
+                    <img
+                        src="assets/project-02.jpg"
+                        alt="Student Project"
+                    >
+
+    
+
+                </div>
+
+                <div class="project-details">
+
+                    <span>
+                        STUDENT PROJECT
+                    </span>
+
+                    <h3>
+                        PROJECT 
+                    </h3>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 3 -->
+
+            <article class="project-card reveal">
+
+                <div class="project-image">
+
+                    <img
+                        src="assets/project-03.jpg"
+                        alt="Student Project"
+                    >
+
+                </div>
+
+                <div class="project-details">
+
+                    <span>
+                        STUDENT PROJECT
+                    </span>
+
+                    <h3>
+                        PROJECT 
+                    </h3>
+
+                </div>
+
+            </article>
+
+        </div>
+
+</section>
+
+
+<!-- =====================================================
+     07 / RESEARCH & INNOVATION
+===================================================== -->
+
+<section class="content-section research-section">
+
+    <div class="container-fluid">
+
+        <div class="research-layout">
+
+            <div class="research-title reveal">
+
+                <span class="eyebrow">
+                   RESEARCH
+                </span>
+
+                <h2>
+                    RESEARCH.
+                    <br>
+                    INNOVATE.
+                    <br>
+                    CREATE.
+                </h2>
+
+            </div>
+
+
+            <div class="research-content">
+
+                <p class="research-intro reveal">
+
+                    Research and innovation activities
+                    provide opportunities for students
+                    to explore ideas, technologies,
+                    problems, and possible solutions.
+
+                </p>
+
+
+                <div class="research-lines">
+
+                    <div class="research-line reveal">
+
+                        <span>
+                            01
+                        </span>
+
+                        <strong>
+                            EXPLORATION
+                        </strong>
+
+                        <p>
+                            Explore ideas and areas
+                            related to technology.
+                        </p>
+
+                    </div>
+
+
+                    <div class="research-line reveal">
+
+                        <span>
+                            02
+                        </span>
+
+                        <strong>
+                            INNOVATION
+                        </strong>
+
+                        <p>
+                            Develop and examine
+                            technology-based ideas.
+                        </p>
+
+                    </div>
+
+
+                    <div class="research-line reveal">
+
+                        <span>
+                            03
+                        </span>
+
+                        <strong>
+                            APPLICATION
+                        </strong>
+
+                        <p>
+                            Connect learning with
+                            practical projects and
+                            activities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     08 / ACADEMIC OPPORTUNITIES
+===================================================== -->
+
+<section class="content-section opportunities-section">
+
+    <div class="container-fluid">
+
+        <div class="opportunity-header reveal">
+
+            <span class="eyebrow">
+               ACADEMIC OPPORTUNITIES
+            </span>
+
+            <h2>
+                KEEP
+                <span>LEARNING.</span>
+            </h2>
+
+        </div>
+
+
+        <div class="opportunity-grid">
+
+            <div class="opportunity-box reveal">
+
+                <div>
+                    01
+                </div>
+
+                <h3>
+                    ACADEMIC
+                    LEARNING
+                </h3>
+
+                <p>
+                    Continue developing knowledge
+                    through the Computer Engineering
+                    program.
+                </p>
+
+            </div>
+
+
+            <div class="opportunity-box reveal">
+
+                <div>
+                    02
+                </div>
+
+                <h3>
+                    PRACTICAL
+                    EXPERIENCE
+                </h3>
+
+                <p>
+                    Connect classroom learning with
+                    practical activities and projects.
+                </p>
+
+            </div>
+
+
+            <div class="opportunity-box reveal">
+
+                <div>
+                    03
+                </div>
+
+                <h3>
+                    RESEARCH &
+                    INNOVATION
+                </h3>
+
+                <p>
+                    Explore research and innovative
+                    ideas related to Computer
+                    Engineering.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="final-message reveal">
+
+            <span>
+                UE / CpE.
+            </span>
+
+            <h2>
+                BUILD WHAT
+                COMES NEXT.
+            </h2>
+
+            <p>
+                COMPUTER ENGINEERING AT THE
+                UNIVERSITY OF THE EAST
+            </p>
+
+        </div>
+
+
+        <!-- BACK TO HOME / EXPLORE CPE -->
+        <div class="back-explore-wrap">
+
+            <a
+                href="index.html#featured"
+                class="back-explore-button"
+            >
+                <span>←</span>
+                <span>BACK TO EXPLORE CpE</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     BOOTSTRAP JS
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- YOUR PAGE JS -->
+<script src="cpe-at-ue.js"></script>
+
+</body>
+</html>

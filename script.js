@@ -1892,7 +1892,7 @@ function startPageTransition(
 
 document
   .querySelectorAll(
-    ".page-transition-link"
+    '.page-transition-link:not([href="cpe-at-ue.html"])'
   )
   .forEach(
     link => {
