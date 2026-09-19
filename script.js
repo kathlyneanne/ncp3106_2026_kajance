@@ -2646,7 +2646,1166 @@ window.addEventListener(
   }
 );
 
+/* =========================================================
+   CPE CAREERS TRANSITION
+========================================================= */
+
+const careersCard = document.querySelector(
+  ".career-transition-link"
+);
+
+if (careersCard) {
+
+  careersCard.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      startPageTransition(
+        "careers.html",
+        "CpE CAREERS"
+      );
+
+    },
+    true
+  );
+
+}
 
 /* =========================================================
-   END OF SCRIPT.JS
+   CPE CAREERS — WOW ANIMATION SYSTEM
+   PASTE AT VERY BOTTOM OF SCRIPT.JS
 ========================================================= */
+
+if (
+  document.body.classList.contains(
+    "careers-body"
+  )
+) {
+
+  /* =======================================================
+     HERO TITLE CINEMATIC ENTRANCE
+  ======================================================= */
+
+  const wowHeroLines =
+    document.querySelectorAll(
+      ".career-hero-line"
+    );
+
+
+  wowHeroLines.forEach(
+    (line, index) => {
+
+      setTimeout(
+        () => {
+
+          line.classList.add(
+            "career-wow-in"
+          );
+
+        },
+
+        250 + index * 190
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     HERO PARALLAX
+  ======================================================= */
+
+  const wowCareerHero =
+    document.querySelector(
+      ".careers-hero"
+    );
+
+  const wowCareerTitle =
+    document.querySelector(
+      ".careers-title"
+    );
+
+  const wowCareerGrid =
+    document.querySelector(
+      ".careers-grid-lines"
+    );
+
+
+  function updateCareerWowHero() {
+
+    if (!wowCareerHero) {
+      return;
+    }
+
+
+    const rect =
+      wowCareerHero
+        .getBoundingClientRect();
+
+
+    const scrollAmount =
+      Math.max(
+        0,
+        -rect.top
+      );
+
+
+    if (wowCareerTitle) {
+
+      wowCareerTitle.style.transform =
+        `
+        translate3d(
+          0,
+          ${scrollAmount * 0.16}px,
+          0
+        )
+        scale(
+          ${Math.max(
+            .88,
+            1 -
+            scrollAmount * .00015
+          )}
+        )
+        `;
+
+    }
+
+
+    if (wowCareerGrid) {
+
+      wowCareerGrid.style.transform =
+        `
+        translate3d(
+          0,
+          ${scrollAmount * 0.08}px,
+          0
+        )
+        `;
+
+      wowCareerGrid.style.opacity =
+        Math.max(
+          .15,
+          1 -
+          scrollAmount / 800
+        );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     GENERAL REVEAL ELEMENTS
+  ======================================================= */
+
+  const wowRevealElements =
+    document.querySelectorAll(
+      `
+      .career-intro-big,
+      .career-intro-small,
+      .career-directory-head,
+      .career-spectrum-title,
+      .career-orbit,
+      .career-final-caption
+      `
+    );
+
+
+  wowRevealElements.forEach(
+    element => {
+
+      element.classList.add(
+        "wow-reveal"
+      );
+
+    }
+  );
+
+
+  const wowRevealObserver =
+    new IntersectionObserver(
+
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              !entry.isIntersecting
+            ) {
+
+              return;
+
+            }
+
+
+            entry.target.classList.add(
+              "wow-visible"
+            );
+
+
+            wowRevealObserver.unobserve(
+              entry.target
+            );
+
+          }
+        );
+
+      },
+
+      {
+
+        threshold:
+          0.16,
+
+        rootMargin:
+          "0px 0px -10% 0px"
+
+      }
+
+    );
+
+
+  wowRevealElements.forEach(
+    element => {
+
+      wowRevealObserver.observe(
+        element
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     CAREER ROW REVEALS
+  ======================================================= */
+
+  const wowCareerRows =
+    document.querySelectorAll(
+      ".career-row"
+    );
+
+
+  wowCareerRows.forEach(
+    row => {
+
+      row.classList.add(
+        "wow-career-row"
+      );
+
+    }
+  );
+
+
+  const wowCareerRowObserver =
+    new IntersectionObserver(
+
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              !entry.isIntersecting
+            ) {
+
+              return;
+
+            }
+
+
+            const row =
+              entry.target;
+
+
+            const allRows =
+              Array.from(
+                wowCareerRows
+              );
+
+
+            const rowIndex =
+              allRows.indexOf(
+                row
+              );
+
+
+            setTimeout(
+              () => {
+
+                row.classList.add(
+                  "wow-visible"
+                );
+
+              },
+
+              (
+                rowIndex %
+                3
+              ) * 100
+
+            );
+
+
+            wowCareerRowObserver
+              .unobserve(
+                row
+              );
+
+          }
+        );
+
+      },
+
+      {
+
+        threshold:
+          0.12,
+
+        rootMargin:
+          "0px 0px -5% 0px"
+
+      }
+
+    );
+
+
+  wowCareerRows.forEach(
+    row => {
+
+      wowCareerRowObserver.observe(
+        row
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     CAREER ROW MAGNETIC MOVEMENT
+  ======================================================= */
+
+  wowCareerRows.forEach(
+    row => {
+
+      row.addEventListener(
+        "mousemove",
+        event => {
+
+          const rect =
+            row.getBoundingClientRect();
+
+
+          const mouseX =
+            event.clientX -
+            rect.left;
+
+
+          const mouseY =
+            event.clientY -
+            rect.top;
+
+
+          const centerX =
+            rect.width / 2;
+
+
+          const centerY =
+            rect.height / 2;
+
+
+          const moveX =
+            (
+              mouseX -
+              centerX
+            ) / centerX;
+
+
+          const moveY =
+            (
+              mouseY -
+              centerY
+            ) / centerY;
+
+
+          const title =
+            row.querySelector(
+              "h3"
+            );
+
+
+          const number =
+            row.querySelector(
+              ".career-num"
+            );
+
+
+          const tag =
+            row.querySelector(
+              ".career-tag"
+            );
+
+
+          if (title) {
+
+            title.style.transform =
+              `
+              translate(
+                ${moveX * 12}px,
+                ${moveY * 4}px
+              )
+              `;
+
+          }
+
+
+          if (number) {
+
+            number.style.transform =
+              `
+              translate(
+                ${moveX * -8}px,
+                ${moveY * -4}px
+              )
+              `;
+
+          }
+
+
+          if (tag) {
+
+            tag.style.transform =
+              `
+              translate(
+                ${moveX * 7}px,
+                ${moveY * 3}px
+              )
+              `;
+
+          }
+
+        }
+      );
+
+
+      row.addEventListener(
+        "mouseleave",
+        () => {
+
+          const movingItems =
+            row.querySelectorAll(
+              `
+              h3,
+              .career-num,
+              .career-tag
+              `
+            );
+
+
+          movingItems.forEach(
+            item => {
+
+              item.style.transform =
+                "";
+
+            }
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     DARK SECTION SWEEP
+  ======================================================= */
+
+  const wowDarkSection =
+    document.querySelector(
+      ".career-spectrum"
+    );
+
+
+  if (wowDarkSection) {
+
+    const darkObserver =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                !entry.isIntersecting
+              ) {
+
+                return;
+
+              }
+
+
+              entry.target.classList.add(
+                "wow-dark-in"
+              );
+
+
+              darkObserver.unobserve(
+                entry.target
+              );
+
+            }
+          );
+
+        },
+
+        {
+
+          threshold:
+            0.18
+
+        }
+
+      );
+
+
+    darkObserver.observe(
+      wowDarkSection
+    );
+
+  }
+
+
+/* =======================================================
+   CAREER ORBIT — KEEP ORIGINAL DESIGN
+======================================================= */
+
+const wowOrbit =
+  document.querySelector(
+    ".career-orbit"
+  );
+
+
+function updateWowOrbit() {
+
+  // Intentionally empty.
+  // Keeps the original orbit design and positioning.
+
+}
+
+
+  /* =======================================================
+     FINAL TITLE CINEMATIC REVEAL
+  ======================================================= */
+
+  const wowFinalSection =
+    document.querySelector(
+      ".career-final"
+    );
+
+
+  const wowFinalLines =
+    document.querySelectorAll(
+      ".career-final-text span"
+    );
+
+
+  if (
+    wowFinalSection &&
+    wowFinalLines.length
+  ) {
+
+    const finalWowObserver =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                !entry.isIntersecting
+              ) {
+
+                return;
+
+              }
+
+
+              wowFinalLines.forEach(
+                (
+                  line,
+                  index
+                ) => {
+
+                  setTimeout(
+                    () => {
+
+                      line.classList.add(
+                        "wow-final-in"
+                      );
+
+                    },
+
+                    index * 260
+
+                  );
+
+                }
+              );
+
+
+              finalWowObserver.unobserve(
+                entry.target
+              );
+
+            }
+          );
+
+        },
+
+        {
+
+          threshold:
+            0.28
+
+        }
+
+      );
+
+
+    finalWowObserver.observe(
+      wowFinalSection
+    );
+
+  }
+
+
+  /* =======================================================
+     SCROLL PROGRESS + PARALLAX
+  ======================================================= */
+
+  let careerWowTicking =
+    false;
+
+
+  function updateCareerWowScroll() {
+
+    const scrollTop =
+      window.scrollY ||
+      document.documentElement
+        .scrollTop;
+
+
+    const scrollHeight =
+      document.documentElement
+        .scrollHeight -
+      window.innerHeight;
+
+
+    const progress =
+      scrollHeight > 0
+        ? (
+            scrollTop /
+            scrollHeight
+          ) * 100
+        : 0;
+
+
+    document.body.style.setProperty(
+      "--career-scroll-progress",
+      progress + "%"
+    );
+
+
+    updateCareerWowHero();
+
+    updateWowOrbit();
+
+
+    careerWowTicking =
+      false;
+
+  }
+
+
+  window.addEventListener(
+    "scroll",
+    () => {
+
+      if (
+        careerWowTicking
+      ) {
+
+        return;
+
+      }
+
+
+      careerWowTicking =
+        true;
+
+
+      requestAnimationFrame(
+        updateCareerWowScroll
+      );
+
+    },
+
+    {
+      passive:
+        true
+    }
+
+  );
+
+
+  updateCareerWowScroll();
+
+}
+
+/* =========================================================
+   FACULTY PAGE TRANSITION
+========================================================= */
+
+const facultyTransitionLink =
+  document.querySelector(
+    ".faculty-transition-link"
+  );
+
+
+if (facultyTransitionLink) {
+
+  facultyTransitionLink.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+      event.stopImmediatePropagation();
+
+
+      startPageTransition(
+        "faculty.html",
+        "MEET THE FACULTY"
+      );
+
+    },
+
+    true
+  );
+
+}
+
+/* =========================================================
+   FACULTY — CINEMATIC ENTRANCE
+========================================================= */
+
+if (
+  document.body.classList.contains("faculty-body")
+) {
+
+  const facultyEntry =
+    document.getElementById("facultyEntry");
+
+
+  if (facultyEntry) {
+
+    document.body.style.overflow = "hidden";
+
+
+    setTimeout(() => {
+
+      facultyEntry.classList.add(
+        "faculty-entry-exit"
+      );
+
+    }, 2100);
+
+
+    setTimeout(() => {
+
+      facultyEntry.classList.add(
+        "faculty-entry-gone"
+      );
+
+      document.body.style.overflow = "";
+
+    }, 3100);
+
+  }
+
+}
+
+/* =========================================================
+   FACULTY PAGE TRANSITION
+   Same transition style as Careers
+========================================================= */
+
+const facultyPageTransitionButton =
+  document.querySelector(
+    'a.faculty-transition-link[href="faculty.html"]'
+  );
+
+if (facultyPageTransitionButton) {
+
+  facultyPageTransitionButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      startPageTransition(
+        "faculty.html",
+        "MEET THE FACULTY"
+      );
+
+    },
+    true
+  );
+
+}
+
+/* =========================================================
+   FACULTY HERO — ARRIVAL ANIMATION
+========================================================= */
+
+if (
+  document.body.classList.contains("faculty-body")
+) {
+
+  /* Put hero into starting animation state immediately */
+  document.body.classList.add(
+    "faculty-arriving"
+  );
+
+
+  window.addEventListener(
+    "load",
+    function () {
+
+      /*
+        Small delay allows the browser to actually
+        render the hidden starting state first.
+      */
+
+      requestAnimationFrame(() => {
+
+        requestAnimationFrame(() => {
+
+          document.body.classList.remove(
+            "faculty-arriving"
+          );
+
+          document.body.classList.add(
+            "faculty-arrived"
+          );
+
+        });
+
+      });
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   FACULTY — DOSSIER / SCANNER CONTROLLER
+   New animation style; does not move card columns.
+========================================================= */
+(function () {
+  const body = document.body;
+  if (!body || !body.classList.contains("faculty-body")) return;
+
+  /* Remove any inline transforms left by older Faculty experiments. */
+  document.querySelectorAll(".faculty-grid-item").forEach(item => {
+    item.style.removeProperty("transform");
+  });
+
+  /* Top loading / scroll progress line */
+  const track = document.createElement("div");
+  track.className = "faculty-load-track";
+  track.innerHTML = '<span class="faculty-load-bar"></span>';
+  body.appendChild(track);
+
+  const loadBar = track.querySelector(".faculty-load-bar");
+
+  /* Start as a quick page-load animation, then become scroll progress. */
+  requestAnimationFrame(() => {
+    loadBar.style.transition =
+      "transform 1s cubic-bezier(.16,1,.3,1)";
+    loadBar.style.transform = "scaleX(.72)";
+  });
+
+  window.addEventListener("load", () => {
+    loadBar.style.transform = "scaleX(1)";
+    setTimeout(() => {
+      loadBar.style.transition = "none";
+      updateFacultyProgress();
+    }, 700);
+  });
+
+  function updateFacultyProgress() {
+    const max =
+      Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const value =
+      Math.max(0, Math.min(1, scrollY / max));
+    loadBar.style.transform = `scaleX(${value})`;
+  }
+
+  window.addEventListener("scroll", updateFacultyProgress, { passive: true });
+  window.addEventListener("resize", updateFacultyProgress, { passive: true });
+
+  /* Faculty cards — dossier reveal without changing Bootstrap layout */
+  const cards = [...document.querySelectorAll(".faculty-card")];
+
+  cards.forEach(card => {
+    if (!card.querySelector(".faculty-dossier-scan")) {
+      const scan = document.createElement("span");
+      scan.className = "faculty-dossier-scan";
+      card.appendChild(scan);
+    }
+  });
+
+  const cardObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const card = entry.target;
+      const index = cards.indexOf(card);
+
+      setTimeout(() => {
+        card.classList.add("faculty-dossier-in");
+      }, (index % 3) * 140);
+
+      cardObserver.unobserve(card);
+    });
+  }, {
+    threshold: .14,
+    rootMargin: "0px 0px -7% 0px"
+  });
+
+  cards.forEach(card => cardObserver.observe(card));
+
+  /* Directory heading line */
+  const directoryHeading =
+    document.querySelector(".faculty-directory-heading");
+
+  if (directoryHeading) {
+    const headingObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        directoryHeading.classList.add("faculty-directory-live");
+        headingObserver.disconnect();
+      }
+    }, { threshold: .28 });
+
+    headingObserver.observe(directoryHeading);
+  }
+
+  /* Closing section: scanner sweep + staggered title lock-in */
+  const closing = document.querySelector(".faculty-closing");
+
+  if (closing) {
+    const lines =
+      [...closing.querySelectorAll(".faculty-closing-text span")];
+
+    const closingObserver = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+
+      closing.classList.add("faculty-closing-live");
+
+      lines.forEach((line, index) => {
+        setTimeout(() => {
+          line.classList.add("faculty-lock-in");
+        }, 220 + index * 190);
+      });
+
+      closingObserver.disconnect();
+    }, {
+      threshold: .28
+    });
+
+    closingObserver.observe(closing);
+  }
+})();
+
+
+/* =========================================================
+   FACULTY HERO — EDITORIAL TYPOGRAPHY ENTRANCE
+   Safe enhancement: if JS fails, title is still visible.
+========================================================= */
+(function () {
+  const body = document.body;
+  if (!body || !body.classList.contains("faculty-body")) return;
+
+  body.classList.add("faculty-type-prep");
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      body.classList.add("faculty-type-show");
+    });
+  });
+
+  /* After the entrance, remove the prep state so the title
+     stays in its normal final layout. */
+  setTimeout(() => {
+    body.classList.remove("faculty-type-prep");
+  }, 2200);
+})();
+
+
+
+
+/* =========================================================
+   FACULTY CLOSING — BLACK TAKEOVER + RED EDGE
+   Scroll-linked. Does not change hero, cards, menu, cursor, or page entrance.
+========================================================= */
+(function () {
+  const closing = document.querySelector(".faculty-body .faculty-closing");
+  if (!closing) return;
+
+  let ticking = false;
+
+  function clamp01(value) {
+    return Math.max(0, Math.min(1, value));
+  }
+
+  function updateFacultyClosingTakeover() {
+    const rect = closing.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+
+    /* Starts when the section approaches the bottom of the viewport,
+       finishes shortly after it enters. */
+    const progress = clamp01((vh - rect.top) / (vh * 0.72));
+
+    /* 50% -> 0% makes the black panel open from center to full width. */
+    const inset = 50 * (1 - progress);
+
+    /* Let the title appear after the black panel has visibly opened. */
+    const contentProgress = clamp01((progress - 0.32) / 0.46);
+
+    closing.style.setProperty(
+      "--faculty-close-inset",
+      inset.toFixed(3) + "%"
+    );
+
+    closing.style.setProperty(
+      "--faculty-close-content",
+      contentProgress.toFixed(3)
+    );
+
+    ticking = false;
+  }
+
+  function requestFacultyClosingTakeover() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateFacultyClosingTakeover);
+  }
+
+  window.addEventListener("scroll", requestFacultyClosingTakeover, { passive: true });
+  window.addEventListener("resize", requestFacultyClosingTakeover, { passive: true });
+
+  updateFacultyClosingTakeover();
+})();
+
+/* =========================================================
+   SCPES PAGE — THE NETWORK
+   Unique construction animation + scroll activation.
+========================================================= */
+(function () {
+  const body = document.body;
+  if (!body) return;
+
+  /* Homepage/card transition to SCPES. Capture phase keeps the
+     generic About transition from taking over this card. */
+  const scpesTransitionLinks = document.querySelectorAll(
+    'a.scpes-transition-link[href="scpes.html"]'
+  );
+
+  scpesTransitionLinks.forEach(link => {
+    link.addEventListener(
+      "click",
+      event => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (typeof startPageTransition === "function") {
+          startPageTransition("scpes.html", "MEET THE FACULTY");
+        } else {
+          window.location.href = "scpes.html";
+        }
+      },
+      true
+    );
+  });
+
+  if (!body.classList.contains("scpes-body")) return;
+
+  /* Network hero constructs itself — no reused title wipe. */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => body.classList.add("scpes-ready"));
+  });
+
+  /* Reveal content safely: sections are visible if IO is unsupported. */
+  const revealSections = document.querySelectorAll(".scpes-reveal-section");
+  const finale = document.querySelector(".scpes-finale");
+
+  if (!("IntersectionObserver" in window)) {
+    revealSections.forEach(section => section.classList.add("is-visible"));
+    if (finale) finale.classList.add("is-visible");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+  );
+
+  revealSections.forEach(section => observer.observe(section));
+  if (finale) observer.observe(finale);
+
+  /* Small depth response in the network only. */
+  const network = document.querySelector(".scpes-network");
+  let ticking = false;
+
+  function updateScpesDepth() {
+    ticking = false;
+    if (!network) return;
+    const hero = document.querySelector(".scpes-hero");
+    if (!hero) return;
+    const rect = hero.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height)));
+    network.style.transform = `translate3d(0, ${progress * 38}px, 0) scale(${1 + progress * 0.025})`;
+    network.style.opacity = String(Math.max(0.28, 0.95 - progress * 0.45));
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateScpesDepth);
+      }
+    },
+    { passive: true }
+  );
+
+  updateScpesDepth();
+})();

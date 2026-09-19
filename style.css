@@ -4499,3 +4499,3544 @@ body:has(#menu-toggle:checked) {
     min-height: 350vh;
   }
 }
+
+/* =========================================================
+   CPE CAREERS PAGE
+   Matches the visual language of About CpE while keeping
+   the Careers page distinct.
+========================================================= */
+.careers-body { background:#f5f3ed; color:#0b0b0b; overflow-x:hidden; }
+.careers-main { animation:careerPageEnter .9s cubic-bezier(.16,1,.3,1) both; }
+@keyframes careerPageEnter { from{opacity:0} to{opacity:1} }
+
+.careers-hero { position:relative; min-height:100vh; display:flex; align-items:flex-end; padding:150px 0 76px; overflow:hidden; border-bottom:1px solid rgba(11,11,11,.16); }
+.careers-grid-lines { position:absolute; inset:0; opacity:.28; pointer-events:none; background-image:linear-gradient(rgba(11,11,11,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(11,11,11,.08) 1px,transparent 1px); background-size:75px 75px; mask-image:linear-gradient(to bottom,transparent,black 27%,black); }
+.careers-hero-inner { position:relative; z-index:2; }
+.careers-kicker,.career-label,.career-dark-label { font-family:"DM Sans",sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; }
+.careers-kicker,.career-label { color:#6e6b65; }
+.career-dark-label { color:rgba(245,243,237,.5); }
+.careers-kicker { margin-bottom:55px; }
+.careers-title { margin:0; font-family:"Space Grotesk",sans-serif; font-size:clamp(4rem,9.4vw,10rem); font-weight:700; line-height:.79; letter-spacing:-.078em; }
+.career-hero-line { display:block; opacity:0; transform:translateY(110%); animation:careerHeroLine .9s cubic-bezier(.16,1,.3,1) forwards; }
+.career-hero-line:nth-child(1){animation-delay:.15s}.career-hero-line:nth-child(2){animation-delay:.28s}.career-hero-line:nth-child(3){animation-delay:.41s}
+.career-serif { font-family:Georgia,"Times New Roman",serif; font-style:italic; font-weight:400; }
+@keyframes careerHeroLine { to{opacity:1;transform:translateY(0)} }
+.careers-hero-note { display:flex; flex-direction:column; align-items:flex-end; gap:9px; font-family:"Space Grotesk",sans-serif; font-size:.68rem; font-weight:600; letter-spacing:.17em; }
+.careers-hero-note span::before { content:"+ "; color:#d7261e; }
+.career-scroll-hint { position:absolute; right:30px; bottom:30px; z-index:3; display:flex; align-items:center; gap:15px; font-size:.62rem; letter-spacing:.16em; transform:rotate(90deg) translateX(100%); transform-origin:right bottom; }
+.career-scroll-hint div { width:70px; height:1px; background:#0b0b0b; overflow:hidden; }
+.career-scroll-hint div::after { content:""; display:block; width:35%; height:100%; background:#d7261e; animation:careerScrollLine 1.6s ease-in-out infinite; }
+@keyframes careerScrollLine { from{transform:translateX(-120%)} to{transform:translateX(330%)} }
+
+.career-intro { padding:130px 0 150px; }
+.career-intro-big { margin:0; font-family:"Space Grotesk",sans-serif; font-size:clamp(2.5rem,5vw,5.7rem); font-weight:500; line-height:.98; letter-spacing:-.055em; }
+.career-intro-big em { font-family:Georgia,serif; font-weight:400; }
+.career-intro-small { max-width:720px; margin:50px 0 0 auto; font-size:1rem; line-height:1.75; color:#5e5b56; }
+
+.career-marquee-section { overflow:hidden; padding:26px 0; background:#0b0b0b; color:#f5f3ed; border-top:1px solid rgba(245,243,237,.15); border-bottom:1px solid rgba(245,243,237,.15); }
+.career-marquee-track { display:flex; width:max-content; white-space:nowrap; animation:careerTicker 24s linear infinite; font-family:"Space Grotesk",sans-serif; font-size:clamp(1.2rem,2.4vw,2.5rem); font-weight:600; letter-spacing:-.03em; }
+.career-marquee-track span { padding-right:1.2rem; }
+@keyframes careerTicker { to{transform:translateX(-50%)} }
+
+.career-directory { padding:135px 0 155px; }
+.career-directory-head { display:grid; grid-template-columns:1fr 2fr; gap:30px; align-items:end; margin-bottom:80px; }
+.career-section-title { margin:0; font-family:"Space Grotesk",sans-serif; font-size:clamp(3.4rem,7vw,8rem); font-weight:600; line-height:.84; letter-spacing:-.07em; }
+.career-section-title span { font-family:Georgia,serif; font-style:italic; font-weight:400; }
+.career-list { border-top:1px solid rgba(11,11,11,.25); }
+.career-row { position:relative; display:grid; grid-template-columns:70px minmax(0,1fr) 120px; gap:25px; align-items:center; padding:31px 8px; border-bottom:1px solid rgba(11,11,11,.2); overflow:hidden; transition:padding .4s cubic-bezier(.16,1,.3,1),color .35s ease; }
+.career-row::before { content:""; position:absolute; inset:0; z-index:-1; background:#0b0b0b; transform:scaleY(0); transform-origin:bottom; transition:transform .42s cubic-bezier(.16,1,.3,1); }
+.career-row:hover { color:#f5f3ed; padding-left:24px; padding-right:24px; }
+.career-row:hover::before { transform:scaleY(1); }
+.career-num { align-self:start; padding-top:7px; font-family:"Space Grotesk",sans-serif; font-size:.7rem; letter-spacing:.14em; color:#d7261e; }
+.career-row h3 { margin:0 0 8px; font-family:"Space Grotesk",sans-serif; font-size:clamp(1.7rem,3.1vw,3.6rem); font-weight:600; letter-spacing:-.055em; }
+.career-row p { max-width:790px; margin:0; color:#6e6b65; line-height:1.65; transition:color .35s ease; }
+.career-row:hover p { color:rgba(245,243,237,.67); }
+.career-tag { justify-self:end; font-size:.62rem; font-weight:600; letter-spacing:.15em; color:#77736c; transition:color .35s ease,transform .35s ease; }
+.career-row:hover .career-tag { color:#f5f3ed; transform:translateX(-7px); }
+
+.career-spectrum { padding:140px 0; background:#0b0b0b; color:#f5f3ed; overflow:hidden; }
+.career-spectrum-title { margin:28px 0 0; font-family:"Space Grotesk",sans-serif; font-size:clamp(4rem,7vw,8.5rem); font-weight:600; line-height:.82; letter-spacing:-.075em; }
+.career-spectrum-title em { font-family:Georgia,serif; font-weight:400; }
+.career-orbit { position:relative; width:min(620px,90vw); aspect-ratio:1; margin:auto; }
+.orbit-ring { position:absolute; left:50%; top:50%; border:1px solid rgba(245,243,237,.2); border-radius:50%; transform:translate(-50%,-50%); }
+.ring-one{width:34%;height:34%;animation:orbitPulse 3s ease-in-out infinite}.ring-two{width:62%;height:62%;animation:orbitPulse 3s ease-in-out .4s infinite}.ring-three{width:90%;height:90%;animation:orbitPulse 3s ease-in-out .8s infinite}
+@keyframes orbitPulse { 50%{border-color:rgba(215,38,30,.72);transform:translate(-50%,-50%) scale(1.025)} }
+.orbit-core { position:absolute; left:50%; top:50%; width:120px; height:120px; display:grid; place-items:center; transform:translate(-50%,-50%); border-radius:50%; background:#f5f3ed; color:#0b0b0b; font-family:"Space Grotesk",sans-serif; font-size:2rem; font-weight:700; }
+.orbit-item { position:absolute; padding:8px 11px; border:1px solid rgba(245,243,237,.24); background:#0b0b0b; font-size:.61rem; letter-spacing:.14em; }
+.oi-1{left:5%;top:48%}.oi-2{right:4%;top:49%}.oi-3{left:21%;top:14%}.oi-4{right:24%;top:16%}.oi-5{left:22%;bottom:13%}.oi-6{right:20%;bottom:14%}
+
+.career-final { min-height:78vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:120px 25px; text-align:center; }
+
+@media(max-width:991px){
+  .careers-hero{min-height:auto;padding:160px 0 85px}.careers-hero-note{align-items:flex-start;margin-top:48px}.career-scroll-hint{display:none}
+  .career-intro{padding:95px 0 110px}.career-label{margin-bottom:35px}.career-directory-head{grid-template-columns:1fr}.career-row{grid-template-columns:55px 1fr}.career-tag{display:none}.career-spectrum-title{margin-bottom:70px}
+}
+@media(max-width:600px){
+  .careers-title{font-size:clamp(3.05rem,16vw,5.5rem)}.career-intro-big{font-size:2.25rem}.career-directory{padding:90px 0 105px}.career-row{grid-template-columns:38px 1fr;gap:12px;padding:25px 2px}.career-row:hover{padding-left:10px;padding-right:10px}.career-row h3{font-size:1.75rem}.career-row p{font-size:.9rem}.career-spectrum{padding:90px 0}.career-orbit{width:100%}.orbit-core{width:85px;height:85px;font-size:1.45rem}.orbit-item{font-size:.52rem}.career-final{min-height:68vh}.career-final-text{font-size:clamp(2.7rem,13vw,5rem)}
+}
+
+/* =========================================================
+   CPE CAREERS — WOW ANIMATION ADD-ON
+   PASTE AT VERY BOTTOM OF STYLE.CSS
+========================================================= */
+
+
+/* =========================================================
+   HERO CINEMATIC ENTRANCE
+========================================================= */
+
+.careers-body .careers-hero {
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.careers-body .careers-title {
+  position: relative;
+  z-index: 3;
+}
+
+.careers-body .career-hero-line {
+  display: block;
+
+  opacity: 0;
+
+  filter: blur(14px);
+
+  transform:
+    translateY(120px)
+    rotateX(18deg)
+    scale(.92);
+
+  transform-origin: center bottom;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+
+/* Different starting direction */
+
+.careers-body
+.career-hero-line:nth-child(2) {
+
+  transform:
+    translateX(-100px)
+    rotate(-3deg)
+    scale(.92);
+
+}
+
+.careers-body
+.career-hero-line:nth-child(3) {
+
+  transform:
+    translateX(100px)
+    rotate(3deg)
+    scale(.92);
+
+}
+
+
+/* Activated by JS */
+
+.careers-body
+.career-hero-line.career-wow-in {
+
+  opacity: 1;
+
+  filter: blur(0);
+
+  transform:
+    translate3d(0,0,0)
+    rotate(0)
+    rotateX(0)
+    scale(1);
+
+  transition:
+    transform 1.25s cubic-bezier(.16,1,.3,1),
+    opacity .8s ease,
+    filter 1s ease;
+
+}
+
+
+/* =========================================================
+   HERO GRID MOVEMENT
+========================================================= */
+
+.careers-body .careers-grid-lines {
+
+  will-change:
+    transform,
+    opacity;
+
+  transition:
+    opacity .3s ease;
+
+}
+
+
+/* =========================================================
+   GENERAL CINEMATIC REVEALS
+========================================================= */
+
+.careers-body .wow-reveal {
+
+  opacity: 0;
+
+  filter: blur(8px);
+
+  transform:
+    translateY(90px)
+    scale(.96);
+
+  transition:
+    opacity .9s ease,
+    filter 1s ease,
+    transform 1.15s cubic-bezier(.16,1,.3,1);
+
+  will-change:
+    opacity,
+    transform,
+    filter;
+
+}
+
+
+.careers-body
+.wow-reveal.wow-visible {
+
+  opacity: 1;
+
+  filter: blur(0);
+
+  transform:
+    translate3d(0,0,0)
+    scale(1);
+
+}
+
+
+/* =========================================================
+   INTRO — BIG TEXT
+========================================================= */
+
+.careers-body .career-intro {
+  overflow: hidden;
+}
+
+.careers-body .career-intro-big {
+
+  transform-origin:
+    left center;
+
+}
+
+
+/* =========================================================
+   CAREER DIRECTORY ROWS
+========================================================= */
+
+.careers-body .career-row {
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition:
+    background .45s ease,
+    color .45s ease,
+    padding-left .5s cubic-bezier(.16,1,.3,1),
+    transform .6s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+/* Animated black layer */
+
+.careers-body
+.career-row::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    #0b0b0b;
+
+  transform:
+    scaleX(0);
+
+  transform-origin:
+    left center;
+
+  transition:
+    transform .55s
+    cubic-bezier(.76,0,.24,1);
+
+  z-index: 0;
+
+}
+
+
+.careers-body
+.career-row:nth-child(even)::before {
+
+  transform-origin:
+    right center;
+
+}
+
+
+.careers-body
+.career-row:hover::before {
+
+  transform:
+    scaleX(1);
+
+}
+
+
+.careers-body
+.career-row > * {
+
+  position: relative;
+
+  z-index: 2;
+
+  transition:
+    color .35s ease,
+    transform .45s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+.careers-body
+.career-row:hover {
+
+  color: #f5f3ed;
+
+  padding-left:
+    22px;
+
+}
+
+
+.careers-body
+.career-row:hover
+.career-num {
+
+  transform:
+    translateX(8px)
+    rotate(-8deg);
+
+}
+
+
+.careers-body
+.career-row:hover h3 {
+
+  transform:
+    translateX(12px);
+
+}
+
+
+.careers-body
+.career-row:hover
+.career-tag {
+
+  transform:
+    translateX(-12px);
+
+}
+
+
+/* =========================================================
+   CAREER ROW SCROLL ENTRANCE
+========================================================= */
+
+.careers-body
+.career-row.wow-career-row {
+
+  opacity: 0;
+
+  filter:
+    blur(8px);
+
+}
+
+
+.careers-body
+.career-row.wow-career-row:nth-child(odd) {
+
+  transform:
+    translateX(-90px);
+
+}
+
+
+.careers-body
+.career-row.wow-career-row:nth-child(even) {
+
+  transform:
+    translateX(90px);
+
+}
+
+
+.careers-body
+.career-row.wow-career-row.wow-visible {
+
+  opacity: 1;
+
+  filter:
+    blur(0);
+
+  transform:
+    translateX(0);
+
+  transition:
+    opacity .75s ease,
+    filter .8s ease,
+    transform 1s cubic-bezier(.16,1,.3,1),
+    background .45s ease,
+    color .45s ease,
+    padding-left .5s cubic-bezier(.16,1,.3,1);
+
+}
+
+
+/* =========================================================
+   MOVING CAREER NUMBER
+========================================================= */
+
+.careers-body .career-num {
+
+  display:
+    inline-block;
+
+  transition:
+    transform .4s ease;
+
+}
+
+
+/* =========================================================
+   DARK SECTION CINEMATIC WIPE
+========================================================= */
+
+.careers-body .career-spectrum {
+
+  position:
+    relative;
+
+  overflow:
+    hidden;
+
+  isolation:
+    isolate;
+
+}
+
+
+.careers-body
+.career-spectrum::before {
+
+  content: "";
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  background:
+    #0b0b0b;
+
+  transform:
+    scaleX(0);
+
+  transform-origin:
+    left;
+
+  z-index:
+    -1;
+
+}
+
+
+.careers-body
+.career-spectrum.wow-dark-in::before {
+
+  animation:
+    careerDarkSweep
+    1.25s
+    cubic-bezier(.76,0,.24,1)
+    forwards;
+
+}
+
+
+@keyframes careerDarkSweep {
+
+  from {
+
+    transform:
+      scaleX(0);
+
+  }
+
+  to {
+
+    transform:
+      scaleX(1);
+
+  }
+
+}
+
+
+/* =========================================================
+   ORBIT WOW EFFECT
+========================================================= */
+
+.careers-body .career-orbit {
+
+  will-change:
+    transform;
+
+  transition:
+    transform .15s linear;
+
+}
+
+
+.careers-body .orbit-ring {
+
+  will-change:
+    transform;
+
+}
+
+
+/* Core pulse */
+
+.careers-body .orbit-core {
+
+  animation:
+    careerCorePulse
+    3s ease-in-out infinite;
+
+}
+
+
+@keyframes careerCorePulse {
+
+  0%,
+  100% {
+
+    transform:
+      scale(1);
+
+  }
+
+  50% {
+
+    transform:
+      scale(1.08);
+
+  }
+
+}
+
+
+/* =========================================================
+   FINAL CINEMATIC SECTION
+========================================================= */
+
+.careers-body .career-final {
+
+  position:
+    relative;
+
+  overflow:
+    hidden;
+
+}
+
+
+.careers-body
+.career-final-text {
+
+  perspective:
+    1200px;
+
+}
+
+
+.careers-body
+.career-final-text span {
+
+  display:
+    block;
+
+  opacity:
+    0;
+
+  filter:
+    blur(12px);
+
+  transform:
+    translateY(120px)
+    rotateX(20deg);
+
+  transform-origin:
+    bottom center;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+
+}
+
+
+.careers-body
+.career-final-text span.wow-final-in {
+
+  opacity:
+    1;
+
+  filter:
+    blur(0);
+
+  transform:
+    translateY(0)
+    rotateX(0);
+
+  transition:
+    transform 1.2s
+      cubic-bezier(.16,1,.3,1),
+    opacity .8s ease,
+    filter .9s ease;
+
+}
+
+
+/* =========================================================
+   SCROLL PROGRESS LINE
+========================================================= */
+
+.careers-body::after {
+
+  content: "";
+
+  position:
+    fixed;
+
+  top:
+    0;
+
+  left:
+    0;
+
+  width:
+    var(--career-scroll-progress, 0%);
+
+  height:
+    3px;
+
+  background:
+    #d7261e;
+
+  z-index:
+    99998;
+
+  pointer-events:
+    none;
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media
+(prefers-reduced-motion: reduce) {
+
+  .careers-body *,
+  .careers-body *::before,
+  .careers-body *::after {
+
+    animation-duration:
+      .01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+  }
+
+}
+/* =========================================================
+   FIX CpE ORBIT CORE — PERFECT CENTER
+========================================================= */
+
+.careers-body .career-orbit .orbit-core {
+  left: 50% !important;
+  top: 50% !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  animation: none !important;
+
+  margin: 0 !important;
+}
+
+/* =========================================================
+   FACULTY PAGE
+   PASTE AT VERY BOTTOM OF STYLE.CSS
+========================================================= */
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+.faculty-body {
+  background: #f5f3ed;
+  color: #0b0b0b;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.faculty-hero {
+  position: relative;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding:
+    150px 0
+    90px;
+
+  overflow: hidden;
+
+  background: #f5f3ed;
+
+  perspective: 1200px;
+}
+
+
+.faculty-grid-bg {
+  position: absolute;
+  inset: 0;
+
+  opacity: .15;
+
+  background-image:
+    linear-gradient(
+      rgba(11,11,11,.15) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(11,11,11,.15) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    55px 55px;
+
+  pointer-events: none;
+}
+
+
+.faculty-kicker {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 35px;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: .72rem;
+
+  font-weight: 700;
+
+  letter-spacing: .18em;
+}
+
+
+.faculty-hero-title {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(
+      4.2rem,
+      10vw,
+      10rem
+    );
+
+  font-weight: 600;
+
+  line-height: .78;
+
+  letter-spacing: -.075em;
+}
+
+
+.faculty-title-line {
+  display: block;
+
+  opacity: 0;
+
+  filter: blur(14px);
+
+  transform:
+    translateY(120px)
+    rotateX(15deg);
+
+  transform-origin:
+    bottom center;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+
+.faculty-title-serif {
+  font-family: Georgia, serif;
+
+  font-style: italic;
+
+  font-weight: 400;
+}
+
+
+.faculty-title-line.faculty-title-in {
+  opacity: 1;
+
+  filter: blur(0);
+
+  transform:
+    translateY(0)
+    rotateX(0);
+
+  transition:
+    transform 1.25s
+      cubic-bezier(.16,1,.3,1),
+    opacity .8s ease,
+    filter 1s ease;
+}
+
+
+.faculty-hero-side {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding-bottom: 10px;
+}
+
+
+.faculty-hero-side span {
+  padding-bottom: 8px;
+
+  border-bottom:
+    1px solid
+    rgba(11,11,11,.25);
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: .65rem;
+
+  font-weight: 700;
+
+  letter-spacing: .13em;
+}
+
+
+.faculty-scroll-hint {
+  position: absolute;
+
+  left: 32px;
+  bottom: 25px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  font-size: .6rem;
+
+  font-weight: 700;
+
+  letter-spacing: .14em;
+}
+
+
+.faculty-scroll-hint div {
+  width: 70px;
+  height: 1px;
+
+  background: #0b0b0b;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.faculty-intro {
+  padding:
+    130px 0;
+
+  overflow: hidden;
+}
+
+
+.faculty-section-label {
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: .67rem;
+
+  font-weight: 700;
+
+  letter-spacing: .15em;
+}
+
+
+.faculty-intro-title {
+  max-width: 950px;
+
+  margin: 0;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(
+      2.3rem,
+      5vw,
+      5.5rem
+    );
+
+  line-height: .98;
+
+  letter-spacing: -.055em;
+}
+
+
+.faculty-intro-title em {
+  font-family:
+    Georgia,
+    serif;
+
+  font-weight: 400;
+}
+
+
+.faculty-intro-description {
+  max-width: 620px;
+
+  margin:
+    45px 0 0 auto;
+
+  color: #6e6b65;
+
+  font-size: 1rem;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.faculty-marquee {
+  overflow: hidden;
+
+  padding:
+    25px 0;
+
+  background:
+    #0b0b0b;
+
+  color:
+    #f5f3ed;
+}
+
+
+.faculty-marquee-track {
+  display: flex;
+
+  width: max-content;
+
+  white-space: nowrap;
+
+  animation:
+    facultyMarquee
+    24s linear infinite;
+}
+
+
+.faculty-marquee-track span {
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(
+      2rem,
+      5vw,
+      5rem
+    );
+
+  font-weight: 600;
+
+  letter-spacing: -.04em;
+
+  padding-right: 25px;
+}
+
+
+@keyframes facultyMarquee {
+
+  to {
+    transform:
+      translateX(-50%);
+  }
+
+}
+
+
+/* =========================================================
+   DIRECTORY
+========================================================= */
+
+.faculty-directory {
+  position: relative;
+
+  padding:
+    140px 0;
+
+  overflow: hidden;
+}
+
+
+.faculty-directory-heading {
+  margin-bottom:
+    80px;
+}
+
+
+.faculty-directory-heading h2 {
+  margin:
+    20px 0;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(
+      3.5rem,
+      8vw,
+      8rem
+    );
+
+  line-height: .82;
+
+  letter-spacing: -.07em;
+}
+
+
+.faculty-directory-heading h2 span {
+  display: block;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-style: italic;
+
+  font-weight: 400;
+}
+
+
+.faculty-directory-heading > p:last-child {
+  max-width: 450px;
+
+  margin-left: auto;
+
+  color:
+    #6e6b65;
+}
+
+
+/* =========================================================
+   BOOTSTRAP FACULTY CARD
+========================================================= */
+
+.faculty-card {
+  height: 100%;
+
+  border:
+    1px solid
+    rgba(11,11,11,.22);
+
+  border-radius: 0;
+
+  background:
+    transparent;
+
+  overflow: hidden;
+
+  position: relative;
+
+  box-shadow: none;
+
+  transition:
+    transform .6s
+      cubic-bezier(.16,1,.3,1),
+    box-shadow .6s ease;
+}
+
+
+.faculty-card:hover {
+  transform:
+    translateY(-14px);
+
+  box-shadow:
+    0 30px 70px
+    rgba(0,0,0,.12);
+}
+
+
+/* RED BORDER EFFECT */
+
+.faculty-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border:
+    2px solid
+    #d7261e;
+
+  opacity: 0;
+
+  transform:
+    scale(.94);
+
+  pointer-events: none;
+
+  transition:
+    opacity .4s ease,
+    transform .5s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+.faculty-card:hover::after {
+  opacity: 1;
+
+  transform:
+    scale(1);
+}
+
+
+/* =========================================================
+   PHOTO
+========================================================= */
+
+.faculty-photo-wrap {
+  position: relative;
+
+  height: 420px;
+
+  overflow: hidden;
+
+  background:
+    #d9d7d0;
+}
+
+
+.faculty-photo {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  filter:
+    grayscale(100%)
+    contrast(.9);
+
+  transform:
+    scale(1.03);
+
+  transition:
+    filter .7s ease,
+    transform 1s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+.faculty-card:hover
+.faculty-photo {
+  filter:
+    grayscale(0%)
+    contrast(1);
+
+  transform:
+    scale(1.08);
+}
+
+
+.faculty-photo-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0,0,0,.5)
+    );
+
+  pointer-events: none;
+}
+
+
+/* RED SCANNER */
+
+.faculty-scan-line {
+  position: absolute;
+
+  left: 0;
+  top: -10%;
+
+  width: 100%;
+  height: 3px;
+
+  opacity: 0;
+
+  background:
+    #d7261e;
+
+  box-shadow:
+    0 0 20px
+    rgba(215,38,30,.65);
+
+  pointer-events: none;
+}
+
+
+.faculty-card:hover
+.faculty-scan-line {
+  opacity: 1;
+
+  animation:
+    facultyScan
+    1.6s
+    cubic-bezier(.16,1,.3,1);
+}
+
+
+@keyframes facultyScan {
+
+  from {
+    top: 0%;
+  }
+
+  to {
+    top: 100%;
+  }
+
+}
+
+
+.faculty-card-number {
+  position: absolute;
+
+  top: 15px;
+  left: 15px;
+
+  padding:
+    8px 10px;
+
+  background:
+    #0b0b0b;
+
+  color:
+    #f5f3ed;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    .62rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    .1em;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.faculty-card-body {
+  padding:
+    28px !important;
+}
+
+
+.faculty-name {
+  margin: 0;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(
+      1.5rem,
+      2.5vw,
+      2.2rem
+    );
+
+  font-weight: 600;
+
+  letter-spacing:
+    -.04em;
+}
+
+
+.faculty-position {
+  margin:
+    7px 0 0;
+
+  color:
+    #d7261e;
+
+  font-size:
+    .78rem;
+
+  font-weight:
+    600;
+
+  text-transform:
+    uppercase;
+
+  letter-spacing:
+    .08em;
+}
+
+
+.faculty-divider {
+  width: 100%;
+  height: 1px;
+
+  margin:
+    25px 0;
+
+  background:
+    rgba(11,11,11,.18);
+}
+
+
+.faculty-information {
+  margin-bottom:
+    22px;
+}
+
+
+.faculty-info-label {
+  display: block;
+
+  margin-bottom:
+    6px;
+
+  color:
+    #6e6b65;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    .57rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    .13em;
+}
+
+
+.faculty-information p {
+  margin: 0;
+
+  line-height:
+    1.5;
+}
+
+
+/* =========================================================
+   CARD SCROLL ANIMATION
+========================================================= */
+
+.faculty-grid-item {
+  opacity: 0;
+
+  filter:
+    blur(8px);
+
+  transform:
+    translateY(100px)
+    scale(.94);
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+
+.faculty-grid-item.faculty-card-in {
+  opacity: 1;
+
+  filter:
+    blur(0);
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  transition:
+    opacity .8s ease,
+    filter .9s ease,
+    transform 1.1s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+/* =========================================================
+   GENERAL REVEAL
+========================================================= */
+
+.faculty-wow-reveal {
+  opacity: 0;
+
+  filter:
+    blur(8px);
+
+  transform:
+    translateY(70px);
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+
+.faculty-wow-reveal.faculty-visible {
+  opacity: 1;
+
+  filter:
+    blur(0);
+
+  transform:
+    translateY(0);
+
+  transition:
+    opacity .8s ease,
+    filter .8s ease,
+    transform 1s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+/* =========================================================
+   CLOSING
+========================================================= */
+
+.faculty-closing {
+  position: relative;
+
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding:
+    100px 5vw;
+
+  overflow: hidden;
+
+  background:
+    #0b0b0b;
+
+  color:
+    #f5f3ed;
+}
+
+
+.faculty-closing-grid {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: .07;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.25) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.25) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    60px 60px;
+}
+
+
+.faculty-dark-label {
+  position: relative;
+
+  z-index: 2;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    .65rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    .15em;
+
+  color:
+    #888;
+}
+
+
+.faculty-closing-text {
+  position: relative;
+
+  z-index: 2;
+
+  margin-top:
+    35px;
+
+  perspective:
+    1200px;
+}
+
+
+.faculty-closing-text span {
+  display: block;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(
+      3.5rem,
+      8vw,
+      9rem
+    );
+
+  font-weight:
+    600;
+
+  line-height:
+    .82;
+
+  letter-spacing:
+    -.07em;
+
+  opacity: 0;
+
+  filter:
+    blur(12px);
+
+  transform:
+    translateY(100px)
+    rotateX(15deg);
+}
+
+
+.faculty-closing-text
+.faculty-closing-serif {
+  font-family:
+    Georgia,
+    serif;
+
+  font-style:
+    italic;
+
+  font-weight:
+    400;
+}
+
+
+.faculty-closing-text
+span.faculty-closing-in {
+  opacity: 1;
+
+  filter:
+    blur(0);
+
+  transform:
+    translateY(0)
+    rotateX(0);
+
+  transition:
+    opacity .8s ease,
+    filter .9s ease,
+    transform 1.2s
+      cubic-bezier(.16,1,.3,1);
+}
+
+
+.faculty-closing-caption {
+  position: relative;
+
+  z-index: 2;
+
+  margin:
+    50px 0 0 auto;
+
+  font-size:
+    .62rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    .14em;
+
+  color:
+    #777;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media
+(max-width: 767px) {
+
+  .faculty-hero {
+    padding:
+      130px 0
+      90px;
+  }
+
+
+  .faculty-hero-title {
+    font-size:
+      clamp(
+        4rem,
+        20vw,
+        7rem
+      );
+  }
+
+
+  .faculty-hero-side {
+    margin-top:
+      45px;
+  }
+
+
+  .faculty-photo-wrap {
+    height:
+      380px;
+  }
+
+
+  .faculty-intro {
+    padding:
+      90px 0;
+  }
+
+
+  .faculty-directory {
+    padding:
+      100px 0;
+  }
+
+}
+/* =========================================================
+   FACULTY — VISUAL UPGRADE / LESS EMPTY
+   PASTE AT VERY BOTTOM
+========================================================= */
+
+
+/* ---------- HERO DECORATION ---------- */
+
+.faculty-body .faculty-hero::before {
+  content: "FACULTY / COMPUTER ENGINEERING / UE MANILA";
+  position: absolute;
+  right: -2vw;
+  top: 24%;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 8vw, 9rem);
+  font-weight: 700;
+  line-height: .8;
+  letter-spacing: -.07em;
+
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(11,11,11,.09);
+
+  transform: rotate(90deg) translateX(50%);
+  transform-origin: right top;
+
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+
+/* RED TECH CIRCLE */
+
+.faculty-body .faculty-hero::after {
+  content: "";
+  position: absolute;
+
+  width: min(35vw, 520px);
+  aspect-ratio: 1;
+
+  right: 8%;
+  top: 18%;
+
+  border: 1px solid rgba(215,38,30,.35);
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 70px rgba(215,38,30,.035),
+    0 0 0 140px rgba(215,38,30,.025);
+
+  pointer-events: none;
+
+  animation: facultyCirclePulse 4s ease-in-out infinite;
+}
+
+
+@keyframes facultyCirclePulse {
+  0%, 100% {
+    transform: scale(.96);
+    opacity: .55;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+
+/* ---------- INTRO: REMOVE HUGE EMPTY SPACE ---------- */
+
+.faculty-body .faculty-intro {
+  position: relative;
+  padding: 95px 0 110px;
+  min-height: auto;
+}
+
+
+/* RED VERTICAL ACCENT */
+
+.faculty-body .faculty-intro::before {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 6px;
+  height: 0;
+
+  background: #d7261e;
+
+  transition:
+    height 1.4s cubic-bezier(.16,1,.3,1);
+}
+
+
+.faculty-body
+.faculty-intro.faculty-section-active::before {
+  height: 100%;
+}
+
+
+/* BIG BACKGROUND NUMBER */
+
+.faculty-body .faculty-intro::after {
+  content: "01";
+
+  position: absolute;
+  right: 4%;
+  bottom: -7%;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(10rem, 25vw, 28rem);
+  font-weight: 700;
+
+  line-height: 1;
+
+  color: rgba(11,11,11,.025);
+
+  pointer-events: none;
+}
+
+
+/* ---------- DIRECTORY: THIS FIXES YOUR 2ND SCREENSHOT ---------- */
+
+.faculty-body .faculty-directory {
+  padding: 90px 0 120px;
+  min-height: auto;
+}
+
+
+.faculty-body .faculty-directory-heading {
+  position: relative;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.6fr)
+    minmax(240px, .4fr);
+
+  align-items: end;
+
+  gap: 40px;
+
+  margin-bottom: 55px;
+  padding-bottom: 45px;
+
+  border-bottom: 1px solid rgba(11,11,11,.2);
+}
+
+
+.faculty-body
+.faculty-directory-heading
+.faculty-section-label {
+  grid-column: 1 / -1;
+
+  margin-bottom: 0;
+}
+
+
+.faculty-body
+.faculty-directory-heading h2 {
+  margin: 0;
+
+  font-size:
+    clamp(3.8rem, 7vw, 7.5rem);
+}
+
+
+.faculty-body
+.faculty-directory-heading > p:last-child {
+  margin: 0 0 10px;
+
+  max-width: 320px;
+
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+
+/* RED NUMBER BEHIND DIRECTORY */
+
+.faculty-body
+.faculty-directory-heading::after {
+  content: "02";
+
+  position: absolute;
+
+  right: 0;
+  top: -80px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(8rem, 17vw, 17rem);
+  font-weight: 700;
+
+  color: rgba(215,38,30,.035);
+
+  line-height: 1;
+
+  z-index: -1;
+}
+
+
+/* ---------- GRID ---------- */
+
+.faculty-body .faculty-grid {
+  position: relative;
+}
+
+
+/* faint connecting grid */
+
+.faculty-body .faculty-grid::before {
+  content: "";
+
+  position: absolute;
+  inset: -30px;
+
+  background-image:
+    linear-gradient(
+      rgba(11,11,11,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(11,11,11,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+
+  pointer-events: none;
+}
+
+
+/* ---------- CARDS: MORE TECHNICAL ---------- */
+
+.faculty-body .faculty-card {
+  background: #f5f3ed;
+
+  isolation: isolate;
+
+  cursor: pointer;
+}
+
+
+.faculty-body .faculty-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 0;
+
+  background: #0b0b0b;
+
+  transition:
+    height .65s cubic-bezier(.16,1,.3,1);
+
+  z-index: -1;
+}
+
+
+.faculty-body .faculty-card:hover::before {
+  height: 100%;
+}
+
+
+.faculty-body .faculty-card:hover {
+  color: #f5f3ed;
+}
+
+
+.faculty-body
+.faculty-card:hover
+.faculty-info-label {
+  color: rgba(245,243,237,.5);
+}
+
+
+.faculty-body
+.faculty-card:hover
+.faculty-divider {
+  background: rgba(245,243,237,.2);
+}
+
+
+/* RED CORNER */
+
+.faculty-body
+.faculty-card-body::after {
+  content: "+";
+
+  position: absolute;
+
+  right: 18px;
+  bottom: 12px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+
+  color: #d7261e;
+
+  transition:
+    transform .5s cubic-bezier(.16,1,.3,1);
+}
+
+
+.faculty-body
+.faculty-card:hover
+.faculty-card-body::after {
+  transform: rotate(135deg);
+}
+
+
+/* ---------- PHOTO NUMBER ---------- */
+
+.faculty-body .faculty-card-number {
+  background: #d7261e;
+}
+
+
+/* ---------- CLOSING ---------- */
+
+.faculty-body .faculty-closing::after {
+  content: "CpE";
+
+  position: absolute;
+
+  right: -2%;
+  bottom: -14%;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: clamp(15rem, 35vw, 38rem);
+  font-weight: 700;
+
+  line-height: 1;
+
+  color: rgba(255,255,255,.025);
+
+  pointer-events: none;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 767px) {
+
+  .faculty-body
+  .faculty-directory-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-body
+  .faculty-directory-heading
+  .faculty-section-label {
+    grid-column: auto;
+  }
+
+  .faculty-body
+  .faculty-hero::after {
+    width: 300px;
+
+    right: -140px;
+    top: 25%;
+  }
+
+}
+
+/* =========================================================
+   FACULTY HERO — FINAL VISUAL FIX
+========================================================= */
+
+/* Make sure title can NEVER disappear */
+.faculty-body .faculty-title-line {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) rotateX(0);
+}
+
+
+/* LEFT TITLE POSITION */
+.faculty-body .faculty-hero-title {
+  position: relative;
+  z-index: 5;
+
+  max-width: 900px;
+
+  font-size: clamp(5rem, 10vw, 10.5rem);
+  line-height: .76;
+}
+
+
+/* Make BEHIND red */
+.faculty-body .faculty-title-serif {
+  color: #d7261e;
+}
+
+
+/* Put circle more toward the right */
+.faculty-body .faculty-hero::after {
+  width: min(32vw, 500px);
+
+  right: 7%;
+  top: 19%;
+
+  opacity: .75;
+}
+
+
+/* Give the circle a center label */
+.faculty-body .faculty-grid-bg::after {
+  content: "CpE";
+
+  position: absolute;
+
+  right: calc(7% + min(16vw, 250px));
+  top: 45%;
+
+  transform: translate(50%, -50%);
+
+  width: 110px;
+  height: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #0b0b0b;
+  color: #f5f3ed;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+
+  box-shadow:
+    0 0 0 15px rgba(215,38,30,.08);
+
+  z-index: 2;
+}
+
+
+/* Better kicker */
+.faculty-body .faculty-kicker {
+  margin-bottom: 45px;
+
+  color: #d7261e;
+}
+
+
+/* Little description under title */
+.faculty-body .faculty-hero-title::after {
+  content:
+    "EDUCATORS • ENGINEERS • MENTORS";
+
+  display: block;
+
+  margin-top: 45px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: .7rem;
+  font-style: normal;
+  font-weight: 700;
+
+  letter-spacing: .18em;
+
+  color: #6e6b65;
+}
+
+
+/* Make side categories sit nicely beside circle */
+.faculty-body .faculty-hero-side {
+  position: relative;
+
+  z-index: 5;
+
+  margin-bottom: 20px;
+}
+
+
+/* MOBILE */
+@media (max-width: 991px) {
+
+  .faculty-body .faculty-hero::after {
+    width: 330px;
+
+    right: -170px;
+
+    opacity: .35;
+  }
+
+
+  .faculty-body .faculty-grid-bg::after {
+    display: none;
+  }
+
+}
+
+/* =========================================================
+   FACULTY DEBUG — FORCE CONTENT VISIBLE
+========================================================= */
+
+.faculty-body .faculty-grid-item,
+.faculty-body .faculty-card,
+
+.faculty-body .faculty-closing-text span,
+.faculty-body .faculty-closing-caption {
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* =========================================================
+   FACULTY — CINEMATIC PAGE ENTRANCE
+========================================================= */
+
+.faculty-entry {
+  position: fixed;
+  inset: 0;
+
+  z-index: 999999;
+
+  overflow: hidden;
+
+  background: #0b0b0b;
+  color: #f5f3ed;
+
+  pointer-events: all;
+}
+
+
+/* TECH GRID */
+
+.faculty-entry-grid {
+  position: absolute;
+  inset: 0;
+
+  opacity: .12;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.13) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.13) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  animation:
+    facultyEntryGrid 5s linear infinite;
+}
+
+
+@keyframes facultyEntryGrid {
+
+  to {
+    background-position:
+      55px 55px;
+  }
+
+}
+
+
+/* TOP INFORMATION */
+
+.faculty-entry-code {
+  position: absolute;
+
+  top: 35px;
+  left: 40px;
+  right: 40px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: .6rem;
+
+  font-weight: 700;
+
+  letter-spacing: .16em;
+
+  color: rgba(245,243,237,.45);
+}
+
+
+/* CENTER */
+
+.faculty-entry-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: min(90%, 1050px);
+
+  transform:
+    translate(-50%, -50%);
+
+  text-align: center;
+
+  z-index: 4;
+}
+
+
+.faculty-entry-number {
+  margin-bottom: 25px;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: .65rem;
+
+  font-weight: 700;
+
+  letter-spacing: .2em;
+
+  color: #d7261e;
+
+  opacity: 0;
+
+  animation:
+    facultyEntrySmall
+    .7s ease
+    .15s forwards;
+}
+
+
+@keyframes facultyEntrySmall {
+
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* BIG TITLE */
+
+.faculty-entry-title {
+  margin: 0;
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size:
+    clamp(4rem, 10vw, 10rem);
+
+  font-weight: 600;
+
+  line-height: .78;
+
+  letter-spacing: -.075em;
+}
+
+
+.faculty-entry-title span {
+  display: block;
+
+  opacity: 0;
+
+  filter: blur(15px);
+
+  transform:
+    translateY(100px);
+}
+
+
+.faculty-entry-title
+span:first-child {
+  animation:
+    facultyEntryTitle
+    1s
+    cubic-bezier(.16,1,.3,1)
+    .35s forwards;
+}
+
+
+.faculty-entry-title
+.faculty-entry-serif {
+  font-family:
+    Georgia,
+    serif;
+
+  font-style: italic;
+
+  font-weight: 400;
+
+  color: #d7261e;
+
+  animation:
+    facultyEntryTitle
+    1s
+    cubic-bezier(.16,1,.3,1)
+    .52s forwards;
+}
+
+
+@keyframes facultyEntryTitle {
+
+  to {
+    opacity: 1;
+
+    filter: blur(0);
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* LOADING LINE */
+
+.faculty-entry-loading {
+  position: relative;
+
+  width: min(400px, 70%);
+  height: 1px;
+
+  margin:
+    50px auto 15px;
+
+  overflow: hidden;
+
+  background:
+    rgba(255,255,255,.18);
+}
+
+
+.faculty-entry-loading span {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 0;
+  height: 100%;
+
+  background: #d7261e;
+
+  animation:
+    facultyLoadLine
+    1.5s
+    cubic-bezier(.16,1,.3,1)
+    .55s forwards;
+}
+
+
+@keyframes facultyLoadLine {
+
+  to {
+    width: 100%;
+  }
+
+}
+
+
+.faculty-entry-status {
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: .52rem;
+
+  font-weight: 700;
+
+  letter-spacing: .18em;
+
+  color:
+    rgba(245,243,237,.45);
+}
+
+
+/* SCANNING RED LINE */
+
+.faculty-entry-scan {
+  position: absolute;
+
+  left: 0;
+  top: -4px;
+
+  width: 100%;
+  height: 2px;
+
+  z-index: 5;
+
+  background: #d7261e;
+
+  box-shadow:
+    0 0 20px #d7261e,
+    0 0 45px rgba(215,38,30,.5);
+
+  animation:
+    facultyEntryScan
+    1.8s
+    cubic-bezier(.4,0,.2,1)
+    forwards;
+}
+
+
+@keyframes facultyEntryScan {
+
+  from {
+    top: 0;
+  }
+
+  to {
+    top: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   EXIT DOORS
+========================================================= */
+
+.faculty-entry-door {
+  position: absolute;
+
+  top: 0;
+
+  width: 51%;
+  height: 100%;
+
+  z-index: 10;
+
+  background: #0b0b0b;
+
+  pointer-events: none;
+
+  transform:
+    scaleX(0);
+}
+
+
+.faculty-door-left {
+  left: 0;
+
+  transform-origin: left;
+}
+
+
+.faculty-door-right {
+  right: 0;
+
+  transform-origin: right;
+}
+
+
+/*
+  First the doors cover the title,
+  then pull apart to reveal the page.
+*/
+
+.faculty-entry.faculty-entry-exit
+.faculty-entry-center,
+
+.faculty-entry.faculty-entry-exit
+.faculty-entry-code {
+
+  animation:
+    facultyEntryFade
+    .25s ease forwards;
+}
+
+
+@keyframes facultyEntryFade {
+
+  to {
+    opacity: 0;
+  }
+
+}
+
+
+.faculty-entry.faculty-entry-exit
+.faculty-door-left {
+
+  animation:
+    facultyDoorLeft
+    .9s
+    cubic-bezier(.76,0,.24,1)
+    forwards;
+}
+
+
+.faculty-entry.faculty-entry-exit
+.faculty-door-right {
+
+  animation:
+    facultyDoorRight
+    .9s
+    cubic-bezier(.76,0,.24,1)
+    forwards;
+}
+
+
+@keyframes facultyDoorLeft {
+
+  0% {
+    transform: scaleX(1);
+  }
+
+  100% {
+    transform:
+      scaleX(1)
+      translateX(-101%);
+  }
+
+}
+
+
+@keyframes facultyDoorRight {
+
+  0% {
+    transform: scaleX(1);
+  }
+
+  100% {
+    transform:
+      scaleX(1)
+      translateX(101%);
+  }
+
+}
+
+
+/* FINAL REMOVE */
+
+.faculty-entry.faculty-entry-gone {
+  display: none;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+  .faculty-entry-code {
+    left: 20px;
+    right: 20px;
+  }
+
+  .faculty-entry-title {
+    font-size:
+      clamp(3.5rem, 18vw, 6rem);
+  }
+
+}
+
+/* =========================================================
+   FACULTY HERO — CINEMATIC ARRIVAL
+   Runs AFTER "MEET THE FACULTY" transition
+========================================================= */
+
+/* Initial states */
+
+.faculty-body.faculty-arriving .faculty-kicker {
+  opacity: 0 !important;
+  transform: translateX(-35px) !important;
+}
+
+.faculty-body.faculty-arriving .faculty-title-line {
+  opacity: 0 !important;
+  transform: translateY(110px) skewY(5deg) !important;
+  filter: blur(12px) !important;
+}
+
+.faculty-body.faculty-arriving .faculty-hero-side {
+  opacity: 0 !important;
+  transform: translateY(40px) !important;
+}
+
+.faculty-body.faculty-arriving .faculty-hero::after {
+  opacity: 0 !important;
+  transform: scale(.35) rotate(-25deg) !important;
+}
+
+.faculty-body.faculty-arriving .faculty-grid-bg::after {
+  opacity: 0 !important;
+  transform: translate(50%, -50%) scale(0) !important;
+}
+
+
+/* =========================================================
+   ARRIVED
+========================================================= */
+
+.faculty-body.faculty-arrived .faculty-kicker {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+
+  transition:
+    opacity .7s ease,
+    transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+
+/* THE PEOPLE */
+
+.faculty-body.faculty-arrived
+.faculty-title-line:nth-child(1) {
+  opacity: 1 !important;
+  transform: translateY(0) skewY(0) !important;
+  filter: blur(0) !important;
+
+  transition:
+    opacity .7s ease .15s,
+    transform 1.1s cubic-bezier(.16,1,.3,1) .15s,
+    filter .8s ease .15s;
+}
+
+
+/* BEHIND */
+
+.faculty-body.faculty-arrived
+.faculty-title-line:nth-child(2) {
+  opacity: 1 !important;
+  transform: translateY(0) skewY(0) !important;
+  filter: blur(0) !important;
+
+  transition:
+    opacity .7s ease .28s,
+    transform 1.1s cubic-bezier(.16,1,.3,1) .28s,
+    filter .8s ease .28s;
+}
+
+
+/* CpE */
+
+.faculty-body.faculty-arrived
+.faculty-title-line:nth-child(3) {
+  opacity: 1 !important;
+  transform: translateY(0) skewY(0) !important;
+  filter: blur(0) !important;
+
+  transition:
+    opacity .7s ease .41s,
+    transform 1.1s cubic-bezier(.16,1,.3,1) .41s,
+    filter .8s ease .41s;
+}
+
+
+/* Right-side labels */
+
+.faculty-body.faculty-arrived .faculty-hero-side {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+
+  transition:
+    opacity .8s ease .75s,
+    transform 1s cubic-bezier(.16,1,.3,1) .75s;
+}
+
+
+/* BIG RED CIRCLE */
+
+.faculty-body.faculty-arrived .faculty-hero::after {
+  opacity: .75 !important;
+  transform: scale(1) rotate(0deg) !important;
+
+  transition:
+    opacity 1s ease .35s,
+    transform 1.5s cubic-bezier(.16,1,.3,1) .35s;
+}
+
+
+/* CpE circle center */
+
+.faculty-body.faculty-arrived
+.faculty-grid-bg::after {
+  opacity: 1 !important;
+
+  transform:
+    translate(50%, -50%)
+    scale(1) !important;
+
+  transition:
+    opacity .5s ease 1s,
+    transform .9s cubic-bezier(.16,1,.3,1) 1s;
+}
+
+
+/* =========================================================
+   EXTRA CIRCLE PULSE
+========================================================= */
+
+.faculty-body.faculty-arrived .faculty-hero::after {
+  animation:
+    facultyCirclePulse
+    4s ease-in-out
+    2s infinite;
+}
+
+@keyframes facultyCirclePulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(215,38,30,0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 35px rgba(215,38,30,.035);
+  }
+
+}
+
+
+
+/* =========================================================
+   FACULTY — DOSSIER / SCANNER ANIMATION
+   New Faculty-specific motion; keeps card layout unchanged.
+========================================================= */
+
+/* Top loading + scroll progress */
+.faculty-body .faculty-load-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  width: 100%;
+  height: 3px;
+  background: rgba(11,11,11,.08);
+  pointer-events: none;
+}
+.faculty-body .faculty-load-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #d7261e;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Restore the card appearance from before.
+   Do NOT turn the whole card black on hover. */
+.faculty-body .faculty-card {
+  color: #0b0b0b !important;
+  background: #f5f3ed !important;
+}
+.faculty-body .faculty-card::before {
+  display: none !important;
+}
+.faculty-body .faculty-card:hover {
+  color: #0b0b0b !important;
+}
+.faculty-body .faculty-card:hover .faculty-info-label {
+  color: #6e6b65 !important;
+}
+.faculty-body .faculty-card:hover .faculty-divider {
+  background: rgba(11,11,11,.18) !important;
+}
+
+/* Never move the Bootstrap columns themselves.
+   This preserves 01–03 and centered 04–05 exactly. */
+.faculty-body .faculty-grid-item,
+.faculty-body .faculty-grid-item.faculty-card-in {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Dossier reveal happens INSIDE the card, so layout never shifts. */
+.faculty-body .faculty-card {
+  clip-path: inset(0 100% 0 0);
+  transition:
+    clip-path 1.05s cubic-bezier(.16,1,.3,1),
+    transform .6s cubic-bezier(.16,1,.3,1),
+    box-shadow .6s ease;
+}
+.faculty-body .faculty-grid-item:nth-child(even) .faculty-card {
+  clip-path: inset(0 0 0 100%);
+}
+.faculty-body .faculty-card.faculty-dossier-in {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Red vertical scanner that passes across each card on reveal */
+.faculty-body .faculty-card .faculty-dossier-scan {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  opacity: 0;
+  background: #d7261e;
+  box-shadow:
+    0 0 14px rgba(215,38,30,.8),
+    0 0 34px rgba(215,38,30,.35);
+  pointer-events: none;
+}
+.faculty-body .faculty-card.faculty-dossier-in .faculty-dossier-scan {
+  animation: facultyDossierScan 1.05s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes facultyDossierScan {
+  0%   { left: 0; opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { left: calc(100% - 2px); opacity: 0; }
+}
+
+/* Number flashes once when the profile is "registered" */
+.faculty-body .faculty-card.faculty-dossier-in .faculty-card-number {
+  animation: facultyIdStamp .55s .45s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes facultyIdStamp {
+  0%   { opacity: 0; transform: scale(1.8); }
+  65%  { opacity: 1; transform: scale(.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Directory heading: technical underline draws in */
+.faculty-body .faculty-directory-heading {
+  position: relative;
+}
+.faculty-body .faculty-directory-heading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -28px;
+  width: 100%;
+  height: 1px;
+  background: #d7261e;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.faculty-body .faculty-directory-heading.faculty-directory-live::before {
+  transform: scaleX(1);
+}
+
+/* Closing section gets its OWN Faculty effect:
+   grid lights up + title lines "lock in" like a system display. */
+.faculty-body .faculty-closing {
+  overflow: hidden;
+}
+.faculty-body .faculty-closing::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(215,38,30,.08) 48%,
+      rgba(215,38,30,.22) 50%,
+      rgba(215,38,30,.08) 52%,
+      transparent 100%);
+  transform: translateX(-110%);
+}
+.faculty-body .faculty-closing.faculty-closing-live::before {
+  animation: facultyClosingSweep 1.35s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes facultyClosingSweep {
+  to { transform: translateX(110%); }
+}
+
+.faculty-body .faculty-closing-text span {
+  opacity: 0 !important;
+  visibility: visible !important;
+  filter: blur(10px) !important;
+  transform: translateY(55px) !important;
+  transition:
+    opacity .7s ease,
+    filter .75s ease,
+    transform .95s cubic-bezier(.16,1,.3,1) !important;
+}
+.faculty-body .faculty-closing-text span.faculty-lock-in {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  transform: translateY(0) !important;
+}
+
+/* little red status pulse beside closing label */
+.faculty-body .faculty-dark-label::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 10px;
+  background: #d7261e;
+  vertical-align: middle;
+  animation: facultyStatusPulse 1.25s ease-in-out infinite;
+}
+@keyframes facultyStatusPulse {
+  50% { opacity: .25; transform: scale(.65); }
+}
+
+/* Hero circle: Faculty-specific "radar" pulse, not Careers wipe */
+.faculty-body.faculty-arrived .faculty-hero::after {
+  animation: facultyRadarBreath 4.5s 1.3s ease-in-out infinite;
+}
+@keyframes facultyRadarBreath {
+  0%,100% { box-shadow: 0 0 0 0 rgba(215,38,30,0); }
+  50% {
+    box-shadow:
+      0 0 0 22px rgba(215,38,30,.035),
+      0 0 0 48px rgba(215,38,30,.018);
+  }
+}
+
+@media (max-width: 767px) {
+  .faculty-body .faculty-card,
+  .faculty-body .faculty-grid-item:nth-child(even) .faculty-card {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+
+/* =========================================================
+   FACULTY HERO — EDITORIAL TYPOGRAPHY REVEAL
+   Safe: title remains visible if JavaScript fails.
+========================================================= */
+
+/* Remove the old right-side circle / CpE decoration completely */
+.faculty-body .faculty-hero::after,
+.faculty-body .faculty-grid-bg::after,
+.faculty-body .faculty-hero-side::before,
+.faculty-body .faculty-hero-side .faculty-orbit,
+.faculty-body .faculty-hero-circle,
+.faculty-body .faculty-circle-graphic,
+.faculty-body .faculty-hero-visual {
+  display: none !important;
+}
+
+/* Let the title own the hero */
+.faculty-body .faculty-hero-content {
+  position: relative;
+  z-index: 4;
+}
+
+.faculty-body .faculty-title {
+  position: relative;
+  overflow: visible;
+  perspective: 900px;
+}
+
+/* Default is ALWAYS visible. JS only adds animation classes. */
+.faculty-body .faculty-title-line {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+/* Red registration line */
+.faculty-body .faculty-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 51%;
+  width: min(760px, 86vw);
+  height: 2px;
+  z-index: 8;
+  pointer-events: none;
+  background: #d7261e;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.faculty-body.faculty-type-show .faculty-title::after {
+  animation: facultyRegistrationLine 1.15s .55s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes facultyRegistrationLine {
+  0%   { transform: scaleX(0); opacity: 0; }
+  18%  { opacity: 1; }
+  65%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* THE PEOPLE — segmented/assembled feeling */
+.faculty-body.faculty-type-prep .faculty-title-line:nth-child(1) {
+  transform: translateX(-70px) scaleX(1.08) !important;
+  letter-spacing: .12em;
+  opacity: 0 !important;
+}
+
+.faculty-body.faculty-type-show .faculty-title-line:nth-child(1) {
+  animation: facultyPeopleAssemble 1s .08s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes facultyPeopleAssemble {
+  0% {
+    opacity: 0;
+    transform: translateX(-70px) scaleX(1.08);
+    letter-spacing: .12em;
+  }
+  45% { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+    letter-spacing: normal;
+  }
+}
+
+/* BEHIND — red editorial stamp/reveal */
+.faculty-body.faculty-type-prep .faculty-title-line:nth-child(2) {
+  transform: translateX(90px) skewX(-12deg) !important;
+  clip-path: inset(0 100% 0 0);
+  opacity: 1 !important;
+}
+
+.faculty-body.faculty-type-show .faculty-title-line:nth-child(2) {
+  animation: facultyBehindStamp 1.05s .32s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes facultyBehindStamp {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(90px) skewX(-12deg);
+  }
+  65% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(-8px) skewX(2deg);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0) skewX(0);
+  }
+}
+
+/* CpE. — short registration/glitch landing */
+.faculty-body.faculty-type-prep .faculty-title-line:nth-child(3) {
+  transform: translateY(42px) !important;
+  opacity: 0 !important;
+}
+
+.faculty-body.faculty-type-show .faculty-title-line:nth-child(3) {
+  animation: facultyCpeRegister .82s .7s steps(6, end) both;
+}
+
+@keyframes facultyCpeRegister {
+  0%   { opacity: 0; transform: translate(0,42px); text-shadow: none; }
+  25%  { opacity: 1; transform: translate(-9px,16px); text-shadow: 7px 0 0 rgba(215,38,30,.55); }
+  42%  { transform: translate(8px,9px); text-shadow: -6px 0 0 rgba(215,38,30,.38); }
+  62%  { transform: translate(-3px,3px); text-shadow: 3px 0 0 rgba(215,38,30,.25); }
+  100% { opacity: 1; transform: translate(0,0); text-shadow: none; }
+}
+
+/* kicker + bottom descriptor */
+.faculty-body.faculty-type-prep .faculty-kicker,
+.faculty-body.faculty-type-prep .faculty-scroll-hint {
+  opacity: 0 !important;
+  transform: translateY(14px) !important;
+}
+
+.faculty-body.faculty-type-show .faculty-kicker {
+  animation: facultyMetaIn .65s .05s ease both;
+}
+
+.faculty-body.faculty-type-show .faculty-scroll-hint {
+  animation: facultyMetaIn .75s 1.02s ease both;
+}
+
+@keyframes facultyMetaIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Right-side words stay, but without the meaningless circle */
+.faculty-body .faculty-hero-side {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Absolutely never hide faculty cards */
+.faculty-body .faculty-grid-item,
+.faculty-body .faculty-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+.faculty-body .faculty-grid-item {
+  transform: none !important;
+}
+.faculty-body .faculty-card {
+  clip-path: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faculty-body .faculty-title-line,
+  .faculty-body .faculty-kicker,
+  .faculty-body .faculty-scroll-hint {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+
+
+
+/* =========================================================
+   FACULTY CLOSING — BLACK TAKEOVER + RED EDGE
+   ONLY changes the scroll transition of the final dark section.
+========================================================= */
+.faculty-body .faculty-closing {
+  --faculty-close-inset: 50%;
+  --faculty-close-content: 0;
+  background: var(--bg) !important;
+  isolation: isolate;
+}
+
+/* Black panel opens from the center as the user scrolls into the section. */
+.faculty-body .faculty-closing::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  background: #0b0b0b !important;
+  clip-path: inset(0 var(--faculty-close-inset) 0 var(--faculty-close-inset));
+  -webkit-clip-path: inset(0 var(--faculty-close-inset) 0 var(--faculty-close-inset));
+  box-shadow:
+    inset 3px 0 0 #d7261e,
+    inset -3px 0 0 #d7261e;
+  will-change: clip-path;
+}
+
+/* Keep the grid above the black takeover and fade it in naturally. */
+.faculty-body .faculty-closing-grid {
+  z-index: 1;
+  opacity: calc(.07 * var(--faculty-close-content));
+}
+
+/* Keep your existing text design; only sync its visibility to the takeover. */
+.faculty-body .faculty-closing > .faculty-dark-label,
+.faculty-body .faculty-closing > .faculty-closing-text,
+.faculty-body .faculty-closing > .faculty-closing-caption {
+  position: relative;
+  z-index: 2;
+  opacity: var(--faculty-close-content) !important;
+}
+
+/* Do not let the newer scanner animation replace this takeover. */
+.faculty-body .faculty-closing.faculty-closing-live::before {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Keep the large faint CpE decoration you already liked. */
+.faculty-body .faculty-closing::after {
+  z-index: 1;
+}
+
+/* =========================================================
+   SCPES PAGE — THE NETWORK
+   Unique page identity: connected nodes, signal paths, pulse.
+========================================================= */
+.scpes-body{background:var(--bg);color:var(--ink)}
+.scpes-main{overflow:hidden}.scpes-body .topbar{transition:color .35s ease,border-color .35s ease,background .35s ease}
+.scpes-hero{position:relative;min-height:100vh;padding-top:82px;overflow:hidden;isolation:isolate;background:var(--bg)}
+.scpes-grid-bg,.scpes-finale-grid,.scpes-activity-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(11,11,11,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(11,11,11,.07) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),transparent 96%)}
+.scpes-hero-content{position:relative;z-index:5;height:calc(100vh - 82px);display:flex;flex-direction:column;justify-content:space-between;padding-top:34px!important;padding-bottom:64px!important}
+.scpes-kicker,.scpes-label{font:700 .7rem/1 "Space Grotesk",sans-serif;letter-spacing:.17em;text-transform:uppercase}
+.scpes-hero-copy{max-width:1040px}.scpes-system-status{display:flex;align-items:center;gap:10px;margin:0 0 18px;font:600 .65rem/1 "Space Grotesk",sans-serif;letter-spacing:.17em}
+.scpes-system-status span,.scpes-finale-status span{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(215,38,30,.45);animation:scpesPulseDot 1.6s infinite}
+.scpes-hero-title{margin:0;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(3.25rem,8.2vw,8.7rem);line-height:.79;letter-spacing:-.075em;text-transform:uppercase}
+.scpes-hero-title>span{display:block;opacity:0;transform:translateY(28px);filter:blur(7px)}
+.scpes-body.scpes-ready .scpes-hero-title>span{animation:scpesSignalIn .75s cubic-bezier(.16,1,.3,1) forwards}
+.scpes-body.scpes-ready .scpes-hero-title>span:nth-child(2){animation-delay:.18s}.scpes-body.scpes-ready .scpes-hero-title>span:nth-child(3){animation-delay:.36s}
+.scpes-title-accent{font-family:Georgia,"Times New Roman",serif!important;font-style:italic;font-weight:400!important;color:var(--accent)}
+.scpes-hero-sub{margin:22px 0 0;font:600 .72rem/1 "Space Grotesk",sans-serif;letter-spacing:.22em}
+.scpes-network{position:absolute;z-index:2;inset:76px 0 0;opacity:.95;pointer-events:none}.scpes-network-lines{position:absolute;inset:0;width:100%;height:100%}.scpes-network-lines path{fill:none;stroke:rgba(11,11,11,.23);stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-dasharray:1300;stroke-dashoffset:1300}.scpes-body.scpes-ready .scpes-network-lines path{animation:scpesDraw 1.8s cubic-bezier(.65,0,.35,1) forwards}.scpes-network-lines path:nth-child(2){animation-delay:.16s!important}.scpes-network-lines path:nth-child(3){animation-delay:.3s!important}.scpes-network-lines path:nth-child(4){animation-delay:.45s!important}
+.scpes-node{position:absolute;display:flex;align-items:center;gap:9px;font:700 .56rem/1 "Space Grotesk",sans-serif;letter-spacing:.14em;opacity:0;transform:scale(.65)}.scpes-node i{width:8px;height:8px;background:var(--ink);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--ink);border-radius:50%}.scpes-body.scpes-ready .scpes-node{animation:scpesNodeOn .45s ease forwards 1s}.node-1{left:7%;top:15%}.node-2{left:47%;top:13%}.node-3{right:6%;top:14%}.node-4{left:10%;bottom:16%}.node-5{left:48%;bottom:12%}.node-6{right:6%;bottom:14%}.scpes-core{position:absolute;left:50%;top:48%;width:82px;height:82px;border:1px solid rgba(215,38,30,.55);border-radius:50%;display:grid;place-items:center;transform:translate(-50%,-50%) scale(0);background:rgba(245,243,237,.82);backdrop-filter:blur(8px)}.scpes-core:before,.scpes-core:after{content:"";position:absolute;inset:-16px;border:1px solid rgba(215,38,30,.18);border-radius:50%}.scpes-core:after{inset:-34px}.scpes-core b{font:700 1.3rem/1 "Space Grotesk",sans-serif}.scpes-body.scpes-ready .scpes-core{animation:scpesCoreOn .7s cubic-bezier(.16,1,.3,1) forwards 1.25s}
+.scpes-scroll-hint{position:absolute;right:28px;bottom:22px;z-index:6;display:flex;align-items:center;gap:12px;font:600 .58rem/1 "Space Grotesk",sans-serif;letter-spacing:.16em;transform:rotate(90deg);transform-origin:right bottom}.scpes-scroll-hint i{width:52px;height:1px;background:var(--ink);position:relative;overflow:hidden}.scpes-scroll-hint i:after{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);animation:scpesHint 1.8s ease-in-out infinite}
+.scpes-about,.scpes-officers,.scpes-involvement,.scpes-projects{position:relative;padding:130px 0}.scpes-statement{font:500 clamp(2.5rem,5.6vw,6.4rem)/.96 "Space Grotesk",sans-serif;letter-spacing:-.06em;text-transform:uppercase}.scpes-statement em,.scpes-involve-title em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:var(--accent)}.scpes-description{max-width:720px;margin:42px 0 0;font-size:1.03rem;line-height:1.75;color:var(--muted)}
+.scpes-objectives-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:100px;border-top:1px solid var(--line);border-left:1px solid var(--line)}.scpes-objective{min-height:290px;padding:26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background .3s ease,color .3s ease,transform .3s ease}.scpes-objective:hover{background:var(--ink);color:var(--bg);transform:translateY(-8px)}.scpes-objective>span{font:700 .65rem/1 "Space Grotesk",sans-serif;color:var(--accent)}.scpes-objective h3{margin:100px 0 12px;font:700 1.5rem/1 "Space Grotesk",sans-serif}.scpes-objective p{margin:0;font-size:.86rem;line-height:1.55;color:var(--muted)}.scpes-objective:hover p{color:rgba(245,243,237,.68)}
+.scpes-pulse{background:var(--ink);color:var(--bg);overflow:hidden;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12)}.scpes-pulse-track{display:flex;width:max-content;white-space:nowrap;padding:18px 0;font:700 1rem/1 "Space Grotesk",sans-serif;letter-spacing:.08em;animation:scpesMarquee 26s linear infinite}.scpes-pulse-track span{padding-right:18px}.scpes-pulse-track span::first-letter{color:var(--accent)}
+.scpes-section-head{display:grid;grid-template-columns:1fr 2fr 1fr;gap:36px;align-items:end;margin-bottom:76px}.scpes-section-head h2{margin:0;font:700 clamp(3rem,6.4vw,7rem)/.86 "Space Grotesk",sans-serif;letter-spacing:-.07em}.scpes-section-head h2 span{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;color:var(--accent)}.scpes-section-head>p:last-child{margin:0;color:var(--muted);line-height:1.6}
+/* =========================================================
+   SCPES OFFICERS — RIGHT-CORNER PHOTO LAYOUT
+========================================================= */
+.scpes-officer-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.scpes-officer{position:relative;min-height:235px;padding:24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;transition:transform .3s ease,background .3s ease,color .3s ease}
+.scpes-officer:before{content:"";position:absolute;left:0;bottom:0;width:0;height:4px;background:var(--accent);transition:width .45s cubic-bezier(.16,1,.3,1)}
+.scpes-officer:hover:before{width:100%}
+.scpes-officer:hover{transform:translateY(-6px);background:#fff}
+.scpes-officer>span{position:relative;z-index:4;font:700 .62rem/1 "Space Grotesk",sans-serif;color:var(--accent);letter-spacing:.12em}
+
+/* Fixed portrait box in the upper-right corner.
+   object-fit: cover keeps every photo proportional instead of stretching it. */
+.scpes-officer-photo{position:absolute;z-index:3;top:22px;right:22px;width:92px;height:112px;border:1px solid var(--line);background:#ebe8e0;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s ease}
+.scpes-officer-photo>span{position:absolute;z-index:1;font:700 .55rem/1 "Space Grotesk",sans-serif;letter-spacing:.14em;color:rgba(11,11,11,.35)}
+.scpes-officer-photo img{position:absolute;z-index:2;inset:0;width:100% !important;height:100% !important;max-width:none;object-fit:cover !important;object-position:center top;filter:grayscale(100%);transition:filter .4s ease,transform .55s cubic-bezier(.16,1,.3,1)}
+.scpes-officer:hover .scpes-officer-photo{transform:translateY(-4px);border-color:var(--accent)}
+.scpes-officer:hover .scpes-officer-photo img{filter:grayscale(0%);transform:scale(1.035)}
+
+/* Keep names clear of the portrait box. */
+.scpes-officer h3{position:relative;z-index:2;margin:105px 112px 8px 0;max-width:360px;font:700 clamp(1rem,1.7vw,1.45rem)/1.05 "Space Grotesk",sans-serif;letter-spacing:-.035em}
+.scpes-officer p{position:relative;z-index:2;margin:0;padding-right:108px;font:600 .64rem/1.35 "Space Grotesk",sans-serif;letter-spacing:.11em;color:var(--muted)}
+
+/* President keeps the large editorial card, with a larger portrait on the right. */
+.scpes-president{grid-column:1/-1;min-height:320px;background:var(--ink);color:var(--bg)}
+.scpes-president:hover{background:var(--ink);color:var(--bg)}
+.scpes-president .scpes-officer-photo{top:32px;right:36px;width:160px;height:190px;border-color:rgba(245,243,237,.24);background:#1b1b1b}
+.scpes-president .scpes-officer-photo>span{color:rgba(245,243,237,.38)}
+.scpes-president h3{margin-top:130px;margin-right:230px;max-width:calc(100% - 230px);font-size:clamp(2.2rem,5vw,5.5rem)}
+.scpes-president p{padding-right:230px;color:rgba(245,243,237,.62)}
+.scpes-president i{position:absolute;z-index:1;right:225px;top:50%;width:120px;height:120px;border:1px solid var(--accent);border-radius:50%;transform:translateY(-50%);opacity:.65}
+.scpes-president i:before,.scpes-president i:after{content:"";position:absolute;inset:18px;border:1px solid rgba(215,38,30,.5);border-radius:50%}
+.scpes-president i:after{inset:42px;background:var(--accent)}
+
+@media (max-width:991px){.scpes-officer-grid{grid-template-columns:repeat(2,1fr)}.scpes-president{grid-column:1/-1}.scpes-president h3{margin-right:205px;max-width:calc(100% - 205px)}.scpes-president p{padding-right:205px}.scpes-president i{display:none}}
+@media (max-width:650px){.scpes-officer-grid{grid-template-columns:1fr}.scpes-president{grid-column:auto;min-height:300px}.scpes-officer-photo{width:82px;height:100px;top:20px;right:20px}.scpes-officer h3{margin:100px 95px 8px 0}.scpes-officer p{padding-right:0}.scpes-president .scpes-officer-photo{width:105px;height:130px;top:24px;right:24px}.scpes-president h3{margin-top:145px;margin-right:0;max-width:100%;font-size:clamp(2rem,11vw,3.5rem)}.scpes-president p{padding-right:0}}
+.scpes-activity-zone{position:relative;padding:135px 0 150px;background:var(--ink);color:var(--bg);overflow:hidden}.scpes-activity-grid{background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);mask-image:none}.scpes-section-head-dark{position:relative;z-index:2}.scpes-section-head-dark>p:last-child{color:rgba(245,243,237,.6)}.scpes-timeline{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.22)}.scpes-event{position:relative;padding:40px 28px 30px 0;margin-right:28px;min-height:350px}.event-dot{position:absolute;top:-7px;left:0;width:13px;height:13px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 8px rgba(215,38,30,.12);transition:box-shadow .3s ease,transform .3s ease}.scpes-event:hover .event-dot{transform:scale(1.25);box-shadow:0 0 0 18px rgba(215,38,30,.08)}.event-code{font:700 .6rem/1 "Space Grotesk",sans-serif;letter-spacing:.15em;color:var(--accent)}.scpes-event h3{margin:86px 0 18px;font:600 2rem/1 "Space Grotesk",sans-serif;letter-spacing:-.045em}.scpes-event>p:last-child{color:rgba(245,243,237,.58);line-height:1.65;font-size:.88rem}
+.scpes-involve-title{font:700 clamp(3rem,6vw,6.7rem)/.88 "Space Grotesk",sans-serif;letter-spacing:-.07em}.scpes-involve-map{position:relative;aspect-ratio:1.3;border:1px solid var(--line);background-image:radial-gradient(circle,rgba(11,11,11,.16) 1px,transparent 1px);background-size:18px 18px}.scpes-involve-map svg{position:absolute;inset:0;width:100%;height:100%}.scpes-involve-map path{fill:none;stroke:rgba(11,11,11,.28);stroke-width:1;stroke-dasharray:8 8}.involve-core{position:absolute;z-index:3;left:50%;top:50%;width:90px;height:90px;display:grid;place-items:center;transform:translate(-50%,-50%);border-radius:50%;background:var(--accent);color:white;font:700 1rem/1 "Space Grotesk",sans-serif;box-shadow:0 0 0 14px rgba(215,38,30,.1)}.scpes-involve-map span{position:absolute;z-index:3;left:var(--x);top:var(--y);padding:9px 12px;background:var(--bg);border:1px solid var(--ink);font:700 .58rem/1 "Space Grotesk",sans-serif;letter-spacing:.1em}
+.scpes-project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.scpes-project-grid article{position:relative;min-height:430px;padding:28px;border:1px solid var(--line);overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease}.scpes-project-grid article:after{content:"";position:absolute;left:-20%;bottom:-70%;width:140%;height:90%;background:var(--accent);transform:rotate(-7deg) translateY(100%);transition:transform .55s cubic-bezier(.16,1,.3,1);z-index:-1}.scpes-project-grid article:hover{transform:translateY(-10px);box-shadow:0 22px 55px rgba(0,0,0,.08);color:white}.scpes-project-grid article:hover:after{transform:rotate(-7deg) translateY(0)}.scpes-project-grid article>span{font:700 .6rem/1 "Space Grotesk",sans-serif;letter-spacing:.14em}.scpes-project-grid h3{margin:180px 0 16px;font:700 2.2rem/1 "Space Grotesk",sans-serif}.scpes-project-grid p{color:var(--muted);line-height:1.6}.scpes-project-grid article:hover p{color:rgba(255,255,255,.75)}.scpes-project-grid b{position:absolute;bottom:26px;left:28px;font:700 .58rem/1 "Space Grotesk",sans-serif;letter-spacing:.14em}
+.scpes-finale{position:relative;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--ink);color:var(--bg);overflow:hidden}.scpes-finale-grid{background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);mask-image:radial-gradient(circle at center,#000,transparent 76%)}.scpes-finale-lines{position:absolute;inset:0;width:100%;height:100%}.scpes-finale-lines path{fill:none;stroke:rgba(215,38,30,.55);stroke-width:1.4;stroke-dasharray:1600;stroke-dashoffset:1600}.scpes-finale.is-visible .scpes-finale-lines path{animation:scpesDraw 2.1s ease forwards}.scpes-finale-core{position:relative;z-index:2;width:180px;height:180px;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;margin-bottom:28px;font:700 1.25rem/1 "Space Grotesk",sans-serif;box-shadow:0 0 0 26px rgba(215,38,30,.05),0 0 0 52px rgba(215,38,30,.025)}.scpes-finale-small{position:relative;z-index:2;font:600 .58rem/1 "Space Grotesk",sans-serif;letter-spacing:.17em;color:rgba(245,243,237,.5)}.scpes-finale h2{position:relative;z-index:2;margin:16px 20px 28px;font:700 clamp(3rem,7.2vw,8rem)/.86 "Space Grotesk",sans-serif;letter-spacing:-.07em}.scpes-finale h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:var(--accent)}.scpes-finale-status{position:relative;z-index:2;display:flex;align-items:center;gap:10px;font:700 .58rem/1 "Space Grotesk",sans-serif;letter-spacing:.15em}
+.scpes-reveal-section .scpes-label,.scpes-reveal-section .scpes-statement,.scpes-reveal-section .scpes-description,.scpes-reveal-section .scpes-section-head,.scpes-reveal-section .scpes-objective,.scpes-reveal-section .scpes-officer,.scpes-reveal-section .scpes-involve-title,.scpes-reveal-section .scpes-involve-map,.scpes-reveal-section .scpes-project-grid article{opacity:0;transform:translateY(34px);transition:opacity .75s ease,transform .9s cubic-bezier(.16,1,.3,1)}.scpes-reveal-section.is-visible .scpes-label,.scpes-reveal-section.is-visible .scpes-statement,.scpes-reveal-section.is-visible .scpes-description,.scpes-reveal-section.is-visible .scpes-section-head,.scpes-reveal-section.is-visible .scpes-objective,.scpes-reveal-section.is-visible .scpes-officer,.scpes-reveal-section.is-visible .scpes-involve-title,.scpes-reveal-section.is-visible .scpes-involve-map,.scpes-reveal-section.is-visible .scpes-project-grid article{opacity:1;transform:none}.scpes-reveal-section.is-visible .scpes-objective:nth-child(2),.scpes-reveal-section.is-visible .scpes-officer:nth-child(2),.scpes-reveal-section.is-visible .scpes-project-grid article:nth-child(2){transition-delay:.08s}.scpes-reveal-section.is-visible .scpes-objective:nth-child(3),.scpes-reveal-section.is-visible .scpes-officer:nth-child(3),.scpes-reveal-section.is-visible .scpes-project-grid article:nth-child(3){transition-delay:.16s}.scpes-reveal-section.is-visible .scpes-objective:nth-child(4),.scpes-reveal-section.is-visible .scpes-officer:nth-child(4){transition-delay:.24s}
+@keyframes scpesDraw{to{stroke-dashoffset:0}}@keyframes scpesSignalIn{to{opacity:1;transform:none;filter:blur(0)}}@keyframes scpesNodeOn{to{opacity:1;transform:scale(1)}}@keyframes scpesCoreOn{to{transform:translate(-50%,-50%) scale(1)}}@keyframes scpesPulseDot{70%{box-shadow:0 0 0 10px rgba(215,38,30,0)}}@keyframes scpesHint{50%,100%{transform:translateX(100%)}}@keyframes scpesMarquee{to{transform:translateX(-50%)}}
+@media(max-width:991px){.scpes-section-head{grid-template-columns:1fr}.scpes-objectives-grid{grid-template-columns:repeat(2,1fr)}.scpes-officer-grid{grid-template-columns:repeat(2,1fr)}.scpes-president{grid-column:1/-1}.scpes-timeline{grid-template-columns:repeat(2,1fr);row-gap:30px}.scpes-project-grid{grid-template-columns:1fr}.scpes-project-grid article{min-height:330px}.scpes-project-grid h3{margin-top:100px}.scpes-network{opacity:.5}}
+@media(max-width:600px){.scpes-hero-content{padding-bottom:92px!important}.scpes-hero-title{font-size:clamp(3rem,15vw,5.2rem);line-height:.84}.scpes-node{display:none}.scpes-core{width:64px;height:64px}.scpes-objectives-grid,.scpes-officer-grid,.scpes-timeline{grid-template-columns:1fr}.scpes-president{min-height:270px}.scpes-president i{width:80px;height:80px;opacity:.5}.scpes-president h3{margin-top:100px}.scpes-event{min-height:280px}.scpes-about,.scpes-officers,.scpes-involvement,.scpes-projects{padding:90px 0}.scpes-activity-zone{padding:100px 0}.scpes-scroll-hint{display:none}.scpes-finale-core{width:130px;height:130px}.scpes-finale h2{font-size:clamp(2.8rem,13vw,5rem)}}
+@media(prefers-reduced-motion:reduce){.scpes-body *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.scpes-hero-title>span,.scpes-node{opacity:1!important;transform:none!important;filter:none!important}.scpes-core{transform:translate(-50%,-50%) scale(1)!important}.scpes-network-lines path,.scpes-finale-lines path{stroke-dashoffset:0!important}}
+
+/* =========================================================
+   SCPES OFFICER CARDS — KEEP TEXT VISIBLE + COLOR HOVER
+   ========================================================= */
+.scpes-officer h3,
+.scpes-officer p,
+.scpes-officer > span {
+  position: relative;
+  z-index: 5;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.scpes-officer h3 {
+  color: var(--ink);
+  transition: color .3s ease;
+}
+
+.scpes-officer p {
+  transition: color .3s ease;
+}
+
+.scpes-officer:hover h3 {
+  color: var(--accent);
+}
+
+.scpes-officer:hover p {
+  color: var(--ink);
+}
+
+.scpes-officer:hover > span {
+  color: var(--accent);
+}
+
+/* President stays readable on both the dark default state and light hover state. */
+.scpes-president h3 {
+  color: var(--bg);
+}
+
+.scpes-president p {
+  color: rgba(245,243,237,.62);
+}
+
+.scpes-president:hover h3 {
+  color: var(--accent);
+}
+
+.scpes-president:hover p {
+  color: var(--ink);
+}
+
+.scpes-president:hover > span {
+  color: var(--accent);
+}
+
+/* =========================================================
+   SCPES — STUDENT INVOLVEMENT MAP SCROLL ANIMATION
+   Draws the network outward when the section enters view.
+========================================================= */
+.scpes-involvement .scpes-involve-map {
+  overflow: hidden;
+}
+
+.scpes-involvement .scpes-involve-map svg {
+  clip-path: circle(0% at 50% 50%);
+  opacity: 0;
+  transition:
+    clip-path 1.25s cubic-bezier(.16,1,.3,1) .28s,
+    opacity .25s ease .28s;
+}
+
+.scpes-involvement .involve-core {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.55);
+  transition:
+    opacity .38s ease .12s,
+    transform .65s cubic-bezier(.16,1,.3,1) .12s,
+    box-shadow .45s ease;
+}
+
+.scpes-involvement .scpes-involve-map > span {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.72);
+  transition:
+    opacity .38s ease,
+    transform .58s cubic-bezier(.16,1,.3,1),
+    background .25s ease,
+    color .25s ease;
+}
+
+.scpes-involvement.is-visible .scpes-involve-map svg {
+  clip-path: circle(78% at 50% 50%);
+  opacity: 1;
+}
+
+.scpes-involvement.is-visible .involve-core {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: scpesInvolvePulse 1.6s ease .75s 1;
+}
+
+.scpes-involvement.is-visible .scpes-involve-map > span {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.scpes-involvement.is-visible .scpes-involve-map > span:nth-of-type(1) { transition-delay: .55s; }
+.scpes-involvement.is-visible .scpes-involve-map > span:nth-of-type(2) { transition-delay: .68s; }
+.scpes-involvement.is-visible .scpes-involve-map > span:nth-of-type(3) { transition-delay: .81s; }
+.scpes-involvement.is-visible .scpes-involve-map > span:nth-of-type(4) { transition-delay: .94s; }
+.scpes-involvement.is-visible .scpes-involve-map > span:nth-of-type(5) { transition-delay: 1.07s; }
+
+/* Put every label directly on its line endpoint. */
+.scpes-involve-map > span:nth-of-type(1) { left: 14%; top: 18%; }
+.scpes-involve-map > span:nth-of-type(2) { left: 81%; top: 16.7%; } /* TECH */
+.scpes-involve-map > span:nth-of-type(3) { left: 84%; top: 75%; }
+.scpes-involve-map > span:nth-of-type(4) { left: 12%; top: 75%; }
+.scpes-involve-map > span:nth-of-type(5) { left: 50%; top: 87.5%; }
+
+@keyframes scpesInvolvePulse {
+  0%,100% { box-shadow: 0 0 0 14px rgba(215,38,30,.10); }
+  45% { box-shadow: 0 0 0 30px rgba(215,38,30,.04); }
+}
+
+/* =========================================================
+   SCPES — PROJECTS SCROLL ENTRANCE + READABLE HOVER
+========================================================= */
+.scpes-projects.scpes-reveal-section .scpes-project-grid article {
+  opacity: 0;
+  transform: translateY(70px) scale(.965);
+  transition:
+    opacity .72s ease,
+    transform .9s cubic-bezier(.16,1,.3,1),
+    box-shadow .35s ease;
+  isolation: isolate;
+}
+
+.scpes-projects.scpes-reveal-section.is-visible .scpes-project-grid article {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.scpes-projects.scpes-reveal-section.is-visible .scpes-project-grid article:nth-child(1) { transition-delay: .12s; }
+.scpes-projects.scpes-reveal-section.is-visible .scpes-project-grid article:nth-child(2) { transition-delay: .27s; }
+.scpes-projects.scpes-reveal-section.is-visible .scpes-project-grid article:nth-child(3) { transition-delay: .42s; }
+
+.scpes-project-grid article::after {
+  z-index: 0;
+}
+
+.scpes-project-grid article > span,
+.scpes-project-grid article > h3,
+.scpes-project-grid article > p,
+.scpes-project-grid article > b {
+  position: relative;
+  z-index: 2;
+  transition: color .28s ease;
+}
+
+/* Hover keeps ALL project text black on the red effect. */
+.scpes-project-grid article:hover,
+.scpes-project-grid article:hover > span,
+.scpes-project-grid article:hover > h3,
+.scpes-project-grid article:hover > p,
+.scpes-project-grid article:hover > b {
+  color: #0b0b0b !important;
+}
+
+.scpes-project-grid article:hover {
+  transform: translateY(-10px) scale(1);
+}
