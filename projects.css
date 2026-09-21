@@ -1,0 +1,831 @@
+/* =========================================================
+   UE CpE — STUDENT PROJECTS
+   project.css
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+.projects-body{
+  --p-bg:#f5f3ed;
+  --p-ink:#0b0b0b;
+  --p-red:#d7261e;
+  --p-muted:#6e6b65;
+  --p-line:rgba(11,11,11,.20);
+  margin:0;
+  background:var(--p-bg);
+  color:var(--p-ink);
+  overflow-x:hidden;
+}
+.projects-page{font-family:"DM Sans",sans-serif}
+.projects-page *{box-sizing:border-box}
+
+/* HERO */
+.projects-hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  padding:130px 5vw 60px;display:flex;align-items:flex-end;
+  border-bottom:1px solid var(--p-line);isolation:isolate
+}
+.projects-grid{
+  position:absolute;inset:0;z-index:-3;
+  background-image:linear-gradient(rgba(11,11,11,.045) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(11,11,11,.045) 1px,transparent 1px);
+  background-size:62px 62px
+}
+.projects-grid:after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 78% 48%,rgba(215,38,30,.08),transparent 27%)
+}
+.projects-scanline{
+  position:absolute;left:0;top:20%;width:100%;height:1px;
+  background:var(--p-red);transform:scaleX(0);transform-origin:left;
+  animation:projectScan 1.3s cubic-bezier(.16,1,.3,1) .2s forwards
+}
+.projects-hero-top{
+  position:absolute;top:105px;left:5vw;right:5vw;
+  display:flex;justify-content:space-between;align-items:center
+}
+.projects-kicker{
+  color:var(--p-red);font-family:"Space Grotesk",sans-serif;
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase
+}
+.projects-status{
+  display:flex;align-items:center;gap:10px;color:var(--p-muted);
+  font:700 .62rem/1 "Space Grotesk",sans-serif;letter-spacing:.15em
+}
+.projects-status i{width:7px;height:7px;background:var(--p-red);animation:projectBlink 1s steps(1) infinite}
+
+.projects-hero-copy{width:min(980px,72vw);position:relative;z-index:2}
+.projects-overline{margin:0 0 24px;font:700 .7rem/1 "Space Grotesk",sans-serif;letter-spacing:.2em}
+.projects-hero h1{
+  margin:0;font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(5rem,11vw,11.5rem);font-weight:700;
+  line-height:.72;letter-spacing:-.085em
+}
+.projects-hero h1 span{display:block;opacity:0;transform:translateY(70px)}
+.projects-hero.is-ready h1 span{animation:projectTitle .9s cubic-bezier(.16,1,.3,1) forwards}
+.projects-hero.is-ready h1 span:nth-child(2){animation-delay:.12s}
+.projects-hero.is-ready h1 span:nth-child(3){animation-delay:.24s}
+.projects-hero h1 .projects-serif{
+  color:var(--p-red);font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;font-style:italic;letter-spacing:-.065em
+}
+.projects-intro{width:min(560px,100%);margin:38px 0 0;color:#5f5b55;font-size:.95rem;line-height:1.75}
+
+.projects-hero-orbit{
+  position:absolute;right:7vw;top:49%;width:min(28vw,410px);
+  aspect-ratio:1;transform:translateY(-50%)
+}
+.orbit-ring{position:absolute;border:1px solid rgba(11,11,11,.35);border-radius:50%}
+.orbit-one{inset:0;animation:orbitClock 18s linear infinite}
+.orbit-two{inset:21%;animation:orbitCounter 11s linear infinite}
+.orbit-one:before,.orbit-two:after{
+  content:"";position:absolute;width:9px;height:9px;background:var(--p-red);
+  left:50%;top:-5px;transform:translateX(-50%)
+}
+.orbit-core{
+  position:absolute;inset:37%;display:grid;place-items:center;border-radius:50%;
+  background:var(--p-ink);color:var(--p-bg);font:italic 2rem Georgia,serif
+}
+.orbit-node{position:absolute;width:12px;height:12px;background:var(--p-red)}
+.node-one{top:5%;left:48%}.node-two{left:7%;bottom:13%}.node-three{right:1%;top:57%}
+.projects-scroll-note{
+  position:absolute;right:5vw;bottom:34px;writing-mode:vertical-rl;
+  font:700 .6rem/1 "Space Grotesk",sans-serif;letter-spacing:.17em
+}
+
+/* PROJECT INDEX */
+.projects-index{padding:130px 4.5vw 150px}
+.projects-section-head{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:end;
+  padding-top:24px;margin-bottom:72px;border-top:1px solid var(--p-ink)
+}
+.projects-section-head h2{
+  margin:12px 0 0;font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(4rem,7.3vw,8rem);line-height:.82;letter-spacing:-.075em
+}
+.projects-section-head h2 em{
+  color:var(--p-red);font-family:Georgia,serif;font-weight:400
+}
+.projects-section-head>p{max-width:450px;justify-self:end;color:var(--p-muted);line-height:1.7}
+
+.projects-category-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--p-ink);border-left:1px solid var(--p-ink)
+}
+.project-category{
+  min-height:410px;padding:28px;position:relative;overflow:hidden;
+  border-right:1px solid var(--p-ink);border-bottom:1px solid var(--p-ink);
+  background:transparent;transition:background .35s,color .35s,transform .18s ease
+}
+.project-category:before{
+  content:attr(data-project);position:absolute;left:22px;bottom:-18px;
+  white-space:nowrap;font:700 clamp(3rem,5vw,5.7rem)/1 "Space Grotesk",sans-serif;
+  letter-spacing:-.07em;opacity:0;transform:translateY(35px);
+  transition:.5s cubic-bezier(.16,1,.3,1);pointer-events:none
+}
+.project-category:after{
+  content:"";position:absolute;inset:0;border:0 solid var(--p-red);
+  transition:border-width .25s ease;pointer-events:none
+}
+.project-category:hover{background:var(--p-red);color:var(--p-ink)}
+.project-category:hover:before{opacity:.09;transform:translateY(0)}
+.project-category:hover:after{border-width:7px}
+.project-category-top{display:flex;justify-content:space-between;font:700 .61rem/1 "Space Grotesk",sans-serif;letter-spacing:.15em}
+.project-symbol{margin-top:72px;font:400 2.8rem/1 "Space Grotesk",sans-serif}
+.project-category h3{
+  margin:34px 0 14px;font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(1.8rem,2.5vw,3rem);line-height:.94;letter-spacing:-.055em
+}
+.project-category p{max-width:390px;margin:0;color:var(--p-muted);font-size:.84rem;line-height:1.65;transition:color .3s}
+.project-category:hover p{color:var(--p-ink)}
+.project-arrow{position:absolute;right:28px;bottom:25px;font-size:1.4rem;transition:transform .3s}
+.project-category:hover .project-arrow{transform:translate(6px,-6px)}
+.project-category-wide{grid-column:span 3;min-height:315px}
+.project-category-wide .project-symbol{margin-top:42px}
+
+/* DARK PROCESS */
+.projects-process{
+  position:relative;overflow:hidden;background:var(--p-ink);color:var(--p-bg);
+  padding:135px 5vw 150px
+}
+.projects-process:before,.projects-process:after{
+  content:"";position:absolute;border:1px solid rgba(245,243,237,.12);border-radius:50%;
+  width:38vw;height:38vw;right:-17vw;top:-17vw
+}
+.projects-process:after{width:24vw;height:24vw;right:-10vw;top:-10vw}
+.projects-process-copy{margin-bottom:100px;position:relative;z-index:1}
+.projects-process-copy h2{
+  margin:16px 0 0;font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(4rem,8vw,9rem);line-height:.82;letter-spacing:-.08em
+}
+.projects-process-copy h2 em{color:var(--p-red);font-family:Georgia,serif;font-weight:400}
+.projects-process-track{
+  position:relative;z-index:1;display:grid;
+  grid-template-columns:1fr 45px 1fr 45px 1fr 45px 1fr 45px 1fr;align-items:center
+}
+.process-step{min-height:180px;padding-top:18px;border-top:1px solid rgba(245,243,237,.35)}
+.process-step span{color:var(--p-red);font:700 .62rem/1 "Space Grotesk",sans-serif}
+.process-step strong{display:block;margin-top:30px;font:600 clamp(1.35rem,2vw,2.25rem)/1 "Space Grotesk",sans-serif}
+.process-step p{color:#aaa69f;font-size:.78rem;line-height:1.55}
+.process-line{height:1px;background:var(--p-red);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.projects-process.is-visible .process-line{transform:scaleX(1)}
+
+/* FINALE */
+.projects-final{
+  min-height:92vh;padding:140px 5vw 90px;display:flex;flex-direction:column;
+  justify-content:center;position:relative;overflow:hidden
+}
+.projects-final:after{
+  content:"07";position:absolute;right:-1vw;bottom:-7vw;
+  color:rgba(11,11,11,.035);font:700 36vw/1 "Space Grotesk",sans-serif;
+  letter-spacing:-.12em;pointer-events:none
+}
+.projects-final h2{
+  position:relative;z-index:1;margin:20px 0 32px;max-width:1300px;
+  font:700 clamp(4.5rem,9vw,10rem)/.79 "Space Grotesk",sans-serif;letter-spacing:-.085em
+}
+.projects-final h2 em{color:var(--p-red);font-family:Georgia,serif;font-weight:400}
+.projects-final p{position:relative;z-index:1;max-width:520px;color:var(--p-muted);line-height:1.7}
+.projects-back{
+  position:relative;
+  z-index:2;
+  align-self:center;
+  min-width:280px;
+  padding:21px 34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin-top:55px;
+  border:1px solid var(--p-ink);
+  color:var(--p-ink);
+  background:transparent;
+  text-decoration:none;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:.78rem;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.14em;
+  transition:background .3s ease,color .3s ease,transform .35s cubic-bezier(.16,1,.3,1);
+}
+
+.projects-back:hover{
+  background:var(--p-ink);
+  color:var(--p-bg);
+  transform:translateY(-4px);
+}
+
+.projects-back span{
+  display:inline-block;
+  margin-right:0;
+  font-size:1rem;
+  transition:transform .3s ease;
+}
+
+.projects-back:hover span{transform:translateX(-6px)}
+
+/* Always show the back button immediately, even if HTML still has project-reveal */
+.projects-back.project-reveal{opacity:1;transform:none}
+
+/* SCROLL ANIMATION */
+.project-reveal{
+  opacity:0;transform:translateY(55px);
+  transition:opacity .7s ease,transform .9s cubic-bezier(.16,1,.3,1)
+}
+.project-reveal.is-visible{opacity:1;transform:translateY(0)}
+
+/* Keep the global menu neutral, never red */
+.projects-body .fullscreen-menu .menu-name,
+.projects-body .fullscreen-menu .menu-number,
+.projects-body .fullscreen-menu .menu-label{color:inherit}
+.projects-body .fullscreen-menu .menu-item:hover .menu-name,
+.projects-body .fullscreen-menu .menu-item:hover .menu-number{color:inherit}
+
+@keyframes projectTitle{to{opacity:1;transform:translateY(0)}}
+@keyframes projectScan{to{transform:scaleX(1)}}
+@keyframes projectBlink{50%{opacity:.18}}
+@keyframes orbitClock{to{transform:rotate(360deg)}}
+@keyframes orbitCounter{to{transform:rotate(-360deg)}}
+
+@media(max-width:1050px){
+  .projects-hero-copy{width:90%}.projects-hero-orbit{right:-8vw;opacity:.38}
+  .projects-category-grid{grid-template-columns:repeat(2,1fr)}
+  .project-category-wide{grid-column:span 2}
+  .projects-process-track{grid-template-columns:1fr}
+  .process-line{width:1px;height:42px;margin-left:8px;transform:scaleY(0);transform-origin:top}
+  .projects-process.is-visible .process-line{transform:scaleY(1)}
+}
+@media(max-width:720px){
+  .projects-hero{padding:120px 24px 55px}.projects-hero-top{left:24px;right:24px}
+  .projects-status,.projects-scroll-note{display:none}
+  .projects-hero h1{font-size:clamp(4rem,20vw,7rem)}
+  .projects-hero-orbit{width:60vw;right:-22vw;top:34%}
+  .projects-index{padding:95px 20px 110px}
+  .projects-section-head{grid-template-columns:1fr;gap:25px}
+  .projects-section-head>p{justify-self:start}
+  .projects-category-grid{grid-template-columns:1fr}.project-category-wide{grid-column:span 1}
+  .project-category{min-height:350px}
+  .projects-process{padding:100px 24px}.projects-process-copy{margin-bottom:70px}
+  .projects-final{padding:110px 24px 70px}
+}
+
+/* =========================================================
+   PROJECTS PAGE — MENU
+   MATCHES CPE AT UE MENU DESIGN
+   ========================================================= */
+
+/* Hidden checkbox used by the current Projects HTML */
+.projects-body #menu-toggle{
+    position:fixed;
+    opacity:0;
+    pointer-events:none;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.projects-body .topbar,
+.projects-body .site-header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    z-index:500;
+    font-family:"DM Sans",Arial,sans-serif;
+}
+
+.projects-body .brand{
+    color:#0b0b0b;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:-.03em;
+}
+
+.projects-body .page-no{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.16em;
+    color:#6e6b65;
+}
+
+/* Supports either .menu-open-btn or .menu-button */
+.projects-body .menu-open-btn,
+.projects-body .menu-button{
+    border:1px solid #111;
+    background:rgba(243,241,235,.8);
+    backdrop-filter:blur(10px);
+    border-radius:100px;
+    padding:11px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#111;
+    font-family:"DM Sans",Arial,sans-serif;
+    font-size:10px;
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    user-select:none;
+    transition:background .3s ease,color .3s ease,transform .3s ease;
+}
+
+.projects-body .menu-open-btn:hover,
+.projects-body .menu-button:hover{
+    background:#111;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+/* =========================================================
+   FULLSCREEN MENU
+   Current Projects HTML uses .fullscreen-menu
+   ========================================================= */
+
+.projects-body .fullscreen-menu{
+    position:fixed;
+    inset:0;
+    z-index:4500;
+    display:flex;
+    flex-direction:column;
+    padding:20px 24px 18px;
+    background:#111111;
+    color:#f4f1e9;
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transform:translateY(-18px) scale(.995);
+
+    transition:
+        opacity .45s cubic-bezier(.22,.61,.36,1),
+        transform .55s cubic-bezier(.16,1,.3,1),
+        visibility 0s linear .55s;
+
+    overflow:hidden;
+}
+
+/* Remove the old Projects menu decorations */
+.projects-body .fullscreen-menu::before,
+.projects-body .fullscreen-menu::after{
+    content:none !important;
+}
+
+/* Checkbox opens the menu */
+.projects-body #menu-toggle:checked ~ .fullscreen-menu{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0) scale(1);
+
+    transition:
+        opacity .45s cubic-bezier(.22,.61,.36,1),
+        transform .55s cubic-bezier(.16,1,.3,1),
+        visibility 0s linear 0s;
+}
+
+/* =========================================================
+   MENU TOP
+   ========================================================= */
+
+.projects-body .menu-top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:48px;
+    margin-bottom:38px;
+    padding:0;
+    border:0;
+}
+
+.projects-body .menu-label{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:-.04em;
+    color:#f4f1e9;
+}
+
+.projects-body .menu-close-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:76px;
+    height:40px;
+    padding:0 17px;
+    border:1px solid rgba(244,241,233,.36);
+    border-radius:999px;
+    background:transparent;
+    color:#f4f1e9;
+    font-family:"DM Sans",Arial,sans-serif;
+    font-size:.76rem;
+    font-weight:500;
+    cursor:pointer;
+    user-select:none;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+.projects-body .menu-close-btn:hover{
+    background:#f4f1e9;
+    color:#111111;
+    border-color:#f4f1e9;
+    transform:scale(1.04);
+}
+
+/* =========================================================
+   MENU LINKS
+   ========================================================= */
+
+.projects-body .menu-nav{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    width:100%;
+    margin-top:0;
+    justify-content:initial;
+}
+
+.projects-body .menu-item{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex:1;
+    width:100%;
+    min-height:68px;
+    padding:6px 4px;
+    border:0;
+    border-bottom:1px solid rgba(244,241,233,.19);
+    overflow:hidden;
+    color:#f4f1e9;
+    text-decoration:none !important;
+    opacity:1;
+    transform:none;
+    transition:
+        color .35s ease,
+        padding-left .45s cubic-bezier(.16,1,.3,1);
+}
+
+.projects-body .menu-item:first-child{
+    border-top:1px solid rgba(244,241,233,.19);
+}
+
+/* Page name on LEFT */
+.projects-body .menu-name{
+    order:1;
+    display:block;
+    font-family:"DM Sans",Arial,sans-serif;
+    font-size:clamp(2.45rem,4.5vw,5.3rem);
+    font-weight:400;
+    letter-spacing:-.055em;
+    line-height:.92;
+    color:#f4f1e9;
+    transition:
+        color .35s ease,
+        transform .45s cubic-bezier(.16,1,.3,1),
+        letter-spacing .45s ease;
+}
+
+/* Number on RIGHT */
+.projects-body .menu-number{
+    order:2;
+    flex:0 0 auto;
+    margin-left:24px;
+    font-family:"DM Sans",Arial,sans-serif;
+    font-size:clamp(1.9rem,3.7vw,4.2rem);
+    font-weight:300;
+    letter-spacing:-.05em;
+    line-height:1;
+    color:#f4f1e9;
+    transition:
+        color .35s ease,
+        transform .45s cubic-bezier(.16,1,.3,1);
+}
+
+/* =========================================================
+   HOVER — SAME NEUTRAL CPE AT UE LOOK
+   ========================================================= */
+
+.projects-body .menu-nav:has(.menu-item:hover) .menu-item:not(:hover){
+    color:rgba(244,241,233,.26);
+}
+
+.projects-body .menu-nav:has(.menu-item:hover) .menu-item:not(:hover) .menu-name{
+    color:rgba(244,241,233,.26);
+}
+
+.projects-body .menu-nav:has(.menu-item:hover) .menu-item:not(:hover) .menu-number{
+    color:rgba(244,241,233,.20);
+}
+
+.projects-body .menu-item:hover{
+    padding-left:38px;
+}
+
+.projects-body .menu-item:hover .menu-name{
+    color:#d4d0c8;
+    transform:translateX(8px);
+    letter-spacing:-.07em;
+}
+
+.projects-body .menu-item:hover .menu-number{
+    color:#d4d0c8;
+    transform:translateX(-8px);
+}
+
+/* Student Projects stays neutral just like CpE at UE.
+   No red active row, number, text, or strip. */
+.projects-body .menu-item.active{
+    background:transparent;
+    color:#f4f1e9;
+}
+
+.projects-body .menu-item.active .menu-name,
+.projects-body .menu-item.active .menu-number{
+    color:#f4f1e9;
+}
+
+/* Sliding neutral background */
+.projects-body .menu-item::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:linear-gradient(
+        90deg,
+        rgba(255,255,255,.055),
+        rgba(255,255,255,.015) 55%,
+        transparent
+    );
+    transform:translateX(-102%);
+    transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+
+.projects-body .menu-item:hover::before{
+    transform:translateX(0);
+}
+
+.projects-body .menu-item::after{
+    content:none;
+}
+
+/* =========================================================
+   MENU OPEN ANIMATION
+   ========================================================= */
+
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item{
+    animation:projectsMenuRowIn .75s cubic-bezier(.16,1,.3,1) both;
+}
+
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(1){animation-delay:.08s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(2){animation-delay:.12s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(3){animation-delay:.16s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(4){animation-delay:.20s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(5){animation-delay:.24s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(6){animation-delay:.28s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(7){animation-delay:.32s}
+.projects-body #menu-toggle:checked ~ .fullscreen-menu .menu-item:nth-child(8){animation-delay:.36s}
+
+@keyframes projectsMenuRowIn{
+    from{
+        opacity:0;
+        transform:translateY(34px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Project decorations never block menu controls */
+.projects-body .projects-grid,
+.projects-body .projects-scanline,
+.projects-body .projects-hero-orbit{
+    pointer-events:none;
+}
+
+/* =========================================================
+   RESPONSIVE MENU
+   ========================================================= */
+
+@media(max-width:768px){
+    .projects-body .topbar,
+    .projects-body .site-header{
+        padding:0 20px;
+    }
+
+    .projects-body .fullscreen-menu{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .projects-body .menu-item{
+        min-height:75px;
+    }
+
+    .projects-body .menu-name{
+        font-size:32px;
+    }
+
+    .projects-body .page-no{
+        display:none;
+    }
+}
+
+@media(max-width:500px){
+    .projects-body .fullscreen-menu{
+        padding:16px;
+    }
+
+    .projects-body .menu-top{
+        margin-bottom:20px;
+    }
+
+    .projects-body .menu-item{
+        min-height:58px;
+        padding:5px 2px;
+    }
+
+    .projects-body .menu-name{
+        font-size:clamp(1.65rem,8vw,2.35rem);
+    }
+
+    .projects-body .menu-number{
+        font-size:clamp(1.35rem,7vw,2rem);
+    }
+}
+
+/* =========================================================
+   PROJECT CARD — VISIBLE IMAGE REVEAL ON HOVER
+   ========================================================= */
+
+.project-category .project-card-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background-position:center center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    opacity:0;
+    transform:scale(1.06);
+    filter:none;
+    transition:
+        opacity .45s ease,
+        transform .8s cubic-bezier(.16,1,.3,1);
+    pointer-events:none;
+}
+
+/* LIGHT overlay — photo remains clearly visible */
+.project-category .project-card-bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        180deg,
+        rgba(0,0,0,.05) 0%,
+        rgba(0,0,0,.18) 55%,
+        rgba(0,0,0,.42) 100%
+    );
+}
+
+/* Reveal the actual photo */
+.project-category:hover .project-card-bg{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* Existing content stays above the photo */
+.project-category > *:not(.project-card-bg){
+    position:relative;
+    z-index:2;
+}
+
+/* IMPORTANT: do not cover the image with a black card background */
+.project-category:hover{
+    background:transparent;
+    color:#fff;
+}
+
+/* Readable text without hiding the photo */
+.project-category:hover p{
+    color:rgba(255,255,255,.92);
+    text-shadow:0 1px 12px rgba(0,0,0,.45);
+}
+
+.project-category:hover .project-category-top,
+.project-category:hover .project-symbol,
+.project-category:hover h3,
+.project-category:hover .project-arrow{
+    color:#fff;
+    text-shadow:0 1px 14px rgba(0,0,0,.45);
+}
+
+/* Red outline stays */
+.project-category:hover::after{
+    border-width:5px;
+}
+
+/* Large category word remains subtle */
+.project-category:hover::before{
+    color:#fff;
+    opacity:.13;
+    z-index:1;
+}
+
+/* Small movement */
+.project-category h3{
+    transition:
+        color .35s ease,
+        transform .45s cubic-bezier(.16,1,.3,1);
+}
+
+.project-category:hover h3{
+    transform:translateY(-4px);
+}
+
+/* If an image fails to load, don't intentionally turn the card black */
+.project-category:has(.project-card-bg):hover{
+    background-color:transparent;
+}
+
+@media (hover:none){
+    .project-category .project-card-bg{
+        opacity:.18;
+        transform:none;
+    }
+}
+
+
+@media(max-width:500px){
+  .projects-back{min-width:240px;padding:18px 26px;font-size:.7rem}
+}
+
+
+/* =========================================================
+   EXPLORE CPE -> STUDENT PROJECTS TRANSITION
+   ABOUT-CPE STYLE: BLACK CURTAIN FROM BOTTOM TO TOP
+   ========================================================= */
+#explore-projects-loader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  pointer-events:none;
+  background:#0b0b0b;
+  color:#f5f3ed;
+  transform:translateY(0);
+  visibility:visible;
+  will-change:transform;
+}
+#explore-projects-loader.no-explore-transition{display:none}
+.explore-projects-loader-title{
+  color:#f5f3ed;
+  font-family:"Space Grotesk","DM Sans",Arial,sans-serif;
+  font-size:clamp(2.7rem,5.4vw,6.2rem);
+  font-weight:600;
+  line-height:.95;
+  letter-spacing:-.055em;
+  text-align:center;
+  opacity:1;
+  transform:translateY(0);
+}
+#explore-projects-loader.from-explore.page-transition-out{
+  animation:projectsDestinationReveal .82s cubic-bezier(.76,0,.24,1) forwards;
+}
+#explore-projects-loader.from-explore.page-transition-out .explore-projects-loader-title{
+  animation:projectsDestinationTitleOut .30s ease forwards;
+}
+@keyframes projectsDestinationReveal{
+  from{transform:translateY(0)}
+  to{transform:translateY(-100%);visibility:hidden}
+}
+@keyframes projectsDestinationTitleOut{
+  to{opacity:0;transform:translateY(-28px)}
+}
+@media(max-width:720px){
+  .explore-projects-loader-title{font-size:clamp(2.25rem,11vw,4.5rem);padding:0 22px}
+}
+@media(prefers-reduced-motion:reduce){
+  #explore-projects-loader.from-explore.page-transition-out{display:none;animation:none}
+}
