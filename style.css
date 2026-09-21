@@ -2928,638 +2928,6 @@ footer {
 
 
 /* =========================================================
-   PROGRAM HIGHLIGHTS
-   Final homepage section
-========================================================= */
-
-.program-highlights {
-  position: relative;
-  min-height: 100vh;
-  padding: 120px 0 90px;
-  overflow: hidden;
-  isolation: isolate;
-
-  /*
-    Starts with the same light background as Explore CpE.
-    While you scroll into this section, it gradually becomes black.
-  */
-  background: var(--bg);
-  color: #f4f1e9;
-
-  view-timeline-name: --program-highlights-bg;
-  view-timeline-axis: block;
-
-  animation-name: programHighlightsBackground;
-  animation-duration: 1ms;
-  animation-fill-mode: both;
-  animation-timing-function: linear;
-
-  animation-timeline: --program-highlights-bg;
-
-  /*
-    Change 70% if you want the background to turn black
-    faster or slower while entering the section.
-  */
-  animation-range:
-    entry 0%
-    entry 70%;
-}
-
-@keyframes programHighlightsBackground {
-
-  0% {
-    background: var(--bg);
-  }
-
-  18% {
-    background: #ddd9d0;
-  }
-
-  38% {
-    background: #aaa69f;
-  }
-
-  58% {
-    background: #66635f;
-  }
-
-  78% {
-    background: #292929;
-  }
-
-  100% {
-    background: #0b0b0b;
-  }
-
-}
-
-
-.program-highlights::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  opacity: .13;
-  background:
-    linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px);
-  background-size: 58px 58px;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
-}
-
-.program-highlights::after {
-  content: "";
-  position: absolute;
-  width: 42vw;
-  height: 42vw;
-  right: -15vw;
-  bottom: -20vw;
-  z-index: -1;
-  border-radius: 50%;
-  border: 1px solid rgba(244,241,233,.16);
-  box-shadow:
-    0 0 0 70px rgba(244,241,233,.025),
-    0 0 0 140px rgba(244,241,233,.018),
-    0 0 0 210px rgba(244,241,233,.012);
-  animation: highlightOrb 12s ease-in-out infinite alternate;
-}
-
-.highlights-orbit {
-  position: absolute;
-  z-index: -1;
-  border: 1px solid rgba(244,241,233,.12);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.highlights-orbit-one {
-  width: 220px;
-  height: 220px;
-  left: -80px;
-  top: 28%;
-  animation: highlightFloat 8s ease-in-out infinite;
-}
-
-.highlights-orbit-two {
-  width: 90px;
-  height: 90px;
-  left: 18%;
-  bottom: 8%;
-  animation: highlightFloat 6s ease-in-out infinite reverse;
-}
-
-.highlights-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(260px, .65fr);
-  gap: 70px;
-  align-items: end;
-  padding-bottom: 55px;
-  border-bottom: 1px solid rgba(244,241,233,.22);
-}
-
-.highlights-kicker {
-  margin: 0 0 22px;
-  font-size: .72rem;
-  letter-spacing: .18em;
-  color: rgba(244,241,233,.55);
-}
-
-.highlights-head h2 {
-  margin: 0;
-  max-width: 900px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(4rem, 8vw, 9rem);
-  font-weight: 500;
-  line-height: .78;
-  letter-spacing: -.075em;
-}
-
-.highlights-head h2 span {
-  display: block;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(244,241,233,.65);
-}
-
-.highlights-intro {
-  margin: 0;
-  max-width: 430px;
-  font-size: clamp(.95rem, 1.2vw, 1.15rem);
-  line-height: 1.65;
-  color: rgba(244,241,233,.62);
-}
-
-
-.highlights-grid {
-  display: flex;
-  flex-wrap: wrap;
-  border-left: 1px solid rgba(244,241,233,.20);
-}
-
-.highlight-card {
-  position: relative;
-  min-height: 500px;
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid rgba(244,241,233,.20);
-  border-bottom: 1px solid rgba(244,241,233,.20);
-  overflow: hidden;
-  color: #f4f1e9;
-  transition:
-    transform .55s cubic-bezier(.16,1,.3,1),
-    background .45s ease,
-    color .45s ease;
-}
-
-.highlight-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: #f4f1e9;
-  transform: translateY(101%);
-  transition: transform .6s cubic-bezier(.16,1,.3,1);
-}
-
-.highlight-card:hover {
-  color: #0b0b0b;
-  transform: translateY(-10px);
-}
-
-.highlight-card:hover::before {
-  transform: translateY(0);
-}
-
-.highlight-no {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: .72rem;
-  letter-spacing: .16em;
-  opacity: .55;
-}
-
-.highlight-icon {
-  position: absolute;
-  right: 25px;
-  top: 58px;
-  width: 100px;
-  height: 100px;
-  transition:
-    transform .7s cubic-bezier(.16,1,.3,1),
-    opacity .4s ease;
-}
-
-.highlight-card:hover .highlight-icon {
-  transform: rotate(8deg) scale(1.12);
-}
-
-/* Embedded-system chip */
-.highlight-chip {
-  border: 2px solid currentColor;
-}
-
-.highlight-chip::before,
-.highlight-chip::after {
-  content: "";
-  position: absolute;
-  background: currentColor;
-}
-
-.highlight-chip::before {
-  width: 42%;
-  height: 2px;
-  left: 29%;
-  top: 49%;
-}
-
-.highlight-chip::after {
-  width: 2px;
-  height: 42%;
-  left: 49%;
-  top: 29%;
-}
-
-.highlight-chip span {
-  position: absolute;
-  width: 34px;
-  height: 34px;
-  left: 31px;
-  top: 31px;
-  border: 2px solid currentColor;
-}
-
-.highlight-chip i {
-  position: absolute;
-  width: 14px;
-  height: 2px;
-  background: currentColor;
-}
-
-.highlight-chip i:nth-child(2) { left: -14px; top: 20px; }
-.highlight-chip i:nth-child(3) { right: -14px; top: 20px; }
-.highlight-chip i:nth-child(4) { left: -14px; bottom: 20px; }
-.highlight-chip i:nth-child(5) { right: -14px; bottom: 20px; }
-
-/* IoT nodes */
-.highlight-nodes span {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-}
-
-.highlight-nodes span:nth-child(1) { left: 6px; top: 8px; }
-.highlight-nodes span:nth-child(2) { right: 6px; top: 14px; }
-.highlight-nodes span:nth-child(3) { left: 18px; bottom: 5px; }
-.highlight-nodes span:nth-child(4) { right: 15px; bottom: 15px; }
-
-.highlight-nodes::before,
-.highlight-nodes::after {
-  content: "";
-  position: absolute;
-  left: 18px;
-  top: 47px;
-  width: 70px;
-  height: 1px;
-  background: currentColor;
-  transform: rotate(22deg);
-  transform-origin: center;
-}
-
-.highlight-nodes::after {
-  transform: rotate(-37deg);
-}
-
-/* Software icon */
-.highlight-code {
-  display: grid;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-}
-
-.highlight-code span {
-  font-family: "Space Grotesk", monospace;
-  font-size: 1.55rem;
-  font-weight: 600;
-}
-
-/* Network icon */
-.highlight-network {
-  border: 1px solid currentColor;
-  border-radius: 50%;
-}
-
-.highlight-network span {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: currentColor;
-  border-radius: 50%;
-}
-
-.highlight-network span:nth-child(1) { left: 44px; top: 10px; }
-.highlight-network span:nth-child(2) { left: 15px; top: 40px; }
-.highlight-network span:nth-child(3) { right: 15px; top: 40px; }
-.highlight-network span:nth-child(4) { left: 28px; bottom: 13px; }
-.highlight-network span:nth-child(5) { right: 28px; bottom: 13px; }
-
-.highlight-network::before,
-.highlight-network::after {
-  content: "";
-  position: absolute;
-  left: 25px;
-  top: 49px;
-  width: 50px;
-  height: 1px;
-  background: currentColor;
-}
-
-.highlight-network::after {
-  transform: rotate(90deg);
-}
-
-.highlight-copy {
-  margin-top: auto;
-}
-
-.highlight-copy p {
-  margin: 0 0 13px;
-  font-size: .65rem;
-  letter-spacing: .13em;
-  opacity: .48;
-}
-
-.highlight-copy h3 {
-  margin: 0 0 18px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-  font-weight: 500;
-  line-height: .94;
-  letter-spacing: -.055em;
-}
-
-.highlight-copy > span {
-  display: block;
-  max-width: 220px;
-  font-size: .78rem;
-  line-height: 1.45;
-  opacity: .58;
-}
-
-.highlight-arrow {
-  position: absolute;
-  right: 25px;
-  bottom: 25px;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  transition: transform .5s cubic-bezier(.16,1,.3,1);
-}
-
-.highlight-card:hover .highlight-arrow {
-  transform: rotate(45deg) scale(1.08);
-}
-
-.highlights-bottom {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(100px, .55fr)) minmax(250px, 1.5fr);
-  align-items: stretch;
-  border-left: 1px solid rgba(244,241,233,.20);
-}
-
-.highlight-stat,
-.highlights-cta {
-  min-height: 130px;
-  padding: 22px;
-  border-right: 1px solid rgba(244,241,233,.20);
-  border-bottom: 1px solid rgba(244,241,233,.20);
-}
-
-.highlight-stat {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.highlight-stat strong {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.65rem;
-  letter-spacing: -.05em;
-}
-
-.highlight-stat span {
-  font-size: .68rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(244,241,233,.48);
-}
-
-.highlights-cta {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 25px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.4rem, 2.2vw, 2.6rem);
-  letter-spacing: -.045em;
-  transition: background .35s ease, color .35s ease;
-}
-
-.highlights-cta span {
-  font-size: 2rem;
-  transition: transform .4s cubic-bezier(.16,1,.3,1);
-}
-
-.highlights-cta:hover {
-  background: #f4f1e9;
-  color: #0b0b0b;
-}
-
-.highlights-cta:hover span {
-  transform: translateX(8px);
-}
-
-
-.highlight-stat,
-.highlight-stat strong,
-.highlight-stat span,
-.highlights-cta,
-.highlights-cta span {
-  opacity: 1;
-  filter: none;
-}
-
-
-/* Entrance animation: works without adding more JavaScript */
-@supports (animation-timeline: view()) {
-  .highlights-head,
-  .highlight-card {
-    animation: highlightReveal linear both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 30%;
-  }
-
-  .highlight-card:nth-child(2) { animation-range: entry 9% cover 34%; }
-  .highlight-card:nth-child(3) { animation-range: entry 13% cover 38%; }
-  .highlight-card:nth-child(4) { animation-range: entry 17% cover 42%; }
-  .highlight-card:nth-child(5) { animation-range: entry 21% cover 46%; }
-}
-
-
-/*
-  Keep this bottom strip fully visible.
-  It no longer blurs/fades while scrolling.
-*/
-.highlights-bottom {
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-  animation: none !important;
-}
-
-@keyframes highlightReveal {
-  from {
-    opacity: 0;
-    transform: translateY(70px);
-    filter: blur(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes highlightOrb {
-  from { transform: translate3d(0, 0, 0) scale(.92); }
-  to { transform: translate3d(-50px, -30px, 0) scale(1.08); }
-}
-
-@keyframes highlightFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-24px) rotate(12deg); }
-}
-
-@media (max-width: 1100px) {
-  .highlight-card {
-    min-height: 430px;
-  }
-
-  .highlights-bottom {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .highlights-cta {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 760px) {
-  .program-highlights {
-    padding: 90px 0 60px;
-  }
-
-  .highlights-head {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding-bottom: 38px;
-  }
-
-  .highlight-card {
-    min-height: 380px;
-  }
-
-  .highlights-bottom {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .highlights-cta {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .program-highlights::after,
-  .highlights-orbit {
-    animation: none;
-  }
-
-  .highlight-card,
-  .highlight-icon,
-  .highlight-arrow {
-    transition-duration: .01ms;
-  }
-}
-
-
-@supports not (animation-timeline: view()) {
-  .program-highlights {
-    background: #0b0b0b;
-  }
-}
-
-
-
-/* =========================================================
-   05 / ARTIFICIAL INTELLIGENCE ICON
-   Added only for the fifth card.
-========================================================= */
-
-.highlight-ai {
-  display: grid;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-}
-
-.highlight-ai::before,
-.highlight-ai::after {
-  content: "";
-  position: absolute;
-  width: 58px;
-  height: 1px;
-  left: 21px;
-  top: 49px;
-  background: currentColor;
-}
-
-.highlight-ai::before {
-  transform: rotate(45deg);
-}
-
-.highlight-ai::after {
-  transform: rotate(-45deg);
-}
-
-.highlight-ai span {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid currentColor;
-  border-radius: 8px;
-  background: #0b0b0b;
-  font-family: "Space Grotesk", monospace;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.highlight-card:hover .highlight-ai span {
-  background: #f4f1e9;
-}
-
-
-/* =========================================================
    TITLE SCROLL ANIMATIONS
    Explore CpE + Find Your Field
 ========================================================= */
@@ -3584,34 +2952,6 @@ footer {
     animation-timeline: view();
     animation-range: entry 0% cover 34%;
   }
-
-  /*
-    FIND YOUR FIELD:
-    stronger reveal because it enters the dark section.
-  */
-  .highlights-head h2 {
-    transform-origin: left bottom;
-    will-change: transform, opacity, filter, letter-spacing;
-    animation-name: fieldTitleReveal;
-    animation-duration: 1ms;
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 38%;
-  }
-
-  .highlights-head h2 span {
-    display: block;
-    will-change: transform, opacity;
-    animation-name: fieldOutlineReveal;
-    animation-duration: 1ms;
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-timeline: view();
-    animation-range: entry 8% cover 44%;
-  }
-}
-
 
 @keyframes exploreTitleReveal {
 
@@ -3709,9 +3049,7 @@ footer {
 */
 @supports not (animation-timeline: view()) {
 
-  .featured-heading-row h2,
-  .highlights-head h2,
-  .highlights-head h2 span {
+  .featured-heading-row h2 {
     opacity: 1;
     transform: none;
     filter: none;
@@ -8039,4 +7377,444 @@ span:first-child {
 
 .scpes-project-grid article:hover {
   transform: translateY(-10px) scale(1);
+}
+}
+
+/* =========================================================
+   HOMEPAGE END — FAQ + CONTACT / LEARN MORE
+   Added at the end intentionally.
+========================================================= */
+.home-faq-contact {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(95px, 12vw, 180px) 0 0;
+  background: #f5f3ed;
+  color: #0b0b0b;
+  isolation: isolate;
+}
+
+.faq-contact-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  opacity: .55;
+  background-image:
+    linear-gradient(rgba(11,11,11,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,11,11,.055) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 72%, transparent 100%);
+}
+
+.faq-orbit {
+  position: absolute;
+  z-index: -2;
+  border: 1px solid rgba(11,11,11,.11);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: faqOrbitFloat 10s ease-in-out infinite alternate;
+}
+.faq-orbit-one { width: 560px; height: 560px; right: -210px; top: 60px; }
+.faq-orbit-two { width: 280px; height: 280px; right: 35px; top: 200px; animation-delay: -4s; }
+@keyframes faqOrbitFloat { to { transform: translate3d(-22px, 28px, 0) rotate(8deg); } }
+
+.faq-contact-inner { position: relative; }
+.faq-contact-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, .5fr);
+  align-items: end;
+  gap: 30px;
+  margin-bottom: clamp(55px, 7vw, 95px);
+}
+.faq-contact-kicker {
+  grid-column: 1 / -1;
+  margin: 0 0 18px;
+  font: 700 .7rem/1 "DM Sans", sans-serif;
+  letter-spacing: .18em;
+}
+.faq-contact-heading h2 {
+  margin: 0;
+  font: 700 clamp(4.2rem, 10.7vw, 10.5rem)/.77 "Space Grotesk", sans-serif;
+  letter-spacing: -.09em;
+}
+.faq-title-dot { color: #d7261e; }
+.faq-title-outline { color: transparent; -webkit-text-stroke: 1.5px #0b0b0b; }
+.faq-heading-copy {
+  max-width: 350px;
+  margin: 0 0 8px auto;
+  font-size: .92rem;
+  line-height: 1.65;
+  color: #6e6b65;
+}
+
+.faq-list { border-top: 1px solid #0b0b0b; }
+.faq-item { border-bottom: 1px solid rgba(11,11,11,.25); }
+.faq-question {
+  width: 100%;
+  min-height: 108px;
+  display: grid;
+  grid-template-columns: 64px 1fr 56px;
+  align-items: center;
+  gap: 22px;
+  padding: 18px 0;
+  border: 0;
+  background: transparent;
+  color: #0b0b0b;
+  text-align: left;
+  cursor: none;
+  transition: padding .4s cubic-bezier(.16,1,.3,1), background .3s ease;
+}
+.faq-question:hover { padding-left: 18px; padding-right: 18px; background: rgba(11,11,11,.035); }
+.faq-index { font: 600 .68rem/1 "DM Sans", sans-serif; letter-spacing: .15em; color: #8a867e; }
+.faq-question-text { font: 500 clamp(1.25rem, 2.25vw, 2.25rem)/1.08 "Space Grotesk", sans-serif; letter-spacing: -.045em; }
+.faq-toggle {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  border: 1px solid #0b0b0b;
+  border-radius: 50%;
+  font: 300 1.6rem/1 "DM Sans", sans-serif;
+  transition: transform .45s cubic-bezier(.16,1,.3,1), background .3s ease, color .3s ease;
+}
+.faq-item.is-open .faq-toggle { transform: rotate(45deg); background: #d7261e; color: #fff; border-color: #d7261e; }
+.faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s cubic-bezier(.16,1,.3,1); }
+.faq-answer > div { overflow: hidden; }
+.faq-answer p {
+  max-width: 780px;
+  margin: 0 0 36px 86px;
+  padding-right: 40px;
+  color: #5f5b55;
+  font-size: 1rem;
+  line-height: 1.75;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity .35s ease, transform .45s cubic-bezier(.16,1,.3,1);
+}
+.faq-item.is-open .faq-answer { grid-template-rows: 1fr; }
+.faq-item.is-open .faq-answer p { opacity: 1; transform: translateY(0); }
+
+.learn-more-panel {
+  position: relative;
+  margin-top: clamp(90px, 11vw, 160px);
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 28px max(24px, calc((100vw - 1320px) / 2));
+  min-height: 620px;
+  background: #0b0b0b;
+  color: #f5f3ed;
+  overflow: hidden;
+}
+.learn-more-panel::before {
+  content: "CPE";
+  position: absolute;
+  right: -2vw;
+  bottom: -10vw;
+  font: 700 clamp(15rem, 38vw, 40rem)/.7 "Space Grotesk", sans-serif;
+  letter-spacing: -.12em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(245,243,237,.08);
+  pointer-events: none;
+}
+.learn-more-topline, .learn-more-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font: 600 .66rem/1 "DM Sans", sans-serif;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+.learn-more-topline { padding-bottom: 20px; border-bottom: 1px solid rgba(245,243,237,.2); }
+.learn-more-main {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: clamp(50px, 8vw, 140px);
+  align-items: end;
+  padding: clamp(70px, 9vw, 125px) 0;
+}
+.learn-more-eyebrow { margin: 0 0 24px; color: #d7261e; font-size: .7rem; font-weight: 700; letter-spacing: .18em; }
+.learn-more-copy h3 { margin: 0; font: 600 clamp(4rem, 8vw, 8.5rem)/.78 "Space Grotesk", sans-serif; letter-spacing: -.085em; }
+.learn-more-copy h3 em { font-family: Georgia, serif; font-weight: 400; }
+.learn-more-copy > p:last-child { max-width: 430px; margin: 38px 0 0; color: rgba(245,243,237,.62); line-height: 1.7; }
+.learn-more-links { border-top: 1px solid rgba(245,243,237,.28); }
+.learn-more-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 78px;
+  border-bottom: 1px solid rgba(245,243,237,.28);
+  font: 500 clamp(1.1rem, 1.8vw, 1.65rem)/1.1 "Space Grotesk", sans-serif;
+  letter-spacing: -.035em;
+  transition: padding .4s cubic-bezier(.16,1,.3,1), color .3s ease;
+}
+.learn-more-links a b { font-weight: 400; transition: transform .4s cubic-bezier(.16,1,.3,1); }
+.learn-more-links a:hover { padding-left: 18px; padding-right: 12px; color: #d7261e; }
+.learn-more-links a:hover b { transform: translate(5px,-5px) rotate(8deg); }
+.learn-more-footer { padding: 20px 0 4px; border-top: 1px solid rgba(245,243,237,.2); color: rgba(245,243,237,.55); }
+
+[data-faq-reveal] { opacity: 0; transform: translateY(58px); transition: opacity .9s ease, transform 1s cubic-bezier(.16,1,.3,1); }
+[data-faq-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 800px) {
+  .faq-contact-heading, .learn-more-main { grid-template-columns: 1fr; }
+  .faq-heading-copy { margin-left: 0; }
+  .faq-question { grid-template-columns: 42px 1fr 44px; gap: 12px; min-height: 92px; }
+  .faq-answer p { margin-left: 54px; }
+  .learn-more-panel { min-height: 0; }
+}
+@media (max-width: 520px) {
+  .faq-contact-heading h2 { font-size: clamp(3.4rem, 18vw, 5.5rem); }
+  .faq-question { grid-template-columns: 32px 1fr 38px; }
+  .faq-toggle { width: 38px; height: 38px; }
+  .faq-answer p { margin-left: 44px; padding-right: 0; }
+  .learn-more-topline, .learn-more-footer { align-items: flex-start; flex-direction: column; }
+}
+
+
+/* =========================================================
+   FAQ + CONTACT — UPGRADED MOTION / SOCIAL EDITION
+========================================================= */
+.home-faq-contact::before{content:"04";position:absolute;left:-.03em;top:1.1%;font:700 clamp(12rem,28vw,31rem)/1 "Space Grotesk",sans-serif;letter-spacing:-.12em;color:rgba(11,11,11,.025);pointer-events:none;z-index:-1}
+.faq-scanline{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,#d7261e,transparent);box-shadow:0 0 18px rgba(215,38,30,.45);opacity:.7;animation:faqScan 7s linear infinite;pointer-events:none}
+@keyframes faqScan{0%{transform:translateY(0);opacity:0}8%{opacity:.8}92%{opacity:.35}100%{transform:translateY(1180px);opacity:0}}
+.faq-orbit-three{width:120px;height:120px;left:7vw;top:34%;border-color:rgba(215,38,30,.28);animation-duration:7s}
+.faq-live-dot{display:inline-block;width:7px;height:7px;margin-left:8px;border-radius:50%;background:#d7261e;box-shadow:0 0 0 0 rgba(215,38,30,.5);animation:faqPulse 1.8s infinite}
+@keyframes faqPulse{70%{box-shadow:0 0 0 10px rgba(215,38,30,0)}100%{box-shadow:0 0 0 0 rgba(215,38,30,0)}}
+.faq-item{position:relative;overflow:hidden}
+.faq-item::before{content:"";position:absolute;inset:0 auto 0 0;width:0;background:#0b0b0b;transition:width .55s cubic-bezier(.16,1,.3,1);z-index:-1}
+.faq-item:hover::before{width:100%}
+.faq-item:hover .faq-question-text,.faq-item:hover .faq-index{color:#f5f3ed}
+.faq-item:hover .faq-toggle{border-color:#f5f3ed;color:#f5f3ed;transform:rotate(90deg)}
+.faq-item.is-open::before{width:100%}
+.faq-item.is-open .faq-question-text,.faq-item.is-open .faq-index{color:#f5f3ed}
+.faq-item.is-open .faq-answer p{color:rgba(245,243,237,.7)}
+.faq-item.is-open .faq-toggle{transform:rotate(45deg);background:#d7261e;color:#fff;border-color:#d7261e}
+.faq-question-text,.faq-index{transition:color .3s ease}
+.learn-more-panel{min-height:720px;background:radial-gradient(circle at 75% 45%,rgba(215,38,30,.10),transparent 28%),#0b0b0b}
+.learn-more-panel::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(245,243,237,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(245,243,237,.035) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(90deg,transparent,#000 25%,#000 100%);pointer-events:none}
+.contact-signal{position:absolute;border:1px solid rgba(215,38,30,.34);border-radius:50%;pointer-events:none;z-index:1}
+.contact-signal::before,.contact-signal::after{content:"";position:absolute;inset:14%;border:1px solid rgba(245,243,237,.08);border-radius:50%}
+.contact-signal::after{inset:32%;background:#d7261e;border:0;opacity:.7;animation:signalBlink 2s ease-in-out infinite}
+.contact-signal-a{width:330px;height:330px;right:-80px;top:90px;animation:signalRotate 18s linear infinite}
+.contact-signal-b{width:160px;height:160px;right:260px;bottom:70px;animation:signalRotate 11s linear infinite reverse}
+@keyframes signalRotate{to{transform:rotate(360deg)}}
+@keyframes signalBlink{50%{transform:scale(.65);opacity:.25}}
+.contact-status{display:flex;align-items:center;gap:8px}.contact-status i{display:block;width:7px;height:7px;border-radius:50%;background:#d7261e;box-shadow:0 0 12px #d7261e}
+.learn-more-links a{position:relative;overflow:hidden;isolation:isolate}
+.learn-more-links a::before{content:"";position:absolute;inset:0;background:#d7261e;transform:translateX(-102%);transition:transform .5s cubic-bezier(.16,1,.3,1);z-index:-1}
+.learn-more-links a:hover::before{transform:translateX(0)}
+.learn-more-links a:hover{color:#0b0b0b;padding-left:22px;padding-right:16px}
+.learn-more-links a small{display:block;margin-bottom:7px;font:600 .58rem/1 "DM Sans",sans-serif;letter-spacing:.16em;color:rgba(245,243,237,.42);transition:color .3s ease}
+.learn-more-links a:hover small{color:rgba(11,11,11,.58)}
+.contact-marquee{position:relative;z-index:3;margin:0 calc(-1 * max(24px,calc((100vw - 1320px)/2)));border-top:1px solid rgba(245,243,237,.16);border-bottom:1px solid rgba(245,243,237,.16);overflow:hidden;white-space:nowrap;padding:13px 0;color:#d7261e;font:600 .68rem/1 "Space Grotesk",sans-serif;letter-spacing:.2em}
+.contact-marquee div{width:max-content;animation:contactTicker 24s linear infinite}
+@keyframes contactTicker{to{transform:translateX(-50%)}}
+.learn-more-footer{position:relative;z-index:3}
+[data-faq-reveal].is-visible .faq-contact-kicker{animation:faqKickerIn .7s both}
+@keyframes faqKickerIn{from{letter-spacing:.45em;opacity:0}to{letter-spacing:.18em;opacity:1}}
+@media(max-width:800px){.learn-more-panel{min-height:0}.contact-signal-a{width:220px;height:220px;right:-100px}.contact-signal-b{display:none}.faq-item:hover::before{width:0}.faq-item:hover .faq-question-text,.faq-item:hover .faq-index{color:#0b0b0b}.faq-item.is-open::before{width:100%}.faq-item.is-open .faq-question-text,.faq-item.is-open .faq-index{color:#f5f3ed}}
+@media(prefers-reduced-motion:reduce){.faq-scanline,.faq-orbit,.faq-live-dot,.contact-signal,.contact-signal::after,.contact-marquee div{animation:none!important}}
+
+
+/* =========================================================
+   AESTHETIC BLACK + RED ACCENTS — About Computer Engineering
+   Main typography stays black; red is used selectively.
+========================================================= */
+.about-new-title,
+.story-copy h2,
+.about-section-title,
+.importance-title,
+.cpe-area-card h3 {
+    color: var(--ink);
+}
+
+/* Keep red for small editorial details and emphasis only. */
+.about-mini-label,
+.about-new-kicker {
+    color: var(--accent);
+}
+
+.cpe-area-card h3 {
+    transition: color .3s ease;
+}
+
+.cpe-area-card:hover h3 {
+    color: var(--accent);
+}
+
+/* =========================================================
+   DARK SECTION COLOR BALANCE
+   Black background = white primary text + red accents.
+   Light sections keep their existing black/red styling.
+========================================================= */
+
+:root {
+    --dark-bg: #0b0b0b;
+    --dark-text: #f5f3ed;
+    --dark-muted: rgba(245, 243, 237, .68);
+    --accent-red: #d7261e;
+}
+
+/* Existing dark zones: preserve the black background */
+.cursor-dark-zone,
+.menu-overlay,
+.objective-section {
+    color: var(--dark-text);
+}
+
+/* Primary readable content on black */
+.cursor-dark-zone h1,
+.cursor-dark-zone h2,
+.cursor-dark-zone h3,
+.cursor-dark-zone h4,
+.cursor-dark-zone p,
+.cursor-dark-zone li,
+.cursor-dark-zone .section-heading h2,
+.menu-overlay,
+.objective-section h1,
+.objective-section h2,
+.objective-section h3,
+.objective-section h4,
+.objective-section p {
+    color: var(--dark-text);
+}
+
+/* Secondary copy stays softer white instead of turning red */
+.cursor-dark-zone .section-text,
+.cursor-dark-zone .description,
+.cursor-dark-zone .muted,
+.objective-section .section-text,
+.objective-section .objective-intro p,
+.objective-section .objective-row p {
+    color: var(--dark-muted);
+}
+
+/* Red is used as an accent, not as the whole text system */
+.cursor-dark-zone .section-number,
+.cursor-dark-zone .eyebrow,
+.cursor-dark-zone .kicker,
+.cursor-dark-zone .label,
+.cursor-dark-zone .accent,
+.objective-section .section-number,
+.objective-section .eyebrow,
+.objective-section .big-number,
+.objective-section .objective-row > span {
+    color: var(--accent-red);
+}
+
+/* Lines/borders need enough contrast on black */
+.cursor-dark-zone .section-heading,
+.objective-section .section-heading {
+    border-color: rgba(245, 243, 237, .35);
+}
+
+/* Keep menu text readable on its black overlay; use red only on hover/active */
+.menu-overlay .menu-label,
+.menu-overlay .menu-name,
+.menu-overlay .menu-number {
+    color: var(--dark-text);
+}
+
+.menu-overlay .menu-item:hover .menu-name,
+.menu-overlay .menu-item:hover .menu-number,
+.menu-overlay .menu-item.active .menu-number {
+    color: var(--accent-red);
+}
+
+/* =========================================================
+   FINAL REQUESTED COLOR DETAILS — ABOUT CPE
+========================================================= */
+
+/* "COMPUTER" in the hero */
+.about-new-title .hero-line:nth-child(2) {
+    color: #d7261e !important;
+}
+
+/* Hardware / Software cards:
+   dark normally, white background + BLACK text on hover. */
+.connection-box:hover,
+.connection-box:hover .connection-number,
+.connection-box:hover .connection-icon,
+.connection-box:hover h2,
+.connection-box:hover p {
+    color: #0b0b0b !important;
+}
+
+/* "WHAT DO" = first line of the role heading */
+.role-heading::first-line {
+    color: #d7261e;
+}
+
+/* Keep the rest of the dark role section readable */
+.about-role .role-heading,
+.about-role .role-row h3 {
+    color: #f5f3ed;
+}
+
+/* Restore the menu to its original neutral behavior — NO RED menu text */
+.menu-overlay .menu-label,
+.menu-overlay .menu-name,
+.menu-overlay .menu-number,
+.menu-overlay .menu-item.active .menu-number {
+    color: #f4f1e9 !important;
+}
+
+.menu-overlay .menu-item:hover .menu-name,
+.menu-overlay .menu-item:hover .menu-number {
+    color: #d4d0c8 !important;
+}
+
+
+
+/* =========================================================
+   EXPLORE CpE -> SCPES TRANSITION
+   Home rises bottom-to-top first; SCPES continues the same
+   black curtain and reveals the page upward.
+========================================================= */
+.scpes-explore-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0b0b0b;
+  color: #f5f3ed;
+  transform: translateY(0);
+}
+
+.scpes-from-explore .scpes-explore-loader {
+  display: flex;
+}
+
+.scpes-explore-loader-text {
+  font-family: "Space Grotesk", "DM Sans", sans-serif;
+  font-size: clamp(52px, 7.2vw, 118px);
+  font-weight: 600;
+  letter-spacing: -.055em;
+  line-height: .95;
+  text-align: center;
+}
+
+.scpes-explore-loader.page-transition-out {
+  animation: scpesCurtainLeave .78s cubic-bezier(.76, 0, .24, 1) forwards;
+}
+
+.scpes-explore-loader.page-transition-out .scpes-explore-loader-text {
+  animation: scpesCurtainTextLeave .34s ease forwards;
+}
+
+@keyframes scpesCurtainLeave {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); visibility: hidden; }
+}
+
+@keyframes scpesCurtainTextLeave {
+  to { opacity: 0; transform: translateY(-24px); }
 }

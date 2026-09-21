@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Projects | UE CpE</title>
+
+<!-- GLOBAL WEBSITE CSS -->
+<link rel="stylesheet" href="style.css">
+
+<!-- STUDENT PROJECTS CSS -->
+<link rel="stylesheet" href="projects.css">
+
+</head>
+
+<body class="projects-body">
+
+<!-- =====================================================
+     EXPLORE CPE -> STUDENT PROJECTS TRANSITION
+     Plays only when URL contains ?from=explore
+===================================================== -->
+<div id="explore-projects-loader" aria-hidden="true">
+    <div class="explore-projects-loader-title">STUDENT PROJECTS</div>
+</div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<input type="checkbox" id="menu-toggle">
+
+<header class="topbar">
+    <a class="brand" href="index.html">UE / CpE.</a>
+
+    <div class="page-no">
+        08 / 09
+    </div>
+
+    <label class="menu-open-btn" for="menu-toggle">
+        MENU +
+    </label>
+</header>
+
+
+<!-- =====================================================
+     FULLSCREEN MENU
+===================================================== -->
+
+<div class="fullscreen-menu cursor-dark-zone">
+
+    <div class="menu-top">
+        <div class="menu-label">NAVIGATION</div>
+
+        <label class="menu-close-btn" for="menu-toggle">
+            CLOSE ×
+        </label>
+    </div>
+
+    <nav class="menu-nav">
+
+        <a class="menu-item" href="about-cpe.html">
+            <span class="menu-number">01</span>
+            <span class="menu-name">About CpE</span>
+        </a>
+
+        <a class="menu-item" href="cpe-at-ue.html">
+            <span class="menu-number">02</span>
+            <span class="menu-name">CpE at UE</span>
+        </a>
+
+        <a class="menu-item" href="specialization.html">
+            <span class="menu-number">03</span>
+            <span class="menu-name">Specialization</span>
+        </a>
+
+        <a class="menu-item" href="careers.html">
+            <span class="menu-number">04</span>
+            <span class="menu-name">CpE Careers</span>
+        </a>
+
+        <a class="menu-item" href="faculty.html">
+            <span class="menu-number">05</span>
+            <span class="menu-name">Faculty</span>
+        </a>
+
+        <a class="menu-item" href="scpes.html">
+            <span class="menu-number">06</span>
+            <span class="menu-name">SCPES</span>
+        </a>
+
+        <a class="menu-item active" href="projects.html">
+            <span class="menu-number">07</span>
+            <span class="menu-name">Student Projects</span>
+        </a>
+
+        <a class="menu-item" href="events.html">
+            <span class="menu-number">08</span>
+            <span class="menu-name">Events & Activities</span>
+        </a>
+
+    </nav>
+
+</div>
+
+
+<!-- =====================================================
+     STUDENT PROJECTS PAGE
+===================================================== -->
+
+<main class="projects-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="projects-hero">
+
+    <div class="projects-grid"></div>
+    <div class="projects-scanline"></div>
+
+
+    <div class="projects-hero-top">
+
+        <span class="projects-kicker">
+            STUDENT PROJECTS
+        </span>
+
+        <span class="projects-status">
+            <i></i>
+            SYSTEMS IN MOTION
+        </span>
+
+    </div>
+
+
+    <div class="projects-hero-copy">
+
+        <p class="projects-overline">
+            DESIGN / BUILD / TEST / CREATE
+        </p>
+
+        <h1>
+
+            <span>
+                PROJECTS
+            </span>
+
+            <span class="projects-serif">
+                BUILT
+            </span>
+
+            <span>
+                BY CpE.
+            </span>
+
+        </h1>
+
+
+        <p class="projects-intro">
+
+            A showcase of selected Computer Engineering projects
+            where ideas move from circuits and code into working
+            systems.
+
+        </p>
+
+    </div>
+
+
+    <!-- ORBIT DESIGN -->
+
+    <div class="projects-hero-orbit">
+
+        <span class="orbit-ring orbit-one"></span>
+
+        <span class="orbit-ring orbit-two"></span>
+
+        <span class="orbit-core">
+            CpE
+        </span>
+
+        <span class="orbit-node node-one"></span>
+
+        <span class="orbit-node node-two"></span>
+
+        <span class="orbit-node node-three"></span>
+
+    </div>
+
+
+    <div class="projects-scroll-note">
+        SCROLL TO EXPLORE ↓
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROJECT INDEX
+===================================================== -->
+
+<section class="projects-index">
+
+
+    <div class="projects-section-head project-reveal">
+
+        <div>
+
+            <span class="projects-kicker">
+                PROJECT INDEX
+            </span>
+
+            <h2>
+                WHAT WE
+                <em>BUILD.</em>
+            </h2>
+
+        </div>
+
+
+        <p>
+
+            Student work can span hardware, software,
+            intelligent systems, connected devices,
+            robotics, design, and research.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PROJECT CARDS
+    ================================================= -->
+
+
+    <div class="projects-category-grid">
+
+
+        <!-- 01 EMBEDDED SYSTEMS -->
+
+        <article
+            class="project-category project-reveal"
+            data-project="EMBEDDED"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/embedded.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>01</span>
+
+                <span>HW / SW</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                ◇
+            </div>
+
+
+            <h3>
+                EMBEDDED
+                <br>
+                SYSTEMS
+            </h3>
+
+
+            <p>
+
+                Microcontrollers, sensors, actuators,
+                and dedicated computing systems.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+
+        <!-- 02 IOT -->
+
+        <article
+            class="project-category project-reveal"
+            data-project="IOT"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/iot.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>02</span>
+
+                <span>CONNECTED</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                &lt;/&gt;
+            </div>
+
+
+            <h3>
+                IoT
+                <br>
+                APPLICATIONS
+            </h3>
+
+
+            <p>
+
+                Connected devices that collect,
+                exchange, and respond to real-world data.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+
+        <!-- 03 ROBOTICS -->
+
+        <article
+            class="project-category project-reveal"
+            data-project="ROBOTICS"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/robotics.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>03</span>
+
+                <span>MOTION</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                ＋
+            </div>
+
+
+            <h3>
+                ROBOTICS
+            </h3>
+
+
+            <p>
+
+                Machines that combine sensing,
+                control, movement, and programmed behavior.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+
+        <!-- 04 SOFTWARE SYSTEMS -->
+
+        <article
+            class="project-category project-reveal"
+            data-project="SOFTWARE"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/projects/software.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>04</span>
+
+                <span>CODE</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                { }
+            </div>
+
+
+            <h3>
+                SOFTWARE
+                <br>
+                SYSTEMS
+            </h3>
+
+
+            <p>
+
+                Applications and programs designed
+                to solve computing and engineering problems.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+
+        <!-- 05 MACHINE LEARNING -->
+
+        <article
+            class="project-category project-reveal"
+            data-project="MACHINE LEARNING"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/machine-learning.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>05</span> 
+
+                <span>INTELLIGENCE</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                ×
+            </div>
+
+
+            <h3>
+                MACHINE
+                <br>
+                LEARNING
+            </h3>
+
+
+            <p>
+
+                Projects that explore data,
+                intelligent models, prediction,
+                and automation.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+
+        <!-- 06 DESIGN PROJECTS -->
+
+        <article
+            class="project-category project-reveal"
+            data-project="DESIGN"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/design.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>06</span>
+
+                <span>PROTOTYPE</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                □
+            </div>
+
+
+            <h3>
+                DESIGN
+                <br>
+                PROJECTS
+            </h3>
+
+
+            <p>
+
+                Engineering concepts developed
+                through planning, prototyping,
+                and iteration.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+
+        <!-- 07 RESEARCH PROJECTS -->
+
+        <article
+            class="project-category project-category-wide project-reveal"
+            data-project="RESEARCH"
+        >
+
+            <div class="project-card-bg" style="background-image:url('assets/projects/research.jpg')" aria-hidden="true"></div>
+
+            <div class="project-category-top">
+
+                <span>07</span>
+
+                <span>INVESTIGATE</span>
+
+            </div>
+
+
+            <div class="project-symbol">
+                ⌁
+            </div>
+
+
+            <h3>
+                RESEARCH
+                <br>
+                PROJECTS
+            </h3>
+
+
+            <p>
+
+                Investigations that apply Computer Engineering
+                methods to analyze, evaluate, and develop
+                technology-based solutions.
+
+            </p>
+
+
+            <div class="project-arrow">
+                ↗
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROJECT DEVELOPMENT PROCESS
+===================================================== -->
+
+<section class="projects-process cursor-dark-zone">
+
+
+    <div class="projects-process-copy project-reveal">
+
+        <span class="projects-kicker">
+            FROM IDEA TO SYSTEM
+        </span>
+
+
+        <h2>
+
+            BUILDING IS
+            <br>
+
+            <em>
+                A PROCESS.
+            </em>
+
+        </h2>
+
+    </div>
+
+
+
+    <div class="projects-process-track">
+
+
+        <!-- STEP 01 -->
+
+        <div class="process-step project-reveal">
+
+            <span>
+                01
+            </span>
+
+            <strong>
+                IDEA
+            </strong>
+
+            <p>
+                Identify a problem or opportunity.
+            </p>
+
+        </div>
+
+
+        <div class="process-line"></div>
+
+
+
+        <!-- STEP 02 -->
+
+        <div class="process-step project-reveal">
+
+            <span>
+                02
+            </span>
+
+            <strong>
+                DESIGN
+            </strong>
+
+            <p>
+                Plan the hardware, software, and system.
+            </p>
+
+        </div>
+
+
+        <div class="process-line"></div>
+
+
+
+        <!-- STEP 03 -->
+
+        <div class="process-step project-reveal">
+
+            <span>
+                03
+            </span>
+
+            <strong>
+                BUILD
+            </strong>
+
+            <p>
+                Develop and integrate the components.
+            </p>
+
+        </div>
+
+
+        <div class="process-line"></div>
+
+
+
+        <!-- STEP 04 -->
+
+        <div class="process-step project-reveal">
+
+            <span>
+                04
+            </span>
+
+            <strong>
+                TEST
+            </strong>
+
+            <p>
+                Evaluate, debug, and improve performance.
+            </p>
+
+        </div>
+
+
+        <div class="process-line"></div>
+
+
+
+        <!-- STEP 05 -->
+
+        <div class="process-step project-reveal">
+
+            <span>
+                05
+            </span>
+
+            <strong>
+                CREATE
+            </strong>
+
+            <p>
+                Turn the concept into a working solution.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL SECTION
+===================================================== -->
+
+<section class="projects-final">
+
+
+    <span class="projects-kicker project-reveal">
+
+        COMPUTER ENGINEERING / UE
+
+    </span>
+
+
+    <h2 class="project-reveal">
+
+        IDEAS BECOME
+        <br>
+
+        <em>
+            WORKING SYSTEMS.
+        </em>
+
+    </h2>
+
+
+    <p class="project-reveal">
+
+        Student projects are where computing,
+        electronics, systems thinking,
+        and creativity meet.
+
+    </p>
+
+
+    <a
+        class="projects-back project-reveal"
+        href="index.html#featured"
+    >
+
+        <span>←</span>
+
+        BACK TO EXPLORE CPE
+
+    </a>
+
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<!-- GLOBAL WEBSITE JAVASCRIPT -->
+<script src="script.js"></script>
+
+<!-- STUDENT PROJECTS JAVASCRIPT -->
+<script src="projects.js"></script>
+
+
+</body>
+</html>

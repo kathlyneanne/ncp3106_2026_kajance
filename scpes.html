@@ -6,8 +6,16 @@
   <title>SCPES — UE CpE</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>
+    if (new URLSearchParams(window.location.search).get("from") === "explore") {
+      document.documentElement.classList.add("scpes-from-explore");
+    }
+  </script>
 </head>
 <body class="scpes-body">
+  <div id="scpes-explore-loader" class="scpes-explore-loader" aria-hidden="true">
+    <div class="scpes-explore-loader-text">SCPES</div>
+  </div>
   <input type="checkbox" id="menu-toggle" class="menu-toggle">
 
   <header class="topbar">
@@ -53,7 +61,7 @@
       </div>
 
       <div class="container-fluid px-4 px-md-5 scpes-hero-content">
-        <p class="scpes-kicker">06 / STUDENT ORGANIZATION</p>
+        <p class="scpes-kicker"> STUDENT ORGANIZATION</p>
         <div class="scpes-hero-copy">
           <p class="scpes-system-status"><span></span> NETWORK / ACTIVE</p>
           <h1 class="scpes-hero-title">
@@ -70,7 +78,7 @@
     <section class="scpes-about scpes-reveal-section">
       <div class="container-fluid px-4 px-md-5">
         <div class="row g-5 align-items-start">
-          <div class="col-lg-3"><p class="scpes-label">01 / ABOUT SCPES</p></div>
+          <div class="col-lg-3"><p class="scpes-label">ABOUT SCPES</p></div>
           <div class="col-lg-8 offset-lg-1">
             <h2 class="scpes-statement">MORE THAN AN ORGANIZATION. <em>A COMMUNITY BUILT FOR COMPUTER ENGINEERS.</em></h2>
             <p class="scpes-description">The Society of Computer Engineering Students (SCPES) connects students through academic, technical, professional, social, and community-centered experiences. It creates opportunities for students to learn beyond the classroom, collaborate with one another, and take an active role in the Computer Engineering community.</p>
@@ -93,25 +101,25 @@
     <section class="scpes-officers scpes-reveal-section">
       <div class="container-fluid px-4 px-md-5">
         <div class="scpes-section-head">
-          <p class="scpes-label">02 / OFFICERS</p>
+          <p class="scpes-label">OFFICERS</p>
           <h2>THE PEOPLE<br><span>BEHIND THE NETWORK.</span></h2>
           <p>A student-led team working across leadership, operations, programs, technical work, media, outreach, and student engagement.</p>
         </div>
 
         <div class="scpes-officer-grid">
-          <article class="scpes-officer scpes-president"><span class="scpes-officer-no">00 / PRESIDENT</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/president.jpg" alt="" loading="lazy"></div><h3>CHARLIZE MAE S. BALDOVINO</h3><p>PRESIDENT</p><i></i></article>
-          <article class="scpes-officer"><span>01</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/jawad.jpg" alt="" loading="lazy"></div><h3>JAWAD HADJI CASSAN M. MACAWADIB</h3><p>VP — INTERNAL</p></article>
-          <article class="scpes-officer"><span>02</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/joshua-madriaga.jpg" alt="" loading="lazy"></div><h3>JOSHUA R. MADRIAGA</h3><p>VP — EXTERNAL</p></article>
-          <article class="scpes-officer"><span>03</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/ghenny.jpg" alt="" loading="lazy"></div><h3>GHENNY MAE A. MANABAT</h3><p>VP — SECRETARIAT</p></article>
-          <article class="scpes-officer"><span>04</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/jessica.jpg" alt="" loading="lazy"></div><h3>JESSICA P. APOSTOL</h3><p>VP — BUSINESS & FINANCE</p></article>
-          <article class="scpes-officer"><span>05</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/joshua-purificacion.jpg" alt="" loading="lazy"></div><h3>JOSHUA C. PURIFICACION</h3><p>VP — CAREER DEVELOPMENT</p></article>
-          <article class="scpes-officer"><span>06</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/roselle.jpg" alt="" loading="lazy"></div><h3>ROSELLE GABRIELLE J. LANDAYAN</h3><p>VP — EVENTS & PROGRAMS</p></article>
-          <article class="scpes-officer"><span>07</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/earl.jpg" alt="" loading="lazy"></div><h3>EARL DUNCAN C. LORENZO</h3><p>VP — OUTREACH & SOCIAL RESPONSIBILITY</p></article>
-          <article class="scpes-officer"><span>08</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/kriselda.jpg" alt="" loading="lazy"></div><h3>KRISELDA MEI G. RUPERA</h3><p>VP — TECHNICAL OPERATIONS</p></article>
-          <article class="scpes-officer"><span>09</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/jian.jpg" alt="" loading="lazy"></div><h3>JIAN MIEL M. CRUZ</h3><p>VP — CREATIVES & COMMUNICATIONS</p></article>
-          <article class="scpes-officer"><span>10</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/joezer.jpg" alt="" loading="lazy"></div><h3>JOEZER C. CORNITA</h3><p>VP — MEDIA</p></article>
-          <article class="scpes-officer"><span>11</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/bench.jpg" alt="" loading="lazy"></div><h3>BENCH CALVIN PAED</h3><p>VP — LOGISTICS & EVENT COORDINATION</p></article>
-          <article class="scpes-officer"><span>12</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/officers/felix.jpg" alt="" loading="lazy"></div><h3>FELIX FREDERICK L. ADRIANO</h3><p>VP — RECREATION & WELLNESS</p></article>
+          <article class="scpes-officer scpes-president"><span class="scpes-officer-no">00 / PRESIDENT</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/president.jpg" alt="" loading="lazy"></div><h3>CHARLIZE MAE S. BALDOVINO</h3><p>PRESIDENT</p><i></i></article>
+          <article class="scpes-officer"><span>01</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/jawad.jpg" alt="" loading="lazy"></div><h3>JAWAD HADJI CASSAN M. MACAWADIB</h3><p>VP — INTERNAL</p></article>
+          <article class="scpes-officer"><span>02</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/joshua-madriaga.jpg" alt="" loading="lazy"></div><h3>JOSHUA R. MADRIAGA</h3><p>VP — EXTERNAL</p></article>
+          <article class="scpes-officer"><span>03</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/ghenny.jpg" alt="" loading="lazy"></div><h3>GHENNY MAE A. MANABAT</h3><p>VP — SECRETARIAT</p></article>
+          <article class="scpes-officer"><span>04</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/jessica.jpg" alt="" loading="lazy"></div><h3>JESSICA P. APOSTOL</h3><p>VP — BUSINESS & FINANCE</p></article>
+          <article class="scpes-officer"><span>05</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/joshua-purificacion.jpg" alt="" loading="lazy"></div><h3>JOSHUA C. PURIFICACION</h3><p>VP — CAREER DEVELOPMENT</p></article>
+          <article class="scpes-officer"><span>06</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/roselle.jpg" alt="" loading="lazy"></div><h3>ROSELLE GABRIELLE J. LANDAYAN</h3><p>VP — EVENTS & PROGRAMS</p></article>
+          <article class="scpes-officer"><span>07</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/earl.jpg" alt="" loading="lazy"></div><h3>EARL DUNCAN C. LORENZO</h3><p>VP — OUTREACH & SOCIAL RESPONSIBILITY</p></article>
+          <article class="scpes-officer"><span>08</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/kriselda.jpg" alt="" loading="lazy"></div><h3>KRISELDA MEI G. RUPERA</h3><p>VP — TECHNICAL OPERATIONS</p></article>
+          <article class="scpes-officer"><span>09</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/jian.jpg" alt="" loading="lazy"></div><h3>JIAN MIEL M. CRUZ</h3><p>VP — CREATIVES & COMMUNICATIONS</p></article>
+          <article class="scpes-officer"><span>10</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/joezer.jpg" alt="" loading="lazy"></div><h3>JOEZER C. CORNITA</h3><p>VP — MEDIA</p></article>
+          <article class="scpes-officer"><span>11</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/bench.jpg" alt="" loading="lazy"></div><h3>BENCH CALVIN PAED</h3><p>VP — LOGISTICS & EVENT COORDINATION</p></article>
+          <article class="scpes-officer"><span>12</span><div class="scpes-officer-photo"><span>PHOTO</span><img src="assets/felix.jpg" alt="" loading="lazy"></div><h3>FELIX FREDERICK L. ADRIANO</h3><p>VP — RECREATION & WELLNESS</p></article>
         </div>
       </div>
     </section>
@@ -120,7 +128,7 @@
       <div class="scpes-activity-grid"></div>
       <div class="container-fluid px-4 px-md-5">
         <div class="scpes-section-head scpes-section-head-dark">
-          <p class="scpes-label">03 / ACTIVITIES & EVENTS</p>
+          <p class="scpes-label"> ACTIVITIES & EVENTS</p>
           <h2>WHERE THE<br><span>NETWORK MOVES.</span></h2>
         </div>
         <div class="scpes-timeline">
@@ -134,7 +142,7 @@
 
     <section class="scpes-involvement scpes-reveal-section">
       <div class="container-fluid px-4 px-md-5">
-        <p class="scpes-label">04 / STUDENT INVOLVEMENT</p>
+        <p class="scpes-label">STUDENT INVOLVEMENT</p>
         <div class="row align-items-center g-5">
           <div class="col-lg-6">
             <h2 class="scpes-involve-title">YOU DON'T JUST<br>JOIN SCPES.<br><em>YOU BECOME A NODE.</em></h2>
@@ -153,7 +161,7 @@
     <section class="scpes-projects scpes-reveal-section">
       <div class="container-fluid px-4 px-md-5">
         <div class="scpes-section-head">
-          <p class="scpes-label">05 / PROJECTS & ACCOMPLISHMENTS</p>
+          <p class="scpes-label"> PROJECTS & ACCOMPLISHMENTS</p>
           <h2>IDEAS THAT<br><span>LEAVE A SIGNAL.</span></h2>
         </div>
         <div class="scpes-project-grid">

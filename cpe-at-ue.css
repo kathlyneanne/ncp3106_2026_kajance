@@ -1,35 +1,24 @@
 /* =========================================================
-   CPE AT UE PAGE TRANSITION
-   BLACK RISES FROM BOTTOM TO TOP
+   EXPLORE CPE -> CPE AT UE TRANSITION
+   SAME BEHAVIOR AS STUDENT PROJECTS
+   Black is already covering the destination, then exits upward.
    ========================================================= */
 
 #page-loader {
     position: fixed;
     inset: 0;
-
-    z-index: 100000;
-
+    z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: #0b0b0b;
-    color: #f5f3ed;
-
     overflow: hidden;
     pointer-events: none;
-
-    /* Starts below the screen */
-    transform: translateY(100%);
-
-    opacity: 1;
+    background: #0b0b0b;
+    color: #f5f3ed;
+    transform: translateY(0);
     visibility: visible;
+    will-change: transform;
 }
-
-
-/* =========================================================
-   REMOVE OLD LOADING DESIGN
-   ========================================================= */
 
 #page-loader .loader-grid,
 #page-loader .loader-small,
@@ -39,130 +28,58 @@
     display: none !important;
 }
 
-
-/* =========================================================
-   CENTER TEXT
-   ========================================================= */
-
 #page-loader::after {
-    content: "University of the east CpE";
-
+    content: "CPE AT UE";
     position: absolute;
-
     top: 50%;
     left: 50%;
-
-    transform:
-        translate(-50%, -50%)
-        translateY(35px);
-
+    transform: translate(-50%, -50%);
     color: #f5f3ed;
-
-    font-family:
-        "Space Grotesk",
-        "DM Sans",
-        sans-serif;
-
-    font-size:
-        clamp(32px, 6vw, 95px);
-
+    font-family: "Space Grotesk", "DM Sans", Arial, sans-serif;
+    font-size: clamp(2.7rem, 5.4vw, 6.2rem);
     font-weight: 600;
-
+    line-height: .95;
     letter-spacing: -.055em;
-
+    text-align: center;
     white-space: nowrap;
-
-    opacity: 0;
-
-    z-index: 5;
+    opacity: 1;
 }
 
+#page-loader.no-explore-transition { display: none; }
 
-/* =========================================================
-   BLACK RISE
-   ========================================================= */
-
-#page-loader.page-transition-in {
-    animation:
-        blackRiseFromBottom
-        1.50s
-        cubic-bezier(.65, 0, .35, 1)
-        forwards;
+#page-loader.from-explore.page-transition-out {
+    animation: cpeAtUeDestinationReveal .82s cubic-bezier(.76,0,.24,1) forwards;
 }
 
-
-/* =========================================================
-   TEXT APPEARS
-   ========================================================= */
-
-#page-loader.page-transition-in::after {
-    animation:
-        transitionTextIn
-        .65s
-        cubic-bezier(.16, 1, .3, 1)
-        .30s
-        forwards;
+#page-loader.from-explore.page-transition-out::after {
+    animation: cpeAtUeDestinationTitleOut .30s ease forwards;
 }
 
-
-/* =========================================================
-   BLACK MOVES
-   BOTTOM → FULL SCREEN → TOP
-   ========================================================= */
-
-@keyframes blackRiseFromBottom {
-
-    0% {
-        transform: translateY(100%);
-    }
-
-    42% {
-        transform: translateY(0);
-    }
-
-    58% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-100%);
-    }
-
+@keyframes cpeAtUeDestinationReveal {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); visibility: hidden; }
 }
 
-
-/* =========================================================
-   CENTER TEXT
-   ========================================================= */
-
-@keyframes transitionTextIn {
-
-    0% {
-        opacity: 0;
-
-        transform:
-            translate(-50%, -50%)
-            translateY(35px);
-    }
-
-    100% {
-        opacity: 1;
-
-        transform:
-            translate(-50%, -50%)
-            translateY(0);
-    }
-
+@keyframes cpeAtUeDestinationTitleOut {
+    to { opacity: 0; transform: translate(-50%, -50%) translateY(-28px); }
 }
 
-
-/* =========================================================
-   AFTER TRANSITION
-   ========================================================= */
-
-#page-loader.page-transition-finished {
-    display: none;
+@media (max-width: 720px) {
+    #page-loader::after {
+        width: min(88vw, 620px);
+        white-space: normal;
+        font-size: clamp(2.25rem, 11vw, 4.5rem);
+        padding: 0 22px;
+    }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    #page-loader.from-explore.page-transition-out {
+        display: none;
+        animation: none;
+    }
+}
+
 /* =========================================================
    EXISTING PIXEL CURSOR
    ========================================================= */
@@ -2882,3 +2799,239 @@ nav a:hover {
 
     transform: scale(1);
 }
+    .back-explore-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 110px;
+            padding-bottom: 90px;
+        }
+
+        .back-explore-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 245px;
+            height: 54px;
+            padding: 0 24px;
+            border: 1px solid #202124;
+            background: transparent;
+            color: #202124;
+            text-decoration: none;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            transition: background 350ms ease, color 350ms ease, transform 350ms cubic-bezier(.16,1,.3,1);
+        }
+
+        .back-explore-button span:first-child {
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 350ms cubic-bezier(.16,1,.3,1);
+        }
+
+        .back-explore-button:hover {
+            background: #202124;
+            color: #f4f1e9;
+            transform: translateY(-3px);
+        }
+
+        .back-explore-button:hover span:first-child {
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .back-explore-wrap {
+                margin-top: 80px;
+                padding-bottom: 70px;
+            }
+
+            .back-explore-button {
+                min-width: 220px;
+            }
+        }
+
+/* =========================================================
+   AESTHETIC BLACK + RED ACCENTS — CpE at UE
+   Main typography stays black; red is used selectively.
+========================================================= */
+.section-heading h2,
+.learning-content h2,
+.research-title h2,
+.opportunity-header h2,
+.final-message h2 {
+    color: #0b0b0b;
+}
+
+.objective-row h3,
+.bootstrap-card h3,
+.facility-info h3,
+.project-details h3,
+.opportunity-box h3 {
+    color: #0b0b0b;
+    transition: color .3s ease;
+}
+
+/* Small editorial details carry the UE red accent. */
+.eyebrow,
+.section-number,
+.hero-index {
+    color: #d7261e;
+}
+
+/* Red appears as an interaction accent instead of flooding the page. */
+.bootstrap-card:hover h3,
+.project-card:hover .project-details h3,
+.opportunity-box:hover h3 {
+    color: #d7261e;
+}
+
+/* =========================================================
+   DARK SECTION COLOR BALANCE
+   Black background = white primary text + red accents.
+   Light sections keep their existing black/red styling.
+========================================================= */
+
+:root {
+    --dark-bg: #0b0b0b;
+    --dark-text: #f5f3ed;
+    --dark-muted: rgba(245, 243, 237, .68);
+    --accent-red: #d7261e;
+}
+
+/* Existing dark zones: preserve the black background */
+.cursor-dark-zone,
+.menu-overlay,
+.objective-section {
+    color: var(--dark-text);
+}
+
+/* Primary readable content on black */
+.cursor-dark-zone h1,
+.cursor-dark-zone h2,
+.cursor-dark-zone h3,
+.cursor-dark-zone h4,
+.cursor-dark-zone p,
+.cursor-dark-zone li,
+.cursor-dark-zone .section-heading h2,
+.menu-overlay,
+.objective-section h1,
+.objective-section h2,
+.objective-section h3,
+.objective-section h4,
+.objective-section p {
+    color: var(--dark-text);
+}
+
+/* Secondary copy stays softer white instead of turning red */
+.cursor-dark-zone .section-text,
+.cursor-dark-zone .description,
+.cursor-dark-zone .muted,
+.objective-section .section-text,
+.objective-section .objective-intro p,
+.objective-section .objective-row p {
+    color: var(--dark-muted);
+}
+
+/* Red is used as an accent, not as the whole text system */
+.cursor-dark-zone .section-number,
+.cursor-dark-zone .eyebrow,
+.cursor-dark-zone .kicker,
+.cursor-dark-zone .label,
+.cursor-dark-zone .accent,
+.objective-section .section-number,
+.objective-section .eyebrow,
+.objective-section .big-number,
+.objective-section .objective-row > span {
+    color: var(--accent-red);
+}
+
+/* Lines/borders need enough contrast on black */
+.cursor-dark-zone .section-heading,
+.objective-section .section-heading {
+    border-color: rgba(245, 243, 237, .35);
+}
+
+/* Keep menu text readable on its black overlay; use red only on hover/active */
+.menu-overlay .menu-label,
+.menu-overlay .menu-name,
+.menu-overlay .menu-number {
+    color: var(--dark-text);
+}
+
+.menu-overlay .menu-item:hover .menu-name,
+.menu-overlay .menu-item:hover .menu-number,
+.menu-overlay .menu-item.active .menu-number {
+    color: var(--accent-red);
+}
+
+/* =========================================================
+   FINAL REQUESTED COLOR DETAILS — CPE AT UE
+========================================================= */
+
+/* WHAT STUDENTS DEVELOP.
+   Keep the title black, then paint only the lower DEVELOP line red.
+   The title is two lines in this layout. */
+.skills-section .section-heading h2 {
+    color: #0b0b0b !important;
+    background:
+        linear-gradient(
+            to bottom,
+            #0b0b0b 0 48%,
+            #d7261e 48% 100%
+        );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* LEARN. BUILD. EXPLORE.
+   BUILD is the middle line, so only the middle third is red. */
+.learning-content h2 {
+    color: #0b0b0b !important;
+    background:
+        linear-gradient(
+            to bottom,
+            #0b0b0b 0 33.333%,
+            #d7261e 33.333% 66.666%,
+            #0b0b0b 66.666% 100%
+        );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* SPACES TO LEARN & BUILD. sits on black, so it must be white. */
+.facilities-section .section-heading h2 {
+    color: #f5f3ed !important;
+    -webkit-text-fill-color: #f5f3ed !important;
+}
+
+/* Facility captions/text are white on the black section,
+   including when the user hovers the pictures/cards. */
+.facilities-section .facility-info,
+.facilities-section .facility-info span,
+.facilities-section .facility-info h3,
+.facilities-section .facility-card:hover .facility-info,
+.facilities-section .facility-card:hover .facility-info span,
+.facilities-section .facility-card:hover .facility-info h3 {
+    color: #f5f3ed !important;
+    -webkit-text-fill-color: #f5f3ed !important;
+}
+
+/* Restore menu to the original neutral colors — never red. */
+.menu-overlay .menu-label,
+.menu-overlay .menu-name,
+.menu-overlay .menu-number,
+.menu-overlay .menu-item.active .menu-number {
+    color: #f4f1e9 !important;
+}
+
+.menu-overlay .menu-item:hover .menu-name,
+.menu-overlay .menu-item:hover .menu-number {
+    color: #d4d0c8 !important;
+}
+

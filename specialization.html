@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UE CpE — Specializations</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="specialization.css">
+</head>
+<body class="specialization-body">
+
+<!-- =====================================================
+     EXPLORE CpE -> SPECIALIZATION TRANSITION
+     Activates only with specialization.html?from=explore
+===================================================== -->
+<div id="explore-specialization-loader" aria-hidden="true"></div>
+
+
+<!-- =====================================================
+     PIXEL CURSOR
+===================================================== -->
+
+<div class="pixel-cursor"></div>
+
+
+<!-- =====================================================
+     FIXED HEADER
+===================================================== -->
+
+<header class="site-header">
+
+  <a class="brand" href="index.html">
+    UE / CpE.
+  </a>
+
+  <button
+    class="menu-button"
+    id="menuButton"
+    type="button"
+  >
+    <span>MENU</span>
+    <span class="menu-symbol">+</span>
+  </button>
+
+</header>
+
+
+<!-- =====================================================
+     MENU OVERLAY
+===================================================== -->
+
+<div class="menu-overlay cursor-dark-zone" id="menuOverlay">
+
+  <div class="menu-top">
+
+    <a class="menu-label" href="index.html">
+      UE / CpE.
+    </a>
+
+    <button
+      class="close-menu"
+      id="closeMenu"
+      type="button"
+    >
+      CLOSE ×
+    </button>
+
+  </div>
+
+  <div class="menu-list">
+
+    <a href="about-cpe.html" class="menu-item">
+      <span class="menu-number">01</span>
+      <span class="menu-name">About CpE</span>
+    </a>
+
+    <a href="cpe-at-ue.html" class="menu-item">
+      <span class="menu-number">02</span>
+      <span class="menu-name">CpE at UE</span>
+    </a>
+
+    <a href="specialization.html" class="menu-item active">
+      <span class="menu-number">03</span>
+      <span class="menu-name">Specialization</span>
+    </a>
+
+    <a href="careers.html" class="menu-item">
+      <span class="menu-number">04</span>
+      <span class="menu-name">CpE Careers</span>
+    </a>
+
+    <a href="faculty.html" class="menu-item">
+      <span class="menu-number">05</span>
+      <span class="menu-name">Faculty</span>
+    </a>
+
+    <a href="scpes.html" class="menu-item">
+      <span class="menu-number">06</span>
+      <span class="menu-name">SCPES</span>
+    </a>
+
+    <a href="student-projects.html" class="menu-item">
+      <span class="menu-number">07</span>
+      <span class="menu-name">Student Projects</span>
+    </a>
+
+    <a href="events.html" class="menu-item">
+      <span class="menu-number">08</span>
+      <span class="menu-name">Events &amp; Activities</span>
+    </a>
+
+  </div>
+
+</div>
+
+
+<main>
+<section class="spec-hero cursor-dark-zone">
+ <div class="spec-grid-bg"></div><div class="spec-orbit orbit-a"></div><div class="spec-orbit orbit-b"></div>
+ <div class="spec-hero-top"><p> SPECIALIZATIONS</p><p class="spec-coordinate">HARDWARE ↔ SOFTWARE ↔ SYSTEMS</p></div>
+ <div class="spec-hero-title">
+  <span class="hero-outline" data-spec-scramble data-text="CHOOSE">CHOOSE</span>
+  <span data-spec-scramble data-text="YOUR">YOUR</span>
+  <em data-spec-scramble data-text="SIGNAL.">SIGNAL.</em>
+ </div>
+ <div class="spec-hero-bottom"><p>Computer Engineering is built across connected fields. Explore the areas where hardware, software, networks, data, intelligence, and automation meet.</p><span class="scroll-cue">SCROLL TO EXPLORE ↓</span></div>
+</section>
+
+<section class="program-highlights cursor-dark-zone" id="program-highlights">
+ <div class="highlights-orbit highlights-orbit-one"></div><div class="highlights-orbit highlights-orbit-two"></div>
+ <div class="page-shell">
+  <div class="highlights-head"><div><p class="highlights-kicker"> CORE PATHS</p><h2><span data-spec-scramble data-text="SPECIALIZATIONS">SPECIALIZATIONS</span></h2></div></div>
+  <div class="highlights-grid">
+<a class="highlight-card" href="#field-1"><span class="highlight-no">01</span><div class="highlight-symbol">MCU</div><div class="highlight-copy"><p>HARDWARE + INTELLIGENCE</p><h3>Embedded<br>Systems</h3><span>Microcontrollers • Firmware • Real-time systems</span></div><span class="highlight-arrow">↘</span></a><a class="highlight-card" href="#field-2"><span class="highlight-no">02</span><div class="highlight-symbol">IOT</div><div class="highlight-copy"><p>CONNECTED + DATA</p><h3>Internet of Things<br>with Data Analytics</h3><span>Sensors • Smart devices • Connectivity</span></div><span class="highlight-arrow">↘</span></a><a class="highlight-card" href="#field-3"><span class="highlight-no">03</span><div class="highlight-symbol">DEV</div><div class="highlight-copy"><p>CODE + CREATION</p><h3>Software<br>Development</h3><span>Web • Mobile • Systems programming</span></div><span class="highlight-arrow">↘</span></a><a class="highlight-card" href="#field-4"><span class="highlight-no">04</span><div class="highlight-symbol">NET</div><div class="highlight-copy"><p>SYSTEMS + CONNECTIONS</p><h3>Computer<br>Networks</h3><span>Routing • Switching • Infrastructure</span></div><span class="highlight-arrow">↘</span></a><a class="highlight-card" href="#field-5"><span class="highlight-no">05</span><div class="highlight-symbol">AI</div><div class="highlight-copy"><p>INTELLIGENCE + LEARNING</p><h3>Artificial<br>Intelligence</h3><span>Machine learning • Vision • Automation</span></div><span class="highlight-arrow">↘</span></a>
+  </div>
+  <div class="highlights-bottom"><div><strong>HW</strong><span>Hardware</span></div><div><strong>SW</strong><span>Software</span></div><div><strong>NET</strong><span>Networks</span></div><div><strong>DATA</strong><span>Analytics</span></div><div class="map-label">ONE DEGREE / MANY DIRECTIONS</div></div>
+ </div>
+</section>
+
+<section class="field-explorer" id="all-fields">
+ <div class="page-shell"><div class="section-heading reveal"><p> EXPANDED FIELD MAP</p><h2>MORE WAYS TO<br><em>BUILD BEYOND.</em></h2><p>Ten areas CpE students may explore, from low-level hardware to intelligent and distributed systems.</p></div>
+ <div class="field-grid"><article class="field-card reveal-card" data-field="01"><span class="field-no">01</span><div class="field-icon"><span>MCU</span></div><div class="field-copy"><p>HARDWARE + INTELLIGENCE</p><h3>Embedded Systems</h3><span class="field-tools">Microcontrollers • Firmware • Real-time systems</span><p class="field-desc">Build dedicated computing systems inside devices, machines, and smart products.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="02"><span class="field-no">02</span><div class="field-icon"><span>IOT</span></div><div class="field-copy"><p>CONNECTED + DATA</p><h3>Internet of Things</h3><span class="field-tools">Sensors • Smart devices • Connectivity</span><p class="field-desc">Connect physical devices to networks so they can collect, exchange, and respond to data.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="03"><span class="field-no">03</span><div class="field-icon"><span>DEV</span></div><div class="field-copy"><p>CODE + CREATION</p><h3>Software Development</h3><span class="field-tools">Web • Mobile • Systems programming</span><p class="field-desc">Design and build software that powers applications, devices, services, and engineering tools.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="04"><span class="field-no">04</span><div class="field-icon"><span>NET</span></div><div class="field-copy"><p>SYSTEMS + CONNECTIONS</p><h3>Computer Networks</h3><span class="field-tools">Routing • Switching • Infrastructure</span><p class="field-desc">Design reliable communication systems that connect computers, devices, servers, and services.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="05"><span class="field-no">05</span><div class="field-icon"><span>AI</span></div><div class="field-copy"><p>INTELLIGENCE + LEARNING</p><h3>Artificial Intelligence & ML</h3><span class="field-tools">Machine learning • Vision • Automation</span><p class="field-desc">Create systems that learn from data, recognize patterns, and support intelligent automation.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="06"><span class="field-no">06</span><div class="field-icon"><span>SEC</span></div><div class="field-copy"><p>SECURITY + RESILIENCE</p><h3>Cybersecurity</h3><span class="field-tools">Network security • Systems • Defense</span><p class="field-desc">Protect computing systems, networks, and data through secure design, monitoring, and analysis.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="07"><span class="field-no">07</span><div class="field-icon"><span>DATA</span></div><div class="field-copy"><p>DATA + DECISIONS</p><h3>Data Science & Engineering</h3><span class="field-tools">Analytics • Pipelines • Databases</span><p class="field-desc">Turn raw data into organized information for analysis, prediction, and engineering decisions.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="08"><span class="field-no">08</span><div class="field-icon"><span>BOT</span></div><div class="field-copy"><p>MOTION + CONTROL</p><h3>Robotics & Automation</h3><span class="field-tools">Robots • Control • Sensors</span><p class="field-desc">Combine hardware, software, sensing, and control to create autonomous and automated systems.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="09"><span class="field-no">09</span><div class="field-icon"><span>HW</span></div><div class="field-copy"><p>COMPUTE + ARCHITECTURE</p><h3>Computer Hardware & Architecture</h3><span class="field-tools">Digital logic • Processors • FPGA</span><p class="field-desc">Explore how processors, memory, digital circuits, and computer hardware are designed and integrated.</p></div><span class="field-corner">↗</span></article>
+<article class="field-card reveal-card" data-field="10"><span class="field-no">10</span><div class="field-icon"><span>EDGE</span></div><div class="field-copy"><p>CLOUD + EDGE</p><h3>Cloud & Edge Computing</h3><span class="field-tools">Cloud services • Edge devices • Distributed systems</span><p class="field-desc">Build systems that divide computing between cloud infrastructure and devices close to the data source.</p></div><span class="field-corner">↗</span></article></div></div>
+</section>
+
+<section class="signal-map cursor-dark-zone">
+ <div class="page-shell"><div class="signal-head reveal"><p> HOW THEY CONNECT</p><h2>ONE SYSTEM.<br><em>MANY LAYERS.</em></h2></div>
+ <div class="layer-map reveal">
+  <div class="layer"><span>01</span><strong>PHYSICAL</strong><small>Hardware • Sensors • Robotics</small></div>
+  <div class="layer"><span>02</span><strong>CONTROL</strong><small>Embedded • Firmware • Automation</small></div>
+  <div class="layer"><span>03</span><strong>CONNECT</strong><small>Networks • IoT • Cybersecurity</small></div>
+  <div class="layer"><span>04</span><strong>COMPUTE</strong><small>Software • Cloud • Edge</small></div>
+  <div class="layer"><span>05</span><strong>INTELLIGENCE</strong><small>Data • AI • Machine Learning</small></div>
+ </div></div>
+</section>
+
+<section class="spec-final">
+  <div class="back-explore-wrap">
+    <a href="index.html#featured" class="back-explore-button">
+      <span>←</span>
+      <span>BACK TO EXPLORE CPE</span>
+    </a>
+  </div>
+</section>
+</main>
+<script src="specialization.js"></script>
+</body></html>
