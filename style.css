@@ -7175,7 +7175,7 @@ span:first-child {
 
 /* Fixed portrait box in the upper-right corner.
    object-fit: cover keeps every photo proportional instead of stretching it. */
-.scpes-officer-photo{position:absolute;z-index:3;top:22px;right:22px;width:92px;height:112px;border:1px solid var(--line);background:#ebe8e0;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s ease}
+.scpes-officer-photo{position:absolute;z-index:3;top:14px;right:14px;bottom:14px;width:170px;height:auto;border:1px solid var(--line);background:#ebe8e0;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s ease}
 .scpes-officer-photo>span{position:absolute;z-index:1;font:700 .55rem/1 "Space Grotesk",sans-serif;letter-spacing:.14em;color:rgba(11,11,11,.35)}
 .scpes-officer-photo img{position:absolute;z-index:2;inset:0;width:100% !important;height:100% !important;max-width:none;object-fit:cover !important;object-position:center top;filter:grayscale(100%);transition:filter .4s ease,transform .55s cubic-bezier(.16,1,.3,1)}
 .scpes-officer:hover .scpes-officer-photo{transform:translateY(-4px);border-color:var(--accent)}
@@ -7188,7 +7188,7 @@ span:first-child {
 /* President keeps the large editorial card, with a larger portrait on the right. */
 .scpes-president{grid-column:1/-1;min-height:320px;background:var(--ink);color:var(--bg)}
 .scpes-president:hover{background:var(--ink);color:var(--bg)}
-.scpes-president .scpes-officer-photo{top:32px;right:36px;width:160px;height:190px;border-color:rgba(245,243,237,.24);background:#1b1b1b}
+.scpes-president .scpes-officer-photo{top:20px;right:30px;bottom:20px;width:220px;height:auto;border-color:rgba(245,243,237,.24);background:#1b1b1b}
 .scpes-president .scpes-officer-photo>span{color:rgba(245,243,237,.38)}
 .scpes-president h3{margin-top:130px;margin-right:230px;max-width:calc(100% - 230px);font-size:clamp(2.2rem,5vw,5.5rem)}
 .scpes-president p{padding-right:230px;color:rgba(245,243,237,.62)}
@@ -7817,4 +7817,560 @@ span:first-child {
 
 @keyframes scpesCurtainTextLeave {
   to { opacity: 0; transform: translateY(-24px); }
+}
+
+
+/* =========================================================
+   HOMEPAGE HERO — FRONTPAGE1 RIGHT-SIDE IMAGE
+   Added for frontpage1.jpg
+========================================================= */
+
+/* Keep all existing hero content, but allow the new image to sit inside it. */
+.home-body .hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Banner remains above the photo. */
+.home-body .hero > .container-fluid {
+  position: relative;
+  z-index: 6;
+}
+
+/* Text remains above the photo. */
+.home-body .hero .hero-content {
+  position: relative;
+  z-index: 7;
+}
+
+/* Right-side image placement. */
+.home-body .hero-front-image {
+  position: absolute;
+  right: 0;
+  bottom: 34px;
+  width: min(52vw, 860px);
+  height: 58%;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: auto;
+
+  /* Fade the photo into the cream background from the left. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,.18) 8%,
+    rgba(0,0,0,.55) 20%,
+    #000 38%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,.18) 8%,
+    rgba(0,0,0,.55) 20%,
+    #000 38%,
+    #000 100%
+  );
+}
+
+.home-body .hero-front-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .58;
+  filter: grayscale(100%) saturate(0%) contrast(.95) brightness(1.04);
+  transform: scale(1.02);
+  transition:
+    filter .85s cubic-bezier(.22,.61,.36,1),
+    opacity .85s cubic-bezier(.22,.61,.36,1),
+    transform 1.05s cubic-bezier(.22,.61,.36,1);
+}
+
+/* True colors appear when the mouse is over the photo. */
+.home-body .hero-front-image:hover .hero-front-img {
+  opacity: 1;
+  filter: grayscale(0%) saturate(100%) contrast(1) brightness(1);
+  transform: scale(1.055);
+}
+
+/* Extra soft cream blend at the left edge. */
+.home-body .hero-front-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    var(--bg) 0%,
+    rgba(245,243,237,.82) 8%,
+    rgba(245,243,237,.38) 22%,
+    transparent 42%
+  );
+  transition: opacity .85s ease;
+}
+
+.home-body .hero-front-image:hover::before {
+  opacity: .32;
+}
+
+/* Small fade at the bottom so the photo does not end harshly. */
+.home-body .hero-front-image::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 15%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+}
+
+@media (max-width: 991px) {
+  .home-body .hero-front-image {
+    width: 60vw;
+    height: 54%;
+    right: -4vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-body .hero-front-image {
+    width: 82vw;
+    height: 43%;
+    right: -22vw;
+    bottom: 28px;
+  }
+
+  .home-body .hero-front-img {
+    opacity: .38;
+  }
+
+  .home-body .hero-front-image:hover .hero-front-img {
+    opacity: .88;
+  }
+}
+
+
+/* =========================================================
+   FRONTPAGE1 — FINAL POSITION + HOVER
+   Larger / farther right / slightly higher
+========================================================= */
+
+.home-body .hero-front-image {
+  position: absolute;
+  right: -3%;
+  bottom: 8%;
+  width: 62%;
+  height: 68%;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: auto;
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 7%,
+    rgba(0, 0, 0, 0.50) 16%,
+    rgba(0, 0, 0, 0.85) 27%,
+    black 38%,
+    black 100%
+  );
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 7%,
+    rgba(0, 0, 0, 0.50) 16%,
+    rgba(0, 0, 0, 0.85) 27%,
+    black 38%,
+    black 100%
+  );
+}
+
+/* DEFAULT — BLACK & WHITE */
+.home-body .hero-front-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+
+  filter:
+    grayscale(100%)
+    saturate(0%)
+    contrast(0.95)
+    brightness(1.02) !important;
+
+  opacity: 0.72;
+  transform: scale(1);
+
+  transition:
+    filter 0.8s cubic-bezier(.22,.61,.36,1),
+    opacity 0.8s cubic-bezier(.22,.61,.36,1),
+    transform 1s cubic-bezier(.22,.61,.36,1);
+}
+
+/* HOVER — TRUE/ORIGINAL COLORS */
+.home-body .hero-front-image:hover .hero-front-img {
+  filter:
+    grayscale(0%)
+    saturate(100%)
+    contrast(1)
+    brightness(1) !important;
+
+  opacity: 1;
+  transform: scale(1.035);
+}
+
+/* SOFT FADE ON LEFT SIDE */
+.home-body .hero-front-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to right,
+    #f5f3ed 0%,
+    rgba(245, 243, 237, 0.92) 6%,
+    rgba(245, 243, 237, 0.60) 15%,
+    rgba(245, 243, 237, 0.25) 26%,
+    transparent 39%
+  );
+
+  transition: opacity 0.8s ease;
+}
+
+.home-body .hero-front-image:hover::before {
+  opacity: 0.25;
+}
+
+/* No strong bottom fade */
+.home-body .hero-front-image::after {
+  display: none;
+}
+
+/* Keep text and banner above image */
+.home-body .hero .hero-content {
+  position: relative;
+  z-index: 7;
+}
+
+.home-body .hero > .container-fluid {
+  position: relative;
+  z-index: 7;
+}
+
+@media (max-width: 991px) {
+  .home-body .hero-front-image {
+    width: 68%;
+    height: 62%;
+    right: -7%;
+    bottom: 7%;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-body .hero-front-image {
+    width: 88%;
+    height: 48%;
+    right: -25%;
+    bottom: 6%;
+  }
+
+  .home-body .hero-front-img {
+    opacity: 0.55;
+  }
+
+  .home-body .hero-front-image:hover .hero-front-img {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   FRONTPAGE1 — ACTUAL HOVER FIX
+========================================================= */
+
+/*
+  HERO TEXT IS VISUALLY ABOVE THE IMAGE,
+  BUT ITS EMPTY AREA MUST NOT BLOCK THE MOUSE.
+*/
+.home-body .hero .hero-content {
+  pointer-events: none !important;
+}
+
+
+/*
+  IMAGE CONTAINER MUST RECEIVE THE MOUSE.
+*/
+.home-body .hero-front-image {
+  z-index: 8 !important;
+  pointer-events: auto !important;
+}
+
+
+/*
+  IMAGE ITSELF CAN RECEIVE POINTER.
+*/
+.home-body .hero-front-image .hero-front-img {
+  pointer-events: auto !important;
+
+  /* NORMAL */
+  filter: grayscale(100%) !important;
+  -webkit-filter: grayscale(100%) !important;
+
+  opacity: 0.72 !important;
+
+  transition:
+    filter 0.7s ease,
+    -webkit-filter 0.7s ease,
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(.16,1,.3,1) !important;
+}
+
+
+/* =========================================================
+   HOVER = COLOR
+========================================================= */
+
+.home-body .hero-front-image:hover .hero-front-img {
+  filter: grayscale(0%) !important;
+  -webkit-filter: grayscale(0%) !important;
+
+  opacity: 1 !important;
+
+  transform: scale(1.04) !important;
+}
+
+
+/*
+  THE FADE LAYER MUST NOT CATCH THE MOUSE.
+*/
+.home-body .hero-front-image::before,
+.home-body .hero-front-image::after {
+  pointer-events: none !important;
+}
+
+
+/*
+  BANNER SHOULD ALSO NOT BLOCK IMAGE HOVER
+  OUTSIDE OF THE ACTUAL BANNER.
+*/
+.home-body .hero > .container-fluid {
+  pointer-events: none !important;
+}
+
+
+/* =========================================================
+   KEEP THE TEXT VISUALLY ABOVE WHERE NEEDED
+========================================================= */
+
+.home-body .hero-content h1,
+.home-body .hero-content .eyebrow {
+  position: relative;
+  z-index: 10;
+}
+
+/* =========================================================
+   EXPLORE CPE COLLAGE — POLISHED HOVER EFFECT
+   Keeps the exact existing collage layout.
+========================================================= */
+
+/* Slightly cleaner breathing room without changing layout */
+.home-body .featured-collage {
+  --bs-gutter-x: 12px;
+  --bs-gutter-y: 12px;
+}
+
+/* Keep each tile crisp and independent */
+.home-body .featured-card {
+  overflow: hidden;
+  background: #d7d4cc;
+}
+
+/* DEFAULT: every Explore CpE image is grayscale */
+.home-body .featured-card .featured-card-img {
+  filter: grayscale(100%) saturate(0%) contrast(.96) brightness(.94) !important;
+  -webkit-filter: grayscale(100%) saturate(0%) contrast(.96) brightness(.94) !important;
+  opacity: .88;
+  transform: scale(1.001);
+  transition:
+    transform .8s cubic-bezier(.16, 1, .3, 1),
+    filter .65s ease,
+    -webkit-filter .65s ease,
+    opacity .5s ease !important;
+}
+
+/* Other cards become quieter while one card is hovered */
+@media (hover: hover) and (pointer: fine) {
+  .home-body .featured-collage:has(.featured-card:hover) .featured-card:not(:hover) .featured-card-img {
+    filter: grayscale(100%) saturate(0%) contrast(.92) brightness(.82) !important;
+    -webkit-filter: grayscale(100%) saturate(0%) contrast(.92) brightness(.82) !important;
+    opacity: .62;
+  }
+
+  /* HOVERED CARD: restore true/original color */
+  .home-body .featured-card:hover .featured-card-img {
+    filter: grayscale(0%) saturate(100%) contrast(1) brightness(1) !important;
+    -webkit-filter: grayscale(0%) saturate(100%) contrast(1) brightness(1) !important;
+    opacity: 1;
+    transform: scale(1.055) !important;
+  }
+}
+
+/* Dark gradient appears only enough to keep the text readable */
+.home-body .featured-card .featured-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, .72) 0%,
+    rgba(0, 0, 0, .28) 38%,
+    rgba(0, 0, 0, .04) 70%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+
+.home-body .featured-card:hover .featured-overlay {
+  opacity: 1;
+}
+
+/* Existing card labels get a cleaner reveal */
+.home-body .featured-card .featured-card-info {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity .4s ease,
+    transform .55s cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+}
+
+.home-body .featured-card:hover .featured-card-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-body .featured-card .featured-arrow {
+  transform: translate(-8px, 8px);
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+
+.home-body .featured-card:hover .featured-arrow {
+  transform: translate(0, 0);
+}
+
+/* A very subtle inner edge keeps neighboring collage images distinct */
+.home-body .featured-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  box-shadow: inset 0 0 0 1px rgba(245, 243, 237, .18);
+  pointer-events: none;
+  transition: box-shadow .45s ease;
+}
+
+.home-body .featured-card:hover .featured-image-wrap::after {
+  box-shadow: inset 0 0 0 1px rgba(245, 243, 237, .38);
+}
+
+/* Touch devices cannot truly hover, so keep images readable */
+@media (hover: none), (pointer: coarse) {
+  .home-body .featured-card .featured-card-img {
+    filter: grayscale(35%) saturate(75%) !important;
+    -webkit-filter: grayscale(35%) saturate(75%) !important;
+    opacity: 1;
+  }
+
+  .home-body .featured-card .featured-overlay {
+    opacity: .48;
+  }
+
+  .home-body .featured-card .featured-card-info {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================================
+   EVENTS — BACK TO EXPLORE CPE
+   Matches the smaller boxed button style used in the
+   Career/About CpE section.
+========================================================= */
+
+.training-back {
+  width: 100%;
+  margin-top: 120px;
+  padding: 100px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f3ed;
+  border-top: 0;
+}
+
+.back-explore {
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 16px 25px;
+
+  border: 1px solid #0b0b0b;
+  background: transparent;
+  color: #0b0b0b;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+
+  transition:
+    background .35s ease,
+    color .35s ease,
+    transform .35s ease;
+}
+
+.back-explore .back-arrow {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform .35s ease;
+}
+
+.back-explore:hover {
+  background: #0b0b0b;
+  color: #f5f3ed;
+  border-color: #0b0b0b;
+  transform: translateY(-3px);
+}
+
+.back-explore:hover .back-arrow {
+  transform: translateX(-6px);
+}
+
+@media (max-width: 600px) {
+  .training-back {
+    margin-top: 80px;
+    padding: 80px 18px;
+  }
+
+  .back-explore {
+    width: auto;
+    max-width: 100%;
+    padding: 15px 21px;
+    font-size: .72rem;
+    letter-spacing: .12em;
+  }
 }
