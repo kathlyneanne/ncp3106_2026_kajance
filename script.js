@@ -5139,3 +5139,129 @@ document
   });
 
 console.log("UE / CpE — Specialization loaded successfully.");
+/* =========================================================
+   WHY IT MATTERS — SCROLL REVEAL
+========================================================= */
+
+const importanceSection =
+  document.querySelector(".about-importance");
+
+if (importanceSection) {
+  const importanceObserver =
+    new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("is-animated");
+
+          /*
+            Stop watching after the animation happens.
+            This reduces unnecessary work while scrolling.
+          */
+          observer.unobserve(entry.target);
+        });
+      },
+
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -8% 0px",
+      },
+    );
+
+  importanceObserver.observe(importanceSection);
+}
+
+/* =========================================================
+   ABOUT CPE COLLAGE
+   CINEMATIC SCROLL REVEAL
+========================================================= */
+
+const cinematicCollagePhotos =
+  document.querySelectorAll(
+    ".about-collage-grid .collage-photo",
+  );
+
+
+if (cinematicCollagePhotos.length > 0) {
+
+  cinematicCollagePhotos.forEach((photo) => {
+
+    /* Remove classes from older animations */
+
+    photo.classList.remove(
+      "pixel-active",
+      "pixel-finished",
+      "is-visible",
+      "collage-visible",
+    );
+
+
+    /* Remove old inline delay */
+
+    photo.style.transitionDelay = "";
+
+  });
+
+
+  /* =======================================================
+     OBSERVER
+  ======================================================= */
+
+  const cinematicCollageObserver =
+    new IntersectionObserver(
+
+      (entries, observer) => {
+
+        entries.forEach((entry) => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+
+          const photo = entry.target;
+
+
+          /* Reveal */
+
+          photo.classList.add(
+            "collage-visible",
+          );
+
+
+          /* Only animate once */
+
+          observer.unobserve(photo);
+
+        });
+
+      },
+
+      {
+        threshold: 0.12,
+
+        rootMargin:
+          "0px 0px -6% 0px",
+      },
+
+    );
+
+
+  /* =======================================================
+     START WATCHING
+  ======================================================= */
+
+  cinematicCollagePhotos.forEach(
+    (photo) => {
+
+      cinematicCollageObserver.observe(
+        photo,
+      );
+
+    },
+  );
+
+}
