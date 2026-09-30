@@ -693,8 +693,8 @@
             <div class="col-12 col-md-5">
 
               <a class="featured-card mt-2" data-featured-card
-                 href="events.html">
-
+                 href="events.html?from=explore">
+                 
                 <div class="featured-image-wrap h-medium">
 
                   <img
@@ -831,10 +831,14 @@
 
     const title = curtain.querySelector('.explore-source-transition-title');
     const transitionLinks = [
-      { selector: '.cpe-ue-transition-link', title: 'CpE AT UE' },
-      { selector: '.specialization-transition-link', title: 'SPECIALIZATION' },
-      { selector: '.projects-transition-link', title: 'STUDENT PROJECTS' }
-    ];
+    { selector: '.cpe-ue-transition-link', title: 'CpE AT UE' },
+    { selector: '.specialization-transition-link', title: 'SPECIALIZATION' },
+      { selector: '.projects-transition-link', title: 'STUDENT PROJECTS' },
+      {
+        selector: 'a[href="events.html?from=explore"]',
+        title: 'EVENTS & ACTIVITIES'
+      }
+];
 
     transitionLinks.forEach(({ selector, title: transitionTitle }) => {
       const link = document.querySelector(selector);

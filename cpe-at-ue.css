@@ -508,9 +508,7 @@ body.menu-open {
         "DM Sans",
         Arial,
         sans-serif;
-
-    font-size:
-        clamp(1.9rem,3.7vw,4.2rem);
+ font-size: clamp(1.8rem, 5vw, 2rem);
 
     font-weight: 300;
 
@@ -534,8 +532,8 @@ body.menu-open {
         Arial,
         sans-serif;
 
-    font-size:
-        clamp(2.45rem,4.5vw,5.3rem);
+      font-size: clamp(1.8rem, 8vw, 3rem);
+
 
     font-weight: 400;
 
@@ -2790,8 +2788,10 @@ nav a:hover {
 }
 
 .image-large img {
-    width: 130%;
+    width: 100%;
     height: 100%;
+   
+   
     object-fit: cover;
 
     /* CHANGE THESE TO ADJUST THE IMAGE */
@@ -3035,3 +3035,25 @@ nav a:hover {
     color: #d4d0c8 !important;
 }
 
+/* =========================================================
+   FIX MENU DIVIDER LINES
+========================================================= */
+
+.menu-overlay .menu-list {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0;
+    flex: 1;
+}
+
+.menu-overlay .menu-list > .menu-item {
+    position: relative;
+    flex: 1 1 0 !important;
+    min-height: 0;
+    border: none !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.menu-overlay .menu-list > .menu-item:first-child {
+    border-top: 1px solid #444 !important;
+}

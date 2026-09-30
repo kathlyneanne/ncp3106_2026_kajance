@@ -6,15 +6,7 @@
 
 ========================================================= */
 
- 
-
-const chars =
-
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
- 
-
- 
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 /* =========================================================
 
@@ -22,439 +14,133 @@ const chars =
 
 ========================================================= */
 
- 
+const pageLoader = document.getElementById("page-loader");
 
-const pageLoader =
+const pushStage = document.getElementById("push-stage");
 
-  document.getElementById("page-loader");
+const loaderImage = document.getElementById("loader-image");
 
- 
+const pushDivider = document.getElementById("push-divider");
 
-const pushStage =
+const cssPerson = document.getElementById("css-person");
 
-  document.getElementById("push-stage");
-
- 
-
-const loaderImage =
-
-  document.getElementById("loader-image");
-
- 
-
-const pushDivider =
-
-  document.getElementById("push-divider");
-
- 
-
-const cssPerson =
-
-  document.getElementById("css-person");
-
- 
-
-const pushLoadingNumber =
-
-  document.getElementById("push-loading-number");
-
- 
-
- 
+const pushLoadingNumber = document.getElementById("push-loading-number");
 
 function easeInOutCubic(value) {
-
- 
-
   return value < 0.5
-
     ? 4 * value * value * value
-
     : 1 -
+        Math.pow(
+          -2 * value + 2,
 
-      Math.pow(
-
-        -2 * value + 2,
-
-        3
-
-      ) / 2;
-
- 
-
+          3,
+        ) /
+          2;
 }
 
- 
-
- 
-
 function startLoader() {
-
- 
-
-  if (
-
-    !pageLoader ||
-
-    !pushStage ||
-
-    !loaderImage ||
-
-    !pushDivider ||
-
-    !cssPerson
-
-  ) {
-
- 
-
+  if (!pageLoader || !pushStage || !loaderImage || !pushDivider || !cssPerson) {
     return;
-
- 
-
   }
-
- 
-
- 
 
   const loadingDuration = 5000;
 
- 
-
   let startTime = null;
 
- 
-
- 
-
   pushStage.style.setProperty(
-
     "--push-position",
 
-    "0%"
-
+    "0%",
   );
 
- 
+  loaderImage.style.clipPath = "inset(0 100% 0 0)";
 
- 
+  loaderImage.style.webkitClipPath = "inset(0 100% 0 0)";
 
-  loaderImage.style.clipPath =
+  loaderImage.style.filter = "none";
 
-    "inset(0 100% 0 0)";
+  loaderImage.style.mixBlendMode = "normal";
 
- 
+  pushDivider.classList.remove("is-finished");
 
-  loaderImage.style.webkitClipPath =
+  cssPerson.classList.remove("is-leaving");
 
-    "inset(0 100% 0 0)";
+  pageLoader.classList.remove("is-finished");
 
- 
-
-  loaderImage.style.filter =
-
-    "none";
-
- 
-
-  loaderImage.style.mixBlendMode =
-
-    "normal";
-
- 
-
- 
-
-  pushDivider.classList.remove(
-
-    "is-finished"
-
-  );
-
- 
-
-  cssPerson.classList.remove(
-
-    "is-leaving"
-
-  );
-
- 
-
-  pageLoader.classList.remove(
-
-    "is-finished"
-
-  );
-
- 
-
-  pageLoader.classList.add(
-
-    "is-pushing"
-
-  );
-
- 
-
- 
+  pageLoader.classList.add("is-pushing");
 
   function animateLoader(timestamp) {
-
- 
-
     if (!startTime) {
-
- 
-
       startTime = timestamp;
-
- 
-
     }
 
- 
+    const elapsed = timestamp - startTime;
 
- 
+    const rawProgress = Math.min(
+      elapsed / loadingDuration,
 
-    const elapsed =
+      1,
+    );
 
-      timestamp - startTime;
+    const progress = easeInOutCubic(rawProgress);
 
- 
-
- 
-
-    const rawProgress =
-
-      Math.min(
-
-        elapsed / loadingDuration,
-
-        1
-
-      );
-
- 
-
- 
-
-    const progress =
-
-      easeInOutCubic(
-
-        rawProgress
-
-      );
-
- 
-
- 
-
-    const position =
-
-      progress * 100;
-
- 
-
- 
+    const position = progress * 100;
 
     pushStage.style.setProperty(
-
       "--push-position",
 
-      position + "%"
-
+      position + "%",
     );
 
- 
+    loaderImage.style.clipPath = `inset(0 ${100 - position}% 0 0)`;
 
- 
-
-    loaderImage.style.clipPath =
-
-      `inset(0 ${100 - position}% 0 0)`;
-
- 
-
-    loaderImage.style.webkitClipPath =
-
-      `inset(0 ${100 - position}% 0 0)`;
-
- 
-
- 
+    loaderImage.style.webkitClipPath = `inset(0 ${100 - position}% 0 0)`;
 
     if (pushLoadingNumber) {
+      pushLoadingNumber.textContent = String(
+        Math.floor(rawProgress * 100),
+      ).padStart(
+        2,
 
- 
-
-      pushLoadingNumber.textContent =
-
-        String(
-
-          Math.floor(
-
-            rawProgress * 100
-
-          )
-
-        ).padStart(
-
-          2,
-
-          "0"
-
-        );
-
- 
-
+        "0",
+      );
     }
-
- 
-
- 
 
     if (rawProgress < 1) {
-
- 
-
-      requestAnimationFrame(
-
-        animateLoader
-
-      );
-
- 
+      requestAnimationFrame(animateLoader);
 
       return;
-
- 
-
     }
 
- 
+    loaderImage.style.clipPath = "inset(0 0 0 0)";
 
- 
-
-    loaderImage.style.clipPath =
-
-      "inset(0 0 0 0)";
-
- 
-
-    loaderImage.style.webkitClipPath =
-
-      "inset(0 0 0 0)";
-
- 
-
- 
+    loaderImage.style.webkitClipPath = "inset(0 0 0 0)";
 
     if (pushLoadingNumber) {
-
- 
-
-      pushLoadingNumber.textContent =
-
-        "100";
-
- 
-
+      pushLoadingNumber.textContent = "100";
     }
 
- 
+    pageLoader.classList.remove("is-pushing");
 
- 
+    pushDivider.classList.add("is-finished");
 
-    pageLoader.classList.remove(
-
-      "is-pushing"
-
-    );
-
- 
-
- 
-
-    pushDivider.classList.add(
-
-      "is-finished"
-
-    );
-
- 
-
- 
-
-    cssPerson.classList.add(
-
-      "is-leaving"
-
-    );
-
- 
-
- 
+    cssPerson.classList.add("is-leaving");
 
     setTimeout(
-
       finishLoader,
 
-      600
-
+      600,
     );
-
- 
-
   }
-
- 
-
- 
 
   function finishLoader() {
+    pageLoader.classList.add("is-finished");
 
- 
-
-    pageLoader.classList.add(
-
-      "is-finished"
-
-    );
-
- 
-
- 
-
-    document.body.classList.add(
-
-      "page-loaded"
-
-    );
-
- 
-
+    document.body.classList.add("page-loaded");
   }
 
- 
-
- 
-
-  requestAnimationFrame(
-
-    animateLoader
-
-  );
-
- 
-
+  requestAnimationFrame(animateLoader);
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -462,12 +148,7 @@ function startLoader() {
 
 ========================================================= */
 
- 
-
 function initializePage() {
-
- 
-
   /*
 
     If we came back from About CpE,
@@ -478,173 +159,50 @@ function initializePage() {
 
   */
 
- 
-
-  if (
-
-    window.location.hash ===
-
-    "#featured"
-
-  ) {
-
- 
-
+  if (window.location.hash === "#featured") {
     if (pageLoader) {
-
- 
-
-      pageLoader.classList.add(
-
-        "is-finished"
-
-      );
-
- 
-
+      pageLoader.classList.add("is-finished");
     }
 
- 
-
- 
-
-    const enterCheckbox =
-
-      document.getElementById(
-
-        "enter-site"
-
-      );
-
- 
-
- 
+    const enterCheckbox = document.getElementById("enter-site");
 
     if (enterCheckbox) {
-
- 
-
-      enterCheckbox.checked =
-
-        true;
-
- 
-
+      enterCheckbox.checked = true;
     }
 
- 
+    document.body.classList.add("page-loaded");
 
- 
-
-    document.body.classList.add(
-
-      "page-loaded"
-
-    );
-
- 
-
- 
-
-    const featured =
-
-      document.getElementById(
-
-        "featured"
-
-      );
-
- 
-
- 
+    const featured = document.getElementById("featured");
 
     if (featured) {
-
- 
-
       setTimeout(
-
         () => {
-
- 
-
           featured.scrollIntoView({
-
             behavior: "auto",
 
-            block: "start"
-
+            block: "start",
           });
-
- 
-
         },
 
-        50
-
+        50,
       );
-
- 
-
     }
 
- 
-
- 
-
     return;
-
- 
-
   }
 
- 
-
- 
-
   startLoader();
-
- 
-
 }
 
- 
-
- 
-
-if (
-
-  document.readyState ===
-
-  "loading"
-
-) {
-
- 
-
+if (document.readyState === "loading") {
   document.addEventListener(
-
     "DOMContentLoaded",
 
-    initializePage
-
+    initializePage,
   );
-
- 
-
 } else {
-
- 
-
   initializePage();
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -652,227 +210,71 @@ if (
 
 ========================================================= */
 
- 
-
-const heroScrambleElements =
-
-  document.querySelectorAll(
-
-    "[data-scramble]"
-
-  );
-
- 
-
- 
+const heroScrambleElements = document.querySelectorAll("[data-scramble]");
 
 function scrambleText(
-
   element,
 
-  speed = 60
-
+  speed = 60,
 ) {
-
- 
-
   if (!element) {
-
- 
-
     return;
-
- 
-
   }
 
- 
+  const finalText = element.dataset.text || element.textContent.trim();
 
- 
+  element.dataset.text = finalText;
 
-  const finalText =
-
-    element.dataset.text ||
-
-    element.textContent.trim();
-
- 
-
- 
-
-  element.dataset.text =
-
-    finalText;
-
- 
-
- 
-
-  clearInterval(
-
-    element.scrambleTimer
-
-  );
-
- 
-
- 
+  clearInterval(element.scrambleTimer);
 
   let iteration = 0;
 
- 
-
- 
-
-  element.scrambleTimer =
-
-    setInterval(
-
-      () => {
-
- 
-
-        element.textContent =
-
-          finalText
-
-            .split("")
-
-            .map(
-
-              (
-
-                character,
-
-                index
-
-              ) => {
-
- 
-
-                if (
-
-                  character === " " ||
-
-                  character === "/" ||
-
-                  character === "." ||
-
-                  character === "+" ||
-
-                  character === "-" ||
-
-                  character === "×" ||
-
-                  character === "•"
-
-                ) {
-
- 
-
-                  return character;
-
- 
-
-                }
-
- 
-
- 
-
-                if (
-
-                  index <
-
-                  iteration
-
-                ) {
-
- 
-
-                  return character;
-
- 
-
-                }
-
- 
-
- 
-
-                return chars[
-
-                  Math.floor(
-
-                    Math.random() *
-
-                    chars.length
-
-                  )
-
-                ];
-
- 
-
-              }
-
-            )
-
-            .join("");
-
- 
-
- 
-
-        iteration += 0.28;
-
- 
-
- 
-
-        if (
-
-          iteration >=
-
-          finalText.length
-
-        ) {
-
- 
-
-          clearInterval(
-
-            element.scrambleTimer
-
-          );
-
- 
-
- 
-
-          element.textContent =
-
-            finalText;
-
- 
-
-        }
-
- 
-
-      },
-
-      speed
-
-    );
-
- 
-
+  element.scrambleTimer = setInterval(
+    () => {
+      element.textContent = finalText
+
+        .split("")
+
+        .map(
+          (
+            character,
+
+            index,
+          ) => {
+            if (
+              character === " " ||
+              character === "/" ||
+              character === "." ||
+              character === "+" ||
+              character === "-" ||
+              character === "×" ||
+              character === "•"
+            ) {
+              return character;
+            }
+
+            if (index < iteration) {
+              return character;
+            }
+
+            return chars[Math.floor(Math.random() * chars.length)];
+          },
+        )
+
+        .join("");
+
+      iteration += 0.28;
+
+      if (iteration >= finalText.length) {
+        clearInterval(element.scrambleTimer);
+
+        element.textContent = finalText;
+      }
+    },
+
+    speed,
+  );
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -880,111 +282,39 @@ function scrambleText(
 
 ========================================================= */
 
- 
-
-let heroScrambleStarted =
-
-  false;
-
- 
-
- 
+let heroScrambleStarted = false;
 
 function startHeroScramble() {
-
- 
-
-  if (
-
-    heroScrambleStarted
-
-  ) {
-
- 
-
+  if (heroScrambleStarted) {
     return;
-
- 
-
   }
 
- 
-
- 
-
-  heroScrambleStarted =
-
-    true;
-
- 
-
- 
+  heroScrambleStarted = true;
 
   heroScrambleElements.forEach(
-
     (
-
       element,
 
-      index
-
+      index,
     ) => {
+      const originalText = element.dataset.text || element.textContent.trim();
 
- 
-
-      const originalText =
-
-        element.dataset.text ||
-
-        element.textContent.trim();
-
- 
-
- 
-
-      element.dataset.text =
-
-        originalText;
-
- 
-
- 
+      element.dataset.text = originalText;
 
       setTimeout(
-
         () => {
-
- 
-
           scrambleText(
-
             element,
 
-            85
-
+            85,
           );
-
- 
-
         },
 
-        index * 650
-
+        index * 650,
       );
-
- 
-
-    }
-
+    },
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -992,40 +322,14 @@ function startHeroScramble() {
 
 ========================================================= */
 
- 
-
-const enterSiteCheckbox =
-
-  document.getElementById(
-
-    "enter-site"
-
-  );
-
- 
-
- 
+const enterSiteCheckbox = document.getElementById("enter-site");
 
 if (enterSiteCheckbox) {
-
- 
-
   enterSiteCheckbox.addEventListener(
-
     "change",
 
     () => {
-
- 
-
-      if (
-
-        enterSiteCheckbox.checked
-
-      ) {
-
- 
-
+      if (enterSiteCheckbox.checked) {
         /*
 
           Black box zoom happens first.
@@ -1034,37 +338,16 @@ if (enterSiteCheckbox) {
 
         */
 
- 
-
         setTimeout(
-
           () => {
-
- 
-
             startHeroScramble();
-
- 
-
           },
 
-          1250
-
+          1250,
         );
-
- 
-
       }
-
- 
-
-    }
-
+    },
   );
-
- 
-
- 
 
   /*
 
@@ -1074,38 +357,14 @@ if (enterSiteCheckbox) {
 
   */
 
- 
-
-  if (
-
-    enterSiteCheckbox.checked &&
-
-    window.location.hash !==
-
-      "#featured"
-
-  ) {
-
- 
-
+  if (enterSiteCheckbox.checked && window.location.hash !== "#featured") {
     setTimeout(
-
       startHeroScramble,
 
-      1250
-
+      1250,
     );
-
- 
-
   }
-
- 
-
 } else {
-
- 
-
   /*
 
     Pages without the intro,
@@ -1114,23 +373,12 @@ if (enterSiteCheckbox) {
 
   */
 
- 
-
   setTimeout(
-
     startHeroScramble,
 
-    450
-
+    450,
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -1138,61 +386,25 @@ if (enterSiteCheckbox) {
 
 ========================================================= */
 
- 
-
 document
 
-  .querySelectorAll(
+  .querySelectorAll(".scramble-hover")
 
-    ".scramble-hover"
+  .forEach((element) => {
+    element.dataset.text = element.textContent.trim();
 
-  )
+    element.addEventListener(
+      "mouseenter",
 
-  .forEach(
+      () => {
+        scrambleText(
+          element,
 
-    element => {
-
- 
-
-      element.dataset.text =
-
-        element.textContent.trim();
-
- 
-
- 
-
-      element.addEventListener(
-
-        "mouseenter",
-
-        () => {
-
- 
-
-          scrambleText(
-
-            element,
-
-            45
-
-          );
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
+          45,
+        );
+      },
+    );
+  });
 
 /* =========================================================
 
@@ -1200,97 +412,25 @@ document
 
 ========================================================= */
 
- 
-
-const marqueeTrack =
-
-  document.querySelector(
-
-    ".marquee-track"
-
-  );
-
- 
-
- 
+const marqueeTrack = document.querySelector(".marquee-track");
 
 if (marqueeTrack) {
-
- 
-
   let marqueePosition = 0;
 
- 
-
- 
-
   function animateMarquee() {
+    marqueePosition -= 0.25;
 
- 
-
-    marqueePosition -=
-
-      0.25;
-
- 
-
- 
-
-    if (
-
-      Math.abs(
-
-        marqueePosition
-
-      ) >=
-
-      marqueeTrack.scrollWidth / 2
-
-    ) {
-
- 
-
+    if (Math.abs(marqueePosition) >= marqueeTrack.scrollWidth / 2) {
       marqueePosition = 0;
-
- 
-
     }
 
- 
+    marqueeTrack.style.transform = `translateX(${marqueePosition}px)`;
 
- 
-
-    marqueeTrack.style.transform =
-
-      `translateX(${marqueePosition}px)`;
-
- 
-
- 
-
-    requestAnimationFrame(
-
-      animateMarquee
-
-    );
-
- 
-
+    requestAnimationFrame(animateMarquee);
   }
 
- 
-
- 
-
   animateMarquee();
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -1298,15 +438,7 @@ if (marqueeTrack) {
 
 ========================================================= */
 
- 
-
-document.documentElement.style.scrollBehavior =
-
-  "smooth";
-
- 
-
- 
+document.documentElement.style.scrollBehavior = "smooth";
 
 /* =========================================================
 
@@ -1314,288 +446,82 @@ document.documentElement.style.scrollBehavior =
 
 ========================================================= */
 
- 
-
-if (
-
-  window.matchMedia(
-
-    "(pointer: fine)"
-
-  ).matches
-
-) {
-
- 
-
-  let pixelCursor =
-
-    document.querySelector(
-
-      ".pixel-cursor"
-
-    );
-
- 
-
- 
+if (window.matchMedia("(pointer: fine)").matches) {
+  let pixelCursor = document.querySelector(".pixel-cursor");
 
   if (!pixelCursor) {
+    pixelCursor = document.createElement("div");
 
- 
+    pixelCursor.className = "pixel-cursor";
 
-    pixelCursor =
-
-      document.createElement(
-
-        "div"
-
-      );
-
- 
-
- 
-
-    pixelCursor.className =
-
-      "pixel-cursor";
-
- 
-
- 
-
-    document.body.appendChild(
-
-      pixelCursor
-
-    );
-
- 
-
+    document.body.appendChild(pixelCursor);
   }
-
- 
-
- 
 
   const trail = [];
 
- 
-
   const trailCount = 8;
 
- 
+  for (let i = 0; i < trailCount; i++) {
+    const pixel = document.createElement("div");
 
- 
+    pixel.className = "cursor-pixel";
 
-  for (
-
-    let i = 0;
-
-    i < trailCount;
-
-    i++
-
-  ) {
-
- 
-
-    const pixel =
-
-      document.createElement(
-
-        "div"
-
-      );
-
- 
-
- 
-
-    pixel.className =
-
-      "cursor-pixel";
-
- 
-
- 
-
-    document.body.appendChild(
-
-      pixel
-
-    );
-
- 
-
- 
+    document.body.appendChild(pixel);
 
     trail.push({
+      element: pixel,
 
- 
+      x: window.innerWidth / 2,
 
-      element:
-
-        pixel,
-
- 
-
-      x:
-
-        window.innerWidth / 2,
-
- 
-
-      y:
-
-        window.innerHeight / 2
-
- 
-
+      y: window.innerHeight / 2,
     });
-
- 
-
   }
 
- 
+  let mouseX = window.innerWidth / 2;
 
- 
-
-  let mouseX =
-
-    window.innerWidth / 2;
-
- 
-
-  let mouseY =
-
-    window.innerHeight / 2;
-
- 
-
- 
+  let mouseY = window.innerHeight / 2;
 
   window.addEventListener(
-
     "mousemove",
 
-    event => {
+    (event) => {
+      mouseX = event.clientX;
 
- 
+      mouseY = event.clientY;
 
-      mouseX =
+      pixelCursor.style.left = mouseX + "px";
 
-        event.clientX;
+      pixelCursor.style.top = mouseY + "px";
 
- 
+      const elementUnderCursor = document.elementFromPoint(
+        mouseX,
 
-      mouseY =
+        mouseY,
+      );
 
-        event.clientY;
+      const darkSection = elementUnderCursor?.closest(".cursor-dark-zone");
 
- 
-
- 
-
-      pixelCursor.style.left =
-
-        mouseX + "px";
-
- 
-
-      pixelCursor.style.top =
-
-        mouseY + "px";
-
- 
-
- 
-
-      const elementUnderCursor =
-
-        document.elementFromPoint(
-
-          mouseX,
-
-          mouseY
-
-        );
-
- 
-
- 
-
-      const darkSection =
-
-        elementUnderCursor?.closest(
-
-          ".cursor-dark-zone"
-
-        );
-
- 
-
- 
-
-      const isDark =
-
-        Boolean(
-
-          darkSection
-
-        );
-
- 
-
- 
+      const isDark = Boolean(darkSection);
 
       pixelCursor.classList.toggle(
-
         "cursor-on-dark",
 
-        isDark
-
+        isDark,
       );
 
- 
+      trail.forEach((pixel) => {
+        pixel.element.classList.toggle(
+          "cursor-on-dark",
 
- 
-
-      trail.forEach(
-
-        pixel => {
-
- 
-
-          pixel.element.classList.toggle(
-
-            "cursor-on-dark",
-
-            isDark
-
-          );
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
+          isDark,
+        );
+      });
+    },
   );
-
- 
-
- 
 
   document
 
     .querySelectorAll(
-
       `
 
         a,
@@ -1610,207 +536,59 @@ if (
 
         .featured-card
 
-      `
-
+      `,
     )
 
-    .forEach(
+    .forEach((element) => {
+      element.addEventListener(
+        "mouseenter",
 
-      element => {
+        () => {
+          pixelCursor.classList.add("is-hovering");
+        },
+      );
 
- 
+      element.addEventListener(
+        "mouseleave",
 
-        element.addEventListener(
-
-          "mouseenter",
-
-          () => {
-
- 
-
-            pixelCursor.classList.add(
-
-              "is-hovering"
-
-            );
-
- 
-
-          }
-
-        );
-
- 
-
- 
-
-        element.addEventListener(
-
-          "mouseleave",
-
-          () => {
-
- 
-
-            pixelCursor.classList.remove(
-
-              "is-hovering"
-
-            );
-
- 
-
-          }
-
-        );
-
- 
-
-      }
-
-    );
-
- 
-
- 
+        () => {
+          pixelCursor.classList.remove("is-hovering");
+        },
+      );
+    });
 
   function animateCursorTrail() {
+    let targetX = mouseX;
 
- 
-
-    let targetX =
-
-      mouseX;
-
- 
-
-    let targetY =
-
-      mouseY;
-
- 
-
- 
+    let targetY = mouseY;
 
     trail.forEach(
-
       (
-
         pixel,
 
-        index
-
+        index,
       ) => {
+        const followSpeed = 0.24 - index * 0.012;
 
- 
+        pixel.x += (targetX - pixel.x) * followSpeed;
 
-        const followSpeed =
+        pixel.y += (targetY - pixel.y) * followSpeed;
 
-          0.24 -
+        pixel.element.style.left = pixel.x + "px";
 
-          (
+        pixel.element.style.top = pixel.y + "px";
 
-            index *
+        targetX = pixel.x;
 
-            0.012
-
-          );
-
- 
-
- 
-
-        pixel.x +=
-
-          (
-
-            targetX -
-
-            pixel.x
-
-          ) *
-
-          followSpeed;
-
- 
-
- 
-
-        pixel.y +=
-
-          (
-
-            targetY -
-
-            pixel.y
-
-          ) *
-
-          followSpeed;
-
- 
-
- 
-
-        pixel.element.style.left =
-
-          pixel.x + "px";
-
- 
-
- 
-
-        pixel.element.style.top =
-
-          pixel.y + "px";
-
- 
-
- 
-
-        targetX =
-
-          pixel.x;
-
- 
-
-        targetY =
-
-          pixel.y;
-
- 
-
-      }
-
+        targetY = pixel.y;
+      },
     );
 
- 
-
- 
-
-    requestAnimationFrame(
-
-      animateCursorTrail
-
-    );
-
- 
-
+    requestAnimationFrame(animateCursorTrail);
   }
 
- 
-
- 
-
   animateCursorTrail();
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -1818,87 +596,26 @@ if (
 
 ========================================================= */
 
- 
+const menuToggle = document.getElementById("menu-toggle");
 
-const menuToggle =
+const fullscreenMenu = document.querySelector(".fullscreen-menu");
 
-  document.getElementById(
-
-    "menu-toggle"
-
-  );
-
- 
-
- 
-
-const fullscreenMenu =
-
-  document.querySelector(
-
-    ".fullscreen-menu"
-
-  );
-
- 
-
- 
-
-if (
-
-  menuToggle &&
-
-  fullscreenMenu
-
-) {
-
- 
-
+if (menuToggle && fullscreenMenu) {
   /*
 
     ESC closes menu
 
   */
 
- 
-
   document.addEventListener(
-
     "keydown",
 
-    event => {
-
- 
-
-      if (
-
-        event.key ===
-
-          "Escape" &&
-
-        menuToggle.checked
-
-      ) {
-
- 
-
-        menuToggle.checked =
-
-          false;
-
- 
-
+    (event) => {
+      if (event.key === "Escape" && menuToggle.checked) {
+        menuToggle.checked = false;
       }
-
- 
-
-    }
-
+    },
   );
-
- 
-
- 
 
   /*
 
@@ -1906,57 +623,18 @@ if (
 
   */
 
- 
+  const fullscreenLinks = fullscreenMenu.querySelectorAll("a");
 
-  const fullscreenLinks =
+  fullscreenLinks.forEach((link) => {
+    link.addEventListener(
+      "click",
 
-    fullscreenMenu.querySelectorAll(
-
-      "a"
-
+      () => {
+        menuToggle.checked = false;
+      },
     );
-
- 
-
- 
-
-  fullscreenLinks.forEach(
-
-    link => {
-
- 
-
-      link.addEventListener(
-
-        "click",
-
-        () => {
-
- 
-
-          menuToggle.checked =
-
-            false;
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
+  });
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -1964,79 +642,25 @@ if (
 
 ========================================================= */
 
- 
+const featuredCards = document.querySelectorAll(".featured-card");
 
-const featuredCards =
+featuredCards.forEach((card) => {
+  card.addEventListener(
+    "mouseenter",
 
-  document.querySelectorAll(
-
-    ".featured-card"
-
+    () => {
+      card.classList.add("is-hovered");
+    },
   );
 
- 
+  card.addEventListener(
+    "mouseleave",
 
- 
-
-featuredCards.forEach(
-
-  card => {
-
- 
-
-    card.addEventListener(
-
-      "mouseenter",
-
-      () => {
-
- 
-
-        card.classList.add(
-
-          "is-hovered"
-
-        );
-
- 
-
-      }
-
-    );
-
- 
-
- 
-
-    card.addEventListener(
-
-      "mouseleave",
-
-      () => {
-
- 
-
-        card.classList.remove(
-
-          "is-hovered"
-
-        );
-
- 
-
-      }
-
-    );
-
- 
-
-  }
-
-);
-
- 
-
- 
+    () => {
+      card.classList.remove("is-hovered");
+    },
+  );
+});
 
 /* =========================================================
 
@@ -2044,43 +668,11 @@ featuredCards.forEach(
 
 ========================================================= */
 
- 
+const cpeMainSection = document.querySelector(".cpe-scroll-section-main");
 
-const cpeMainSection =
+const ueCpeSection = document.querySelector(".cpe-scroll-section-ue");
 
-  document.querySelector(
-
-    ".cpe-scroll-section-main"
-
-  );
-
- 
-
- 
-
-const ueCpeSection =
-
-  document.querySelector(
-
-    ".cpe-scroll-section-ue"
-
-  );
-
- 
-
- 
-
-const scrollRevealTexts =
-
-  document.querySelectorAll(
-
-    "[data-scroll-reveal]"
-
-  );
-
- 
-
- 
+const scrollRevealTexts = document.querySelectorAll("[data-scroll-reveal]");
 
 /* =========================================================
 
@@ -2088,15 +680,8 @@ const scrollRevealTexts =
 
 ========================================================= */
 
- 
-
-scrollRevealTexts.forEach(
-
-  text => {
-
- 
-
-    /*
+scrollRevealTexts.forEach((text) => {
+  /*
 
       Don't create duplicate spans
 
@@ -2104,59 +689,22 @@ scrollRevealTexts.forEach(
 
     */
 
- 
+  if (text.dataset.wordsReady === "true") {
+    return;
+  }
 
-    if (
+  text.dataset.wordsReady = "true";
 
-      text.dataset.wordsReady ===
+  const words = text.textContent
 
-      "true"
+    .trim()
 
-    ) {
+    .split(/\s+/);
 
- 
+  text.innerHTML = words
 
-      return;
-
- 
-
-    }
-
- 
-
- 
-
-    text.dataset.wordsReady =
-
-      "true";
-
- 
-
- 
-
-    const words =
-
-      text.textContent
-
-        .trim()
-
-        .split(/\s+/);
-
- 
-
- 
-
-    text.innerHTML =
-
-      words
-
-        .map(
-
-          word => {
-
- 
-
-            return `
+    .map((word) => {
+      return `
 
               <span class="scroll-word">
 
@@ -2165,24 +713,10 @@ scrollRevealTexts.forEach(
               </span>
 
             `;
+    })
 
- 
-
-          }
-
-        )
-
-        .join(" ");
-
- 
-
-  }
-
-);
-
- 
-
- 
+    .join(" ");
+});
 
 /* =========================================================
 
@@ -2190,41 +724,23 @@ scrollRevealTexts.forEach(
 
 ========================================================= */
 
- 
-
 function clamp(
-
   value,
 
   min = 0,
 
-  max = 1
-
+  max = 1,
 ) {
-
- 
-
   return Math.max(
-
     min,
 
     Math.min(
-
       max,
 
-      value
-
-    )
-
+      value,
+    ),
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -2232,95 +748,28 @@ function clamp(
 
 ========================================================= */
 
- 
-
-function getSectionProgress(
-
-  section
-
-) {
-
- 
-
+function getSectionProgress(section) {
   if (!section) {
-
- 
-
     return 0;
-
- 
-
   }
 
- 
+  const sectionRect = section.getBoundingClientRect();
 
- 
+  const sectionHeight = section.offsetHeight;
 
-  const sectionRect =
-
-    section.getBoundingClientRect();
-
- 
-
- 
-
-  const sectionHeight =
-
-    section.offsetHeight;
-
- 
-
- 
-
-  const viewportHeight =
-
-    window.innerHeight;
-
- 
-
- 
+  const viewportHeight = window.innerHeight;
 
   const progress =
-
-    (
-
-      viewportHeight -
-
-      sectionRect.top
-
-    )
-
-    /
-
-    (
-
-      sectionHeight +
-
-      viewportHeight
-
-    );
-
- 
-
- 
+    (viewportHeight - sectionRect.top) / (sectionHeight + viewportHeight);
 
   return clamp(
-
     progress,
 
     0,
 
-    1
-
+    1,
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -2328,97 +777,34 @@ function getSectionProgress(
 
 ========================================================= */
 
- 
-
 function revealWords(
-
   text,
 
-  progress
-
+  progress,
 ) {
-
- 
-
   if (!text) {
-
- 
-
     return;
-
- 
-
   }
 
- 
-
- 
-
-  const words =
-
-    text.querySelectorAll(
-
-      ".scroll-word"
-
-    );
-
- 
-
- 
+  const words = text.querySelectorAll(".scroll-word");
 
   const activeWords =
-
-    progress >= 1
-
-      ? words.length
-
-      : Math.ceil(
-
-          progress *
-
-          words.length
-
-        );
-
- 
-
- 
+    progress >= 1 ? words.length : Math.ceil(progress * words.length);
 
   words.forEach(
-
     (
-
       word,
 
-      index
-
+      index,
     ) => {
-
- 
-
       word.classList.toggle(
-
         "is-active",
 
-        index <
-
-          activeWords
-
+        index < activeWords,
       );
-
- 
-
-    }
-
+    },
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -2426,37 +812,15 @@ function revealWords(
 
 ========================================================= */
 
- 
-
 function updateCpeScrollAnimation() {
-
- 
-
- 
-
   /* =====================================================
 
      01 / COMPUTER ENGINEERING
 
   ===================================================== */
 
- 
-
   if (cpeMainSection) {
-
- 
-
-    const mainProgress =
-
-      getSectionProgress(
-
-        cpeMainSection
-
-      );
-
- 
-
- 
+    const mainProgress = getSectionProgress(cpeMainSection);
 
     /*
 
@@ -2464,115 +828,44 @@ function updateCpeScrollAnimation() {
 
     */
 
- 
+    const backgroundProgress = clamp(
+      mainProgress / 0.2,
 
-    const backgroundProgress =
+      0,
 
-      clamp(
-
-        mainProgress /
-
-          0.20,
-
-        0,
-
-        1
-
-      );
-
- 
-
- 
-
-    const bgInset =
-
-      50 -
-
-      (
-
-        backgroundProgress *
-
-        50
-
-      );
-
- 
-
- 
-
-    cpeMainSection.style.setProperty(
-
-      "--bg-open",
-
-      bgInset + "%"
-
+      1,
     );
 
- 
+    const bgInset = 50 - backgroundProgress * 50;
 
- 
+    cpeMainSection.style.setProperty(
+      "--bg-open",
 
-    const mainBlock =
+      bgInset + "%",
+    );
 
-      cpeMainSection.querySelector(
-
-        ".cpe-scroll-block"
-
-      );
-
- 
-
- 
+    const mainBlock = cpeMainSection.querySelector(".cpe-scroll-block");
 
     if (mainBlock) {
-
- 
-
       /*
 
         Title
 
       */
 
- 
+      const titleProgress = clamp(
+        (mainProgress - 0.2) / 0.15,
 
-      const titleProgress =
+        0,
 
-        clamp(
-
-          (
-
-            mainProgress -
-
-            0.20
-
-          )
-
-          /
-
-          0.15,
-
-          0,
-
-          1
-
-        );
-
- 
-
- 
-
-      mainBlock.style.setProperty(
-
-        "--title-drop-progress",
-
-        titleProgress
-
+        1,
       );
 
- 
+      mainBlock.style.setProperty(
+        "--title-drop-progress",
 
- 
+        titleProgress,
+      );
 
       /*
 
@@ -2580,65 +873,23 @@ function updateCpeScrollAnimation() {
 
       */
 
- 
+      const mainText = mainBlock.querySelector("[data-scroll-reveal]");
 
-      const mainText =
+      const mainTextProgress = clamp(
+        (mainProgress - 0.35) / 0.25,
 
-        mainBlock.querySelector(
+        0,
 
-          "[data-scroll-reveal]"
-
-        );
-
- 
-
- 
-
-      const mainTextProgress =
-
-        clamp(
-
-          (
-
-            mainProgress -
-
-            0.35
-
-          )
-
-          /
-
-          0.25,
-
-          0,
-
-          1
-
-        );
-
- 
-
- 
-
-      revealWords(
-
-        mainText,
-
-        mainTextProgress
-
+        1,
       );
 
- 
+      revealWords(
+        mainText,
 
+        mainTextProgress,
+      );
     }
-
- 
-
   }
-
- 
-
- 
 
   /* =====================================================
 
@@ -2646,85 +897,31 @@ function updateCpeScrollAnimation() {
 
   ===================================================== */
 
- 
-
   if (ueCpeSection) {
+    const ueProgress = getSectionProgress(ueCpeSection);
 
- 
-
-    const ueProgress =
-
-      getSectionProgress(
-
-        ueCpeSection
-
-      );
-
- 
-
- 
-
-    const ueBlock =
-
-      ueCpeSection.querySelector(
-
-        ".cpe-scroll-block-ue"
-
-      );
-
- 
-
- 
+    const ueBlock = ueCpeSection.querySelector(".cpe-scroll-block-ue");
 
     if (ueBlock) {
-
- 
-
       /*
 
         UE title
 
       */
 
- 
+      const ueTitleProgress = clamp(
+        (ueProgress - 0.18) / 0.2,
 
-      const ueTitleProgress =
+        0,
 
-        clamp(
-
-          (
-
-            ueProgress -
-
-            0.18
-
-          )
-
-          /
-
-          0.20,
-
-          0,
-
-          1
-
-        );
-
- 
-
- 
-
-      ueBlock.style.setProperty(
-
-        "--title-drop-progress",
-
-        ueTitleProgress
-
+        1,
       );
 
- 
+      ueBlock.style.setProperty(
+        "--title-drop-progress",
 
- 
+        ueTitleProgress,
+      );
 
       /*
 
@@ -2732,117 +929,48 @@ function updateCpeScrollAnimation() {
 
       */
 
- 
+      const ueText = ueBlock.querySelector("[data-scroll-reveal]");
 
-      const ueText =
+      const ueTextProgress = clamp(
+        (ueProgress - 0.38) / 0.5,
 
-        ueBlock.querySelector(
+        0,
 
-          "[data-scroll-reveal]"
-
-        );
-
- 
-
- 
-
-      const ueTextProgress =
-
-        clamp(
-
-          (
-
-            ueProgress -
-
-            0.38
-
-          )
-
-          /
-
-          0.50,
-
-          0,
-
-          1
-
-        );
-
- 
-
- 
+        1,
+      );
 
       revealWords(
-
         ueText,
 
-        ueTextProgress
-
+        ueTextProgress,
       );
-
- 
-
- 
 
       ueCpeSection.classList.toggle(
-
         "reading-complete",
 
-        ueTextProgress >= 1
-
+        ueTextProgress >= 1,
       );
-
- 
-
     }
-
- 
-
   }
-
- 
-
 }
 
- 
-
- 
-
 window.addEventListener(
-
   "scroll",
 
   updateCpeScrollAnimation,
 
   {
-
-    passive: true
-
-  }
-
+    passive: true,
+  },
 );
-
- 
-
- 
 
 window.addEventListener(
-
   "resize",
 
-  updateCpeScrollAnimation
-
+  updateCpeScrollAnimation,
 );
 
- 
-
- 
-
 updateCpeScrollAnimation();
-
- 
-
- 
 
 /* =========================================================
 
@@ -2850,105 +978,31 @@ updateCpeScrollAnimation();
 
 ========================================================= */
 
- 
-
-const generalRevealElements =
-
-  document.querySelectorAll(
-
-    "[data-reveal]"
-
-  );
-
- 
-
- 
+const generalRevealElements = document.querySelectorAll("[data-reveal]");
 
 function updateGeneralReveal() {
+  generalRevealElements.forEach((element) => {
+    const rect = element.getBoundingClientRect();
 
- 
+    const trigger = window.innerHeight * 0.85;
 
-  generalRevealElements.forEach(
-
-    element => {
-
- 
-
-      const rect =
-
-        element.getBoundingClientRect();
-
- 
-
- 
-
-      const trigger =
-
-        window.innerHeight *
-
-        0.85;
-
- 
-
- 
-
-      if (
-
-        rect.top <
-
-        trigger
-
-      ) {
-
- 
-
-        element.classList.add(
-
-          "is-visible"
-
-        );
-
- 
-
-      }
-
- 
-
+    if (rect.top < trigger) {
+      element.classList.add("is-visible");
     }
-
-  );
-
- 
-
+  });
 }
 
- 
-
- 
-
 window.addEventListener(
-
   "scroll",
 
   updateGeneralReveal,
 
   {
-
-    passive: true
-
-  }
-
+    passive: true,
+  },
 );
 
- 
-
- 
-
 updateGeneralReveal();
-
- 
-
- 
 
 /* =========================================================
 
@@ -2958,39 +1012,13 @@ updateGeneralReveal();
 
 ========================================================= */
 
- 
+const programHighlights = document.getElementById("program-highlights");
 
-const programHighlights =
+const specializationElements = document.querySelectorAll(
+  "[data-specialization-scramble]",
+);
 
-  document.getElementById(
-
-    "program-highlights"
-
-  );
-
- 
-
- 
-
-const specializationElements =
-
-  document.querySelectorAll(
-
-    "[data-specialization-scramble]"
-
-  );
-
- 
-
- 
-
-let specializationInside =
-
-  false;
-
- 
-
- 
+let specializationInside = false;
 
 /* =========================================================
 
@@ -2998,123 +1026,37 @@ let specializationInside =
 
 ========================================================= */
 
- 
-
-function makeSpecializationScrambled(
-
-  element
-
-) {
-
- 
-
+function makeSpecializationScrambled(element) {
   if (!element) {
-
- 
-
     return;
-
- 
-
   }
 
- 
+  const finalText = element.dataset.text || element.textContent.trim();
 
- 
+  element.dataset.text = finalText;
 
-  const finalText =
+  clearInterval(element.specializationTimer);
 
-    element.dataset.text ||
+  element.textContent = finalText
 
-    element.textContent.trim();
+    .split("")
 
- 
+    .map((character) => {
+      if (
+        character === " " ||
+        character === "/" ||
+        character === "." ||
+        character === "+" ||
+        character === "-"
+      ) {
+        return character;
+      }
 
- 
+      return chars[Math.floor(Math.random() * chars.length)];
+    })
 
-  element.dataset.text =
-
-    finalText;
-
- 
-
- 
-
-  clearInterval(
-
-    element.specializationTimer
-
-  );
-
- 
-
- 
-
-  element.textContent =
-
-    finalText
-
-      .split("")
-
-      .map(
-
-        character => {
-
- 
-
-          if (
-
-            character === " " ||
-
-            character === "/" ||
-
-            character === "." ||
-
-            character === "+" ||
-
-            character === "-"
-
-          ) {
-
- 
-
-            return character;
-
- 
-
-          }
-
- 
-
- 
-
-          return chars[
-
-            Math.floor(
-
-              Math.random() *
-
-              chars.length
-
-            )
-
-          ];
-
- 
-
-        }
-
-      )
-
-      .join("");
-
- 
-
+    .join("");
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -3122,223 +1064,73 @@ function makeSpecializationScrambled(
 
 ========================================================= */
 
- 
-
 function startSpecializationScramble() {
-
- 
-
   specializationElements.forEach(
-
     (
-
       element,
 
-      index
-
+      index,
     ) => {
+      const finalText = element.dataset.text || element.textContent.trim();
 
- 
+      element.dataset.text = finalText;
 
-      const finalText =
-
-        element.dataset.text ||
-
-        element.textContent.trim();
-
- 
-
- 
-
-      element.dataset.text =
-
-        finalText;
-
- 
-
- 
-
-      clearInterval(
-
-        element.specializationTimer
-
-      );
-
- 
-
- 
+      clearInterval(element.specializationTimer);
 
       let iteration = 0;
 
- 
-
- 
-
       setTimeout(
-
         () => {
-
- 
-
-          element.specializationTimer =
-
-            setInterval(
-
-              () => {
-
- 
-
-                element.textContent =
-
-                  finalText
-
-                    .split("")
-
-                    .map(
-
-                      (
-
-                        character,
-
-                        charIndex
-
-                      ) => {
-
- 
-
-                        if (
-
-                          character === " " ||
-
-                          character === "/" ||
-
-                          character === "." ||
-
-                          character === "+" ||
-
-                          character === "-"
-
-                        ) {
-
- 
-
-                          return character;
-
- 
-
-                        }
-
- 
-
- 
-
-                        if (
-
-                          charIndex <
-
-                          iteration
-
-                        ) {
-
- 
-
-                          return character;
-
- 
-
-                        }
-
- 
-
- 
-
-                        return chars[
-
-                          Math.floor(
-
-                            Math.random() *
-
-                            chars.length
-
-                          )
-
-                        ];
-
- 
-
-                      }
-
-                    )
-
-                    .join("");
-
- 
-
- 
-
-                iteration += 1;
-
- 
-
- 
-
-                if (
-
-                  iteration >=
-
-                  finalText.length
-
-                ) {
-
- 
-
-                  clearInterval(
-
-                    element.specializationTimer
-
-                  );
-
- 
-
- 
-
-                  element.textContent =
-
-                    finalText;
-
- 
-
-                }
-
- 
-
-              },
-
-              70
-
-            );
-
- 
-
+          element.specializationTimer = setInterval(
+            () => {
+              element.textContent = finalText
+
+                .split("")
+
+                .map(
+                  (
+                    character,
+
+                    charIndex,
+                  ) => {
+                    if (
+                      character === " " ||
+                      character === "/" ||
+                      character === "." ||
+                      character === "+" ||
+                      character === "-"
+                    ) {
+                      return character;
+                    }
+
+                    if (charIndex < iteration) {
+                      return character;
+                    }
+
+                    return chars[Math.floor(Math.random() * chars.length)];
+                  },
+                )
+
+                .join("");
+
+              iteration += 1;
+
+              if (iteration >= finalText.length) {
+                clearInterval(element.specializationTimer);
+
+                element.textContent = finalText;
+              }
+            },
+
+            70,
+          );
         },
 
-        index * 180
-
+        index * 180,
       );
-
- 
-
-    }
-
+    },
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -3346,37 +1138,11 @@ function startSpecializationScramble() {
 
 ========================================================= */
 
- 
-
 function resetSpecializationScramble() {
-
- 
-
-  specializationElements.forEach(
-
-    element => {
-
- 
-
-      makeSpecializationScrambled(
-
-        element
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
+  specializationElements.forEach((element) => {
+    makeSpecializationScrambled(element);
+  });
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -3384,189 +1150,57 @@ function resetSpecializationScramble() {
 
 ========================================================= */
 
- 
-
 function updateSpecializationScramble() {
-
- 
-
-  if (
-
-    !programHighlights ||
-
-    !specializationElements.length
-
-  ) {
-
- 
-
+  if (!programHighlights || !specializationElements.length) {
     return;
-
- 
-
   }
 
- 
+  const rect = programHighlights.getBoundingClientRect();
 
- 
+  const enterPoint = window.innerHeight * 0.78;
 
-  const rect =
+  const isInside = rect.top <= enterPoint && rect.bottom > 0;
 
-    programHighlights.getBoundingClientRect();
-
- 
-
- 
-
-  const enterPoint =
-
-    window.innerHeight *
-
-    0.78;
-
- 
-
- 
-
-  const isInside =
-
-    rect.top <=
-
-      enterPoint &&
-
-    rect.bottom > 0;
-
- 
-
- 
-
-  if (
-
-    isInside &&
-
-    !specializationInside
-
-  ) {
-
- 
-
-    specializationInside =
-
-      true;
-
- 
-
- 
+  if (isInside && !specializationInside) {
+    specializationInside = true;
 
     resetSpecializationScramble();
-
- 
-
- 
 
     setTimeout(
-
       () => {
-
- 
-
-        if (
-
-          specializationInside
-
-        ) {
-
- 
-
+        if (specializationInside) {
           startSpecializationScramble();
-
- 
-
         }
-
- 
-
       },
 
-      80
-
+      80,
     );
-
- 
-
   }
 
- 
-
- 
-
-  if (
-
-    !isInside &&
-
-    specializationInside
-
-  ) {
-
- 
-
-    specializationInside =
-
-      false;
-
- 
-
- 
+  if (!isInside && specializationInside) {
+    specializationInside = false;
 
     resetSpecializationScramble();
-
- 
-
   }
-
- 
-
 }
 
- 
-
- 
-
 window.addEventListener(
-
   "scroll",
 
   updateSpecializationScramble,
 
   {
-
-    passive: true
-
-  }
-
+    passive: true,
+  },
 );
-
- 
-
- 
 
 window.addEventListener(
-
   "resize",
 
-  updateSpecializationScramble
-
+  updateSpecializationScramble,
 );
 
- 
-
- 
-
 updateSpecializationScramble();
-
- 
-
- 
 
 /* =========================================================
 
@@ -3574,27 +1208,9 @@ updateSpecializationScramble();
 
 ========================================================= */
 
- 
+const transitionOverlay = document.createElement("div");
 
-const transitionOverlay =
-
-  document.createElement(
-
-    "div"
-
-  );
-
- 
-
- 
-
-transitionOverlay.className =
-
-  "page-transition-overlay";
-
- 
-
- 
+transitionOverlay.className = "page-transition-overlay";
 
 transitionOverlay.innerHTML = `
 
@@ -3610,19 +1226,7 @@ transitionOverlay.innerHTML = `
 
 `;
 
- 
-
- 
-
-document.body.appendChild(
-
-  transitionOverlay
-
-);
-
- 
-
- 
+document.body.appendChild(transitionOverlay);
 
 /* =========================================================
 
@@ -3630,107 +1234,32 @@ document.body.appendChild(
 
 ========================================================= */
 
- 
-
-let transitionRunning =
-
-  false;
-
- 
-
- 
+let transitionRunning = false;
 
 function startPageTransition(
-
   destination,
 
-  message
-
+  message,
 ) {
-
- 
-
-  if (
-
-    transitionRunning ||
-
-    !destination
-
-  ) {
-
- 
-
+  if (transitionRunning || !destination) {
     return;
-
- 
-
   }
 
- 
+  transitionRunning = true;
 
- 
-
-  transitionRunning =
-
-    true;
-
- 
-
- 
-
-  const transitionText =
-
-    transitionOverlay.querySelector(
-
-      ".page-transition-text"
-
-    );
-
- 
-
- 
-
-  if (transitionText) {
-
- 
-
-    transitionText.textContent =
-
-      message;
-
- 
-
-  }
-
- 
-
- 
-
-  transitionOverlay.classList.remove(
-
-    "is-active"
-
+  const transitionText = transitionOverlay.querySelector(
+    ".page-transition-text",
   );
 
- 
+  if (transitionText) {
+    transitionText.textContent = message;
+  }
 
- 
+  transitionOverlay.classList.remove("is-active");
 
   void transitionOverlay.offsetWidth;
 
- 
-
- 
-
-  transitionOverlay.classList.add(
-
-    "is-active"
-
-  );
-
- 
-
- 
+  transitionOverlay.classList.add("is-active");
 
   /*
 
@@ -3746,33 +1275,14 @@ function startPageTransition(
 
   */
 
- 
-
   setTimeout(
-
     () => {
-
- 
-
-      window.location.href =
-
-        destination;
-
- 
-
+      window.location.href = destination;
     },
 
-    1350
-
+    1350,
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -3780,75 +1290,29 @@ function startPageTransition(
 
 ========================================================= */
 
- 
-
 document
 
-  .querySelectorAll(
+  .querySelectorAll('.page-transition-link:not([href="cpe-at-ue.html"])')
 
-    '.page-transition-link:not([href="cpe-at-ue.html"])'
+  .forEach((link) => {
+    link.addEventListener(
+      "click",
 
-  )
+      (event) => {
+        event.preventDefault();
 
-  .forEach(
+        event.stopPropagation();
 
-    link => {
+        const destination = link.getAttribute("href");
 
- 
+        startPageTransition(
+          destination,
 
-      link.addEventListener(
-
-        "click",
-
-        event => {
-
- 
-
-          event.preventDefault();
-
- 
-
-          event.stopPropagation();
-
- 
-
- 
-
-          const destination =
-
-            link.getAttribute(
-
-              "href"
-
-            );
-
- 
-
- 
-
-          startPageTransition(
-
-            destination,
-
-            "DISCOVER ABOUT CpE"
-
-          );
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
+          "DISCOVER ABOUT CpE",
+        );
+      },
+    );
+  });
 
 /* =========================================================
 
@@ -3856,75 +1320,29 @@ document
 
 ========================================================= */
 
- 
-
 document
 
-  .querySelectorAll(
+  .querySelectorAll(".page-transition-back")
 
-    ".page-transition-back"
+  .forEach((link) => {
+    link.addEventListener(
+      "click",
 
-  )
+      (event) => {
+        event.preventDefault();
 
-  .forEach(
+        event.stopPropagation();
 
-    link => {
+        const destination = link.getAttribute("href");
 
- 
+        startPageTransition(
+          destination,
 
-      link.addEventListener(
-
-        "click",
-
-        event => {
-
- 
-
-          event.preventDefault();
-
- 
-
-          event.stopPropagation();
-
- 
-
- 
-
-          const destination =
-
-            link.getAttribute(
-
-              "href"
-
-            );
-
- 
-
- 
-
-          startPageTransition(
-
-            destination,
-
-            "EXPLORE CpE"
-
-          );
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
+          "EXPLORE CpE",
+        );
+      },
+    );
+  });
 
 /* =========================================================
 
@@ -3932,39 +1350,15 @@ document
 
 ========================================================= */
 
- 
-
 window.addEventListener(
-
   "pageshow",
 
   () => {
+    transitionRunning = false;
 
- 
-
-    transitionRunning =
-
-      false;
-
- 
-
- 
-
-    transitionOverlay.classList.remove(
-
-      "is-active"
-
-    );
-
- 
-
-  }
-
+    transitionOverlay.classList.remove("is-active");
+  },
 );
-
- 
-
- 
 
 /* =========================================================
 
@@ -3974,151 +1368,41 @@ window.addEventListener(
 
 ========================================================= */
 
- 
+const aboutRevealElements = document.querySelectorAll(
+  ".about-reveal, .area-reveal",
+);
 
-const aboutRevealElements =
+if (aboutRevealElements.length > 0) {
+  const aboutRevealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
 
-  document.querySelectorAll(
+          aboutRevealObserver.unobserve(entry.target);
+        }
+      });
+    },
 
-    ".about-reveal, .area-reveal"
+    {
+      threshold: 0.14,
 
+      rootMargin: "0px 0px -6% 0px",
+    },
   );
-
- 
-
- 
-
-if (
-
-  aboutRevealElements.length >
-
-  0
-
-) {
-
- 
-
-  const aboutRevealObserver =
-
-    new IntersectionObserver(
-
-      entries => {
-
- 
-
-        entries.forEach(
-
-          entry => {
-
- 
-
-            if (
-
-              entry.isIntersecting
-
-            ) {
-
- 
-
-              entry.target.classList.add(
-
-                "is-visible"
-
-              );
-
- 
-
- 
-
-              aboutRevealObserver.unobserve(
-
-                entry.target
-
-              );
-
- 
-
-            }
-
- 
-
-          }
-
-        );
-
- 
-
-      },
-
-      {
-
-        threshold: 0.14,
-
-        rootMargin:
-
-          "0px 0px -6% 0px"
-
-      }
-
-    );
-
- 
-
- 
 
   aboutRevealElements.forEach(
-
     (
-
       element,
 
-      index
-
+      index,
     ) => {
+      element.style.transitionDelay = (index % 5) * 0.07 + "s";
 
- 
-
-      element.style.transitionDelay =
-
-        (
-
-          (
-
-            index %
-
-            5
-
-          ) *
-
-          0.07
-
-        ) +
-
-        "s";
-
- 
-
- 
-
-      aboutRevealObserver.observe(
-
-        element
-
-      );
-
- 
-
-    }
-
+      aboutRevealObserver.observe(element);
+    },
   );
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -4128,275 +1412,71 @@ if (
 
 ========================================================= */
 
- 
+const pixelRevealImages = document.querySelectorAll(".pixel-reveal");
 
-const pixelRevealImages =
+pixelRevealImages.forEach((pixelImage) => {
+  const pixelCover = pixelImage.querySelector(".pixel-cover");
 
-  document.querySelectorAll(
+  if (!pixelCover) {
+    return;
+  }
 
-    ".pixel-reveal"
-
-  );
-
- 
-
- 
-
-pixelRevealImages.forEach(
-
-  pixelImage => {
-
- 
-
-    const pixelCover =
-
-      pixelImage.querySelector(
-
-        ".pixel-cover"
-
-      );
-
- 
-
- 
-
-    if (!pixelCover) {
-
- 
-
-      return;
-
- 
-
-    }
-
- 
-
- 
-
-    /*
+  /*
 
       Prevent duplicate pixel generation.
 
     */
 
- 
+  if (pixelCover.dataset.pixelBuilt === "true") {
+    return;
+  }
 
-    if (
+  pixelCover.dataset.pixelBuilt = "true";
 
-      pixelCover.dataset.pixelBuilt ===
+  const pixelColor = pixelImage.dataset.pixelColor || "#0b0b0b";
 
-      "true"
+  const columns = 12;
 
-    ) {
+  const rows = 8;
 
- 
+  const totalPixels = columns * rows;
 
-      return;
+  for (let index = 0; index < totalPixels; index++) {
+    const pixel = document.createElement("span");
 
- 
+    pixel.className = "pixel-block";
 
-    }
+    pixel.style.setProperty(
+      "--pixel-color",
 
- 
+      pixelColor,
+    );
 
- 
+    const column = index % columns;
 
-    pixelCover.dataset.pixelBuilt =
+    const row = Math.floor(index / columns);
 
-      "true";
-
- 
-
- 
-
-    const pixelColor =
-
-      pixelImage.dataset.pixelColor ||
-
-      "#0b0b0b";
-
- 
-
- 
-
-    const columns = 12;
-
- 
-
-    const rows = 8;
-
- 
-
-    const totalPixels =
-
-      columns * rows;
-
- 
-
- 
-
-    for (
-
-      let index = 0;
-
-      index < totalPixels;
-
-      index++
-
-    ) {
-
- 
-
-      const pixel =
-
-        document.createElement(
-
-          "span"
-
-        );
-
- 
-
- 
-
-      pixel.className =
-
-        "pixel-block";
-
- 
-
- 
-
-      pixel.style.setProperty(
-
-        "--pixel-color",
-
-        pixelColor
-
-      );
-
- 
-
- 
-
-      const column =
-
-        index %
-
-        columns;
-
- 
-
- 
-
-      const row =
-
-        Math.floor(
-
-          index /
-
-          columns
-
-        );
-
- 
-
- 
-
-      /*
+    /*
 
         Creates the pixel-wave effect.
 
       */
 
- 
+    const delay = column * 0.035 + row * 0.015 + Math.random() * 0.22;
 
-      const delay =
+    pixel.style.transitionDelay = delay + "s";
 
-        (
+    const rotation = Math.random() * 40 - 20;
 
-          column *
+    pixel.style.setProperty(
+      "--pixel-rotation",
 
-          0.035
+      rotation + "deg",
+    );
 
-        ) +
-
-        (
-
-          row *
-
-          0.015
-
-        ) +
-
-        (
-
-          Math.random() *
-
-          0.22
-
-        );
-
- 
-
- 
-
-      pixel.style.transitionDelay =
-
-        delay + "s";
-
- 
-
- 
-
-      const rotation =
-
-        (
-
-          Math.random() *
-
-          40
-
-        ) -
-
-        20;
-
- 
-
- 
-
-      pixel.style.setProperty(
-
-        "--pixel-rotation",
-
-        rotation + "deg"
-
-      );
-
- 
-
- 
-
-      pixelCover.appendChild(
-
-        pixel
-
-      );
-
- 
-
-    }
-
- 
-
+    pixelCover.appendChild(pixel);
   }
-
-);
-
- 
-
- 
+});
 
 /* =========================================================
 
@@ -4404,149 +1484,41 @@ pixelRevealImages.forEach(
 
 ========================================================= */
 
- 
+if (pixelRevealImages.length > 0) {
+  const pixelRevealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-if (
+        const image = entry.target;
 
-  pixelRevealImages.length >
+        image.classList.add("pixel-active");
 
-  0
+        setTimeout(
+          () => {
+            image.classList.add("pixel-finished");
+          },
 
-) {
-
- 
-
-  const pixelRevealObserver =
-
-    new IntersectionObserver(
-
-      entries => {
-
- 
-
-        entries.forEach(
-
-          entry => {
-
- 
-
-            if (
-
-              !entry.isIntersecting
-
-            ) {
-
- 
-
-              return;
-
- 
-
-            }
-
- 
-
- 
-
-            const image =
-
-              entry.target;
-
- 
-
- 
-
-            image.classList.add(
-
-              "pixel-active"
-
-            );
-
- 
-
- 
-
-            setTimeout(
-
-              () => {
-
- 
-
-                image.classList.add(
-
-                  "pixel-finished"
-
-                );
-
- 
-
-              },
-
-              950
-
-            );
-
- 
-
- 
-
-            pixelRevealObserver.unobserve(
-
-              image
-
-            );
-
- 
-
-          }
-
+          950,
         );
 
- 
+        pixelRevealObserver.unobserve(image);
+      });
+    },
 
-      },
+    {
+      threshold: 0.22,
 
-      {
-
-        threshold: 0.22,
-
-        rootMargin:
-
-          "0px 0px -4% 0px"
-
-      }
-
-    );
-
- 
-
- 
-
-  pixelRevealImages.forEach(
-
-    image => {
-
- 
-
-      pixelRevealObserver.observe(
-
-        image
-
-      );
-
- 
-
-    }
-
+      rootMargin: "0px 0px -4% 0px",
+    },
   );
 
- 
-
+  pixelRevealImages.forEach((image) => {
+    pixelRevealObserver.observe(image);
+  });
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -4554,143 +1526,30 @@ if (
 
 ========================================================= */
 
- 
+const aboutPixelImages = document.querySelectorAll(
+  ".about-cpe-body .pixel-image",
+);
 
-const aboutPixelImages =
+aboutPixelImages.forEach((imageBox) => {
+  imageBox.addEventListener(
+    "mousemove",
 
-  document.querySelectorAll(
+    (event) => {
+      const image = imageBox.querySelector("img");
 
-    ".about-cpe-body .pixel-image"
+      if (!image) {
+        return;
+      }
 
-  );
+      const rect = imageBox.getBoundingClientRect();
 
- 
+      const moveX =
+        (event.clientX - rect.left - rect.width / 2) / (rect.width / 2);
 
- 
+      const moveY =
+        (event.clientY - rect.top - rect.height / 2) / (rect.height / 2);
 
-aboutPixelImages.forEach(
-
-  imageBox => {
-
- 
-
-    imageBox.addEventListener(
-
-      "mousemove",
-
-      event => {
-
- 
-
-        const image =
-
-          imageBox.querySelector(
-
-            "img"
-
-          );
-
- 
-
- 
-
-        if (!image) {
-
- 
-
-          return;
-
- 
-
-        }
-
- 
-
- 
-
-        const rect =
-
-          imageBox.getBoundingClientRect();
-
- 
-
- 
-
-        const moveX =
-
-          (
-
-            (
-
-              event.clientX -
-
-              rect.left
-
-            ) -
-
-            (
-
-              rect.width /
-
-              2
-
-            )
-
-          )
-
-          /
-
-          (
-
-            rect.width /
-
-            2
-
-          );
-
- 
-
- 
-
-        const moveY =
-
-          (
-
-            (
-
-              event.clientY -
-
-              rect.top
-
-            ) -
-
-            (
-
-              rect.height /
-
-              2
-
-            )
-
-          )
-
-          /
-
-          (
-
-            rect.height /
-
-            2
-
-          );
-
- 
-
- 
-
-        image.style.transform =
-
-          `
+      image.style.transform = `
 
             scale(1.025)
 
@@ -4703,64 +1562,21 @@ aboutPixelImages.forEach(
             )
 
           `;
+    },
+  );
 
- 
+  imageBox.addEventListener(
+    "mouseleave",
 
+    () => {
+      const image = imageBox.querySelector("img");
+
+      if (image) {
+        image.style.transform = "scale(1)";
       }
-
-    );
-
- 
-
- 
-
-    imageBox.addEventListener(
-
-      "mouseleave",
-
-      () => {
-
- 
-
-        const image =
-
-          imageBox.querySelector(
-
-            "img"
-
-          );
-
- 
-
- 
-
-        if (image) {
-
- 
-
-          image.style.transform =
-
-            "scale(1)";
-
- 
-
-        }
-
- 
-
-      }
-
-    );
-
- 
-
-  }
-
-);
-
- 
-
- 
+    },
+  );
+});
 
 /* =========================================================
 
@@ -4768,89 +1584,25 @@ aboutPixelImages.forEach(
 
 ========================================================= */
 
- 
+const aboutHero = document.querySelector(".about-new-hero");
 
-const aboutHero =
+const aboutHeroTitle = document.querySelector(".about-new-title");
 
-  document.querySelector(
-
-    ".about-new-hero"
-
-  );
-
- 
-
- 
-
-const aboutHeroTitle =
-
-  document.querySelector(
-
-    ".about-new-title"
-
-  );
-
- 
-
- 
-
-if (
-
-  aboutHero &&
-
-  aboutHeroTitle
-
-) {
-
- 
-
+if (aboutHero && aboutHeroTitle) {
   function updateAboutHeroParallax() {
+    const heroRect = aboutHero.getBoundingClientRect();
 
- 
-
-    const heroRect =
-
-      aboutHero.getBoundingClientRect();
-
- 
-
- 
-
-    if (
-
-      heroRect.bottom <= 0
-
-    ) {
-
- 
-
+    if (heroRect.bottom <= 0) {
       return;
-
- 
-
     }
 
- 
+    const scrolled = Math.max(
+      0,
 
- 
+      -heroRect.top,
+    );
 
-    const scrolled =
-
-      Math.max(
-
-        0,
-
-        -heroRect.top
-
-      );
-
- 
-
- 
-
-    aboutHeroTitle.style.transform =
-
-      `
+    aboutHeroTitle.style.transform = `
 
         translateY(
 
@@ -4859,42 +1611,20 @@ if (
         )
 
       `;
-
- 
-
   }
 
- 
-
- 
-
   window.addEventListener(
-
     "scroll",
 
     updateAboutHeroParallax,
 
     {
-
-      passive: true
-
-    }
-
+      passive: true,
+    },
   );
 
- 
-
- 
-
   updateAboutHeroParallax();
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -4902,75 +1632,19 @@ if (
 
 ========================================================= */
 
- 
-
-const applicationTrack =
-
-  document.querySelector(
-
-    ".application-track"
-
-  );
-
- 
-
- 
+const applicationTrack = document.querySelector(".application-track");
 
 if (applicationTrack) {
-
- 
-
-  let applicationPosition =
-
-    0;
-
- 
-
- 
+  let applicationPosition = 0;
 
   function animateApplicationMarquee() {
+    applicationPosition -= 0.35;
 
- 
-
-    applicationPosition -=
-
-      0.35;
-
- 
-
- 
-
-    if (
-
-      Math.abs(
-
-        applicationPosition
-
-      ) >=
-
-      applicationTrack.scrollWidth /
-
-        2
-
-    ) {
-
- 
-
-      applicationPosition =
-
-        0;
-
- 
-
+    if (Math.abs(applicationPosition) >= applicationTrack.scrollWidth / 2) {
+      applicationPosition = 0;
     }
 
- 
-
- 
-
-    applicationTrack.style.transform =
-
-      `
+    applicationTrack.style.transform = `
 
         translateX(
 
@@ -4980,33 +1654,11 @@ if (applicationTrack) {
 
       `;
 
- 
-
- 
-
-    requestAnimationFrame(
-
-      animateApplicationMarquee
-
-    );
-
- 
-
+    requestAnimationFrame(animateApplicationMarquee);
   }
 
- 
-
- 
-
   animateApplicationMarquee();
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -5014,81 +1666,23 @@ if (applicationTrack) {
 
 ========================================================= */
 
- 
+const aboutImages = document.querySelectorAll(".about-cpe-body img");
 
-const aboutImages =
+aboutImages.forEach((image) => {
+  image.addEventListener(
+    "error",
 
-  document.querySelectorAll(
-
-    ".about-cpe-body img"
-
-  );
-
- 
-
- 
-
-aboutImages.forEach(
-
-  image => {
-
- 
-
-    image.addEventListener(
-
-      "error",
-
-      () => {
-
- 
-
-        if (
-
-          image.dataset.fallbackUsed ===
-
-          "true"
-
-        ) {
-
- 
-
-          return;
-
- 
-
-        }
-
- 
-
- 
-
-        image.dataset.fallbackUsed =
-
-          "true";
-
- 
-
- 
-
-        image.src =
-
-          "assets/featured-about.jpg";
-
- 
-
+    () => {
+      if (image.dataset.fallbackUsed === "true") {
+        return;
       }
 
-    );
+      image.dataset.fallbackUsed = "true";
 
- 
-
-  }
-
-);
-
- 
-
- 
+      image.src = "assets/featured-about.jpg";
+    },
+  );
+});
 
 /* =========================================================
 
@@ -5096,167 +1690,49 @@ aboutImages.forEach(
 
 ========================================================= */
 
- 
-
-const featuredSection =
-
-  document.getElementById(
-
-    "featured"
-
-  );
-
- 
-
- 
+const featuredSection = document.getElementById("featured");
 
 if (featuredSection) {
-
- 
-
-  const featuredRevealItems =
-
-    featuredSection.querySelectorAll(
-
-      `
+  const featuredRevealItems = featuredSection.querySelectorAll(
+    `
 
         [data-featured-reveal],
 
         [data-featured-card]
 
-      `
+      `,
+  );
 
+  if (featuredRevealItems.length > 0) {
+    const featuredObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+
+            featuredObserver.unobserve(entry.target);
+          }
+        });
+      },
+
+      {
+        threshold: 0.12,
+      },
     );
-
- 
-
- 
-
-  if (
-
-    featuredRevealItems.length >
-
-    0
-
-  ) {
-
- 
-
-    const featuredObserver =
-
-      new IntersectionObserver(
-
-        entries => {
-
- 
-
-          entries.forEach(
-
-            entry => {
-
- 
-
-              if (
-
-                entry.isIntersecting
-
-              ) {
-
- 
-
-                entry.target.classList.add(
-
-                  "is-visible"
-
-                );
-
- 
-
- 
-
-                featuredObserver.unobserve(
-
-                  entry.target
-
-                );
-
- 
-
-              }
-
- 
-
-            }
-
-          );
-
- 
-
-        },
-
-        {
-
-          threshold: 0.12
-
-        }
-
-      );
-
- 
-
- 
 
     featuredRevealItems.forEach(
-
       (
-
         item,
 
-        index
-
+        index,
       ) => {
+        item.style.transitionDelay = index * 0.08 + "s";
 
- 
-
-        item.style.transitionDelay =
-
-          (
-
-            index *
-
-            0.08
-
-          ) +
-
-          "s";
-
- 
-
- 
-
-        featuredObserver.observe(
-
-          item
-
-        );
-
- 
-
-      }
-
+        featuredObserver.observe(item);
+      },
     );
-
- 
-
   }
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -5264,35 +1740,15 @@ if (featuredSection) {
 
 ========================================================= */
 
- 
-
 window.addEventListener(
-
   "pageshow",
 
   () => {
-
- 
-
     if (menuToggle) {
-
- 
-
-      menuToggle.checked =
-
-        false;
-
- 
-
+      menuToggle.checked = false;
     }
-
- 
-
-  }
-
+  },
 );
-
- 
 
 /* =========================================================
 
@@ -5300,55 +1756,27 @@ window.addEventListener(
 
 ========================================================= */
 
- 
-
-const careersCard = document.querySelector(
-
-  ".career-transition-link"
-
-);
-
- 
+const careersCard = document.querySelector(".career-transition-link");
 
 if (careersCard) {
-
- 
-
   careersCard.addEventListener(
-
     "click",
 
     function (event) {
-
- 
-
       event.preventDefault();
 
       event.stopImmediatePropagation();
 
- 
-
       startPageTransition(
-
         "careers.html",
 
-        "CpE CAREERS"
-
+        "CpE CAREERS",
       );
-
- 
-
     },
 
-    true
-
+    true,
   );
-
- 
-
 }
-
- 
 
 /* =========================================================
 
@@ -5358,77 +1786,24 @@ if (careersCard) {
 
 ========================================================= */
 
- 
-
-if (
-
-  document.body.classList.contains(
-
-    "careers-body"
-
-  )
-
-) {
-
- 
-
+if (document.body.classList.contains("careers-body")) {
   /* =======================================================
 
      HERO TITLE CINEMATIC ENTRANCE
 
   ======================================================= */
 
- 
+  const wowHeroLines = document.querySelectorAll(".career-hero-line");
 
-  const wowHeroLines =
+  wowHeroLines.forEach((line, index) => {
+    setTimeout(
+      () => {
+        line.classList.add("career-wow-in");
+      },
 
-    document.querySelectorAll(
-
-      ".career-hero-line"
-
+      250 + index * 190,
     );
-
- 
-
- 
-
-  wowHeroLines.forEach(
-
-    (line, index) => {
-
- 
-
-      setTimeout(
-
-        () => {
-
- 
-
-          line.classList.add(
-
-            "career-wow-in"
-
-          );
-
- 
-
-        },
-
- 
-
-        250 + index * 190
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
+  });
 
   /* =======================================================
 
@@ -5436,85 +1811,27 @@ if (
 
   ======================================================= */
 
- 
+  const wowCareerHero = document.querySelector(".careers-hero");
 
-  const wowCareerHero =
+  const wowCareerTitle = document.querySelector(".careers-title");
 
-    document.querySelector(
-
-      ".careers-hero"
-
-    );
-
- 
-
-  const wowCareerTitle =
-
-    document.querySelector(
-
-      ".careers-title"
-
-    );
-
- 
-
-  const wowCareerGrid =
-
-    document.querySelector(
-
-      ".careers-grid-lines"
-
-    );
-
- 
-
- 
+  const wowCareerGrid = document.querySelector(".careers-grid-lines");
 
   function updateCareerWowHero() {
-
- 
-
     if (!wowCareerHero) {
-
       return;
-
     }
 
- 
+    const rect = wowCareerHero.getBoundingClientRect();
 
- 
+    const scrollAmount = Math.max(
+      0,
 
-    const rect =
-
-      wowCareerHero
-
-        .getBoundingClientRect();
-
- 
-
- 
-
-    const scrollAmount =
-
-      Math.max(
-
-        0,
-
-        -rect.top
-
-      );
-
- 
-
- 
+      -rect.top,
+    );
 
     if (wowCareerTitle) {
-
- 
-
-      wowCareerTitle.style.transform =
-
-        `
+      wowCareerTitle.style.transform = `
 
         translate3d(
 
@@ -5529,34 +1846,18 @@ if (
         scale(
 
           ${Math.max(
+            0.88,
 
-            .88,
-
-            1 -
-
-            scrollAmount * .00015
-
+            1 - scrollAmount * 0.00015,
           )}
 
         )
 
         `;
-
- 
-
     }
 
- 
-
- 
-
     if (wowCareerGrid) {
-
- 
-
-      wowCareerGrid.style.transform =
-
-        `
+      wowCareerGrid.style.transform = `
 
         translate3d(
 
@@ -5570,31 +1871,13 @@ if (
 
         `;
 
- 
+      wowCareerGrid.style.opacity = Math.max(
+        0.15,
 
-      wowCareerGrid.style.opacity =
-
-        Math.max(
-
-          .15,
-
-          1 -
-
-          scrollAmount / 800
-
-        );
-
- 
-
+        1 - scrollAmount / 800,
+      );
     }
-
- 
-
   }
-
- 
-
- 
 
   /* =======================================================
 
@@ -5602,13 +1885,8 @@ if (
 
   ======================================================= */
 
- 
-
-  const wowRevealElements =
-
-    document.querySelectorAll(
-
-      `
+  const wowRevealElements = document.querySelectorAll(
+    `
 
       .career-intro-big,
 
@@ -5622,145 +1900,36 @@ if (
 
       .career-final-caption
 
-      `
-
-    );
-
- 
-
- 
-
-  wowRevealElements.forEach(
-
-    element => {
-
- 
-
-      element.classList.add(
-
-        "wow-reveal"
-
-      );
-
- 
-
-    }
-
+      `,
   );
 
- 
+  wowRevealElements.forEach((element) => {
+    element.classList.add("wow-reveal");
+  });
 
- 
+  const wowRevealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-  const wowRevealObserver =
+        entry.target.classList.add("wow-visible");
 
-    new IntersectionObserver(
+        wowRevealObserver.unobserve(entry.target);
+      });
+    },
 
- 
+    {
+      threshold: 0.16,
 
-      entries => {
-
- 
-
-        entries.forEach(
-
-          entry => {
-
- 
-
-            if (
-
-              !entry.isIntersecting
-
-            ) {
-
- 
-
-              return;
-
- 
-
-            }
-
- 
-
- 
-
-            entry.target.classList.add(
-
-              "wow-visible"
-
-            );
-
- 
-
- 
-
-            wowRevealObserver.unobserve(
-
-              entry.target
-
-            );
-
- 
-
-          }
-
-        );
-
- 
-
-      },
-
- 
-
-      {
-
- 
-
-        threshold:
-
-          0.16,
-
- 
-
-        rootMargin:
-
-          "0px 0px -10% 0px"
-
- 
-
-      }
-
- 
-
-    );
-
- 
-
- 
-
-  wowRevealElements.forEach(
-
-    element => {
-
- 
-
-      wowRevealObserver.observe(
-
-        element
-
-      );
-
- 
-
-    }
-
+      rootMargin: "0px 0px -10% 0px",
+    },
   );
 
- 
-
- 
+  wowRevealElements.forEach((element) => {
+    wowRevealObserver.observe(element);
+  });
 
   /* =======================================================
 
@@ -5768,209 +1937,47 @@ if (
 
   ======================================================= */
 
- 
+  const wowCareerRows = document.querySelectorAll(".career-row");
 
-  const wowCareerRows =
+  wowCareerRows.forEach((row) => {
+    row.classList.add("wow-career-row");
+  });
 
-    document.querySelectorAll(
+  const wowCareerRowObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-      ".career-row"
+        const row = entry.target;
 
-    );
+        const allRows = Array.from(wowCareerRows);
 
- 
+        const rowIndex = allRows.indexOf(row);
 
- 
+        setTimeout(
+          () => {
+            row.classList.add("wow-visible");
+          },
 
-  wowCareerRows.forEach(
-
-    row => {
-
- 
-
-      row.classList.add(
-
-        "wow-career-row"
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
-
-  const wowCareerRowObserver =
-
-    new IntersectionObserver(
-
- 
-
-      entries => {
-
- 
-
-        entries.forEach(
-
-          entry => {
-
- 
-
-            if (
-
-              !entry.isIntersecting
-
-            ) {
-
- 
-
-              return;
-
- 
-
-            }
-
- 
-
- 
-
-            const row =
-
-              entry.target;
-
- 
-
- 
-
-            const allRows =
-
-              Array.from(
-
-                wowCareerRows
-
-              );
-
- 
-
- 
-
-            const rowIndex =
-
-              allRows.indexOf(
-
-                row
-
-              );
-
- 
-
- 
-
-            setTimeout(
-
-              () => {
-
- 
-
-                row.classList.add(
-
-                  "wow-visible"
-
-                );
-
- 
-
-              },
-
- 
-
-              (
-
-                rowIndex %
-
-                3
-
-              ) * 100
-
- 
-
-            );
-
- 
-
- 
-
-            wowCareerRowObserver
-
-              .unobserve(
-
-                row
-
-              );
-
- 
-
-          }
-
+          (rowIndex % 3) * 100,
         );
 
- 
+        wowCareerRowObserver.unobserve(row);
+      });
+    },
 
-      },
+    {
+      threshold: 0.12,
 
- 
-
-      {
-
- 
-
-        threshold:
-
-          0.12,
-
- 
-
-        rootMargin:
-
-          "0px 0px -5% 0px"
-
- 
-
-      }
-
- 
-
-    );
-
- 
-
- 
-
-  wowCareerRows.forEach(
-
-    row => {
-
- 
-
-      wowCareerRowObserver.observe(
-
-        row
-
-      );
-
- 
-
-    }
-
+      rootMargin: "0px 0px -5% 0px",
+    },
   );
 
- 
-
- 
+  wowCareerRows.forEach((row) => {
+    wowCareerRowObserver.observe(row);
+  });
 
   /* =======================================================
 
@@ -5978,137 +1985,33 @@ if (
 
   ======================================================= */
 
- 
+  wowCareerRows.forEach((row) => {
+    row.addEventListener(
+      "mousemove",
 
-  wowCareerRows.forEach(
+      (event) => {
+        const rect = row.getBoundingClientRect();
 
-    row => {
+        const mouseX = event.clientX - rect.left;
 
- 
+        const mouseY = event.clientY - rect.top;
 
-      row.addEventListener(
+        const centerX = rect.width / 2;
 
-        "mousemove",
+        const centerY = rect.height / 2;
 
-        event => {
+        const moveX = (mouseX - centerX) / centerX;
 
- 
+        const moveY = (mouseY - centerY) / centerY;
 
-          const rect =
+        const title = row.querySelector("h3");
 
-            row.getBoundingClientRect();
+        const number = row.querySelector(".career-num");
 
- 
+        const tag = row.querySelector(".career-tag");
 
- 
-
-          const mouseX =
-
-            event.clientX -
-
-            rect.left;
-
- 
-
- 
-
-          const mouseY =
-
-            event.clientY -
-
-            rect.top;
-
- 
-
- 
-
-          const centerX =
-
-            rect.width / 2;
-
- 
-
- 
-
-          const centerY =
-
-            rect.height / 2;
-
- 
-
- 
-
-          const moveX =
-
-            (
-
-              mouseX -
-
-              centerX
-
-            ) / centerX;
-
- 
-
- 
-
-          const moveY =
-
-            (
-
-              mouseY -
-
-              centerY
-
-            ) / centerY;
-
- 
-
- 
-
-          const title =
-
-            row.querySelector(
-
-              "h3"
-
-            );
-
- 
-
- 
-
-          const number =
-
-            row.querySelector(
-
-              ".career-num"
-
-            );
-
- 
-
- 
-
-          const tag =
-
-            row.querySelector(
-
-              ".career-tag"
-
-            );
-
- 
-
- 
-
-          if (title) {
-
- 
-
-            title.style.transform =
-
-              `
+        if (title) {
+          title.style.transform = `
 
               translate(
 
@@ -6119,22 +2022,10 @@ if (
               )
 
               `;
+        }
 
- 
-
-          }
-
- 
-
- 
-
-          if (number) {
-
- 
-
-            number.style.transform =
-
-              `
+        if (number) {
+          number.style.transform = `
 
               translate(
 
@@ -6145,22 +2036,10 @@ if (
               )
 
               `;
+        }
 
- 
-
-          }
-
- 
-
- 
-
-          if (tag) {
-
- 
-
-            tag.style.transform =
-
-              `
+        if (tag) {
+          tag.style.transform = `
 
               translate(
 
@@ -6171,34 +2050,16 @@ if (
               )
 
               `;
-
- 
-
-          }
-
- 
-
         }
+      },
+    );
 
-      );
+    row.addEventListener(
+      "mouseleave",
 
- 
-
- 
-
-      row.addEventListener(
-
-        "mouseleave",
-
-        () => {
-
- 
-
-          const movingItems =
-
-            row.querySelectorAll(
-
-              `
+      () => {
+        const movingItems = row.querySelectorAll(
+          `
 
               h3,
 
@@ -6206,45 +2067,15 @@ if (
 
               .career-tag
 
-              `
+              `,
+        );
 
-            );
-
- 
-
- 
-
-          movingItems.forEach(
-
-            item => {
-
- 
-
-              item.style.transform =
-
-                "";
-
- 
-
-            }
-
-          );
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
+        movingItems.forEach((item) => {
+          item.style.transform = "";
+        });
+      },
+    );
+  });
 
   /* =======================================================
 
@@ -6252,155 +2083,42 @@ if (
 
   ======================================================= */
 
- 
-
-  const wowDarkSection =
-
-    document.querySelector(
-
-      ".career-spectrum"
-
-    );
-
- 
-
- 
+  const wowDarkSection = document.querySelector(".career-spectrum");
 
   if (wowDarkSection) {
+    const darkObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
 
- 
+          entry.target.classList.add("wow-dark-in");
 
-    const darkObserver =
+          darkObserver.unobserve(entry.target);
+        });
+      },
 
-      new IntersectionObserver(
-
- 
-
-        entries => {
-
- 
-
-          entries.forEach(
-
-            entry => {
-
- 
-
-              if (
-
-                !entry.isIntersecting
-
-              ) {
-
- 
-
-                return;
-
- 
-
-              }
-
- 
-
- 
-
-              entry.target.classList.add(
-
-                "wow-dark-in"
-
-              );
-
- 
-
- 
-
-              darkObserver.unobserve(
-
-                entry.target
-
-              );
-
- 
-
-            }
-
-          );
-
- 
-
-        },
-
- 
-
-        {
-
- 
-
-          threshold:
-
-            0.18
-
- 
-
-        }
-
- 
-
-      );
-
- 
-
- 
-
-    darkObserver.observe(
-
-      wowDarkSection
-
+      {
+        threshold: 0.18,
+      },
     );
 
- 
-
+    darkObserver.observe(wowDarkSection);
   }
 
- 
-
- 
-
-/* =======================================================
+  /* =======================================================
 
    CAREER ORBIT — KEEP ORIGINAL DESIGN
 
 ======================================================= */
 
- 
+  const wowOrbit = document.querySelector(".career-orbit");
 
-const wowOrbit =
-
-  document.querySelector(
-
-    ".career-orbit"
-
-  );
-
- 
-
- 
-
-function updateWowOrbit() {
-
- 
-
-  // Intentionally empty.
-
-  // Keeps the original orbit design and positioning.
-
- 
-
-}
-
- 
-
- 
+  function updateWowOrbit() {
+    // Intentionally empty.
+    // Keeps the original orbit design and positioning.
+  }
 
   /* =======================================================
 
@@ -6408,173 +2126,45 @@ function updateWowOrbit() {
 
   ======================================================= */
 
- 
+  const wowFinalSection = document.querySelector(".career-final");
 
-  const wowFinalSection =
+  const wowFinalLines = document.querySelectorAll(".career-final-text span");
 
-    document.querySelector(
+  if (wowFinalSection && wowFinalLines.length) {
+    const finalWowObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
 
-      ".career-final"
+          wowFinalLines.forEach(
+            (
+              line,
 
-    );
+              index,
+            ) => {
+              setTimeout(
+                () => {
+                  line.classList.add("wow-final-in");
+                },
 
- 
-
- 
-
-  const wowFinalLines =
-
-    document.querySelectorAll(
-
-      ".career-final-text span"
-
-    );
-
- 
-
- 
-
-  if (
-
-    wowFinalSection &&
-
-    wowFinalLines.length
-
-  ) {
-
- 
-
-    const finalWowObserver =
-
-      new IntersectionObserver(
-
- 
-
-        entries => {
-
- 
-
-          entries.forEach(
-
-            entry => {
-
- 
-
-              if (
-
-                !entry.isIntersecting
-
-              ) {
-
- 
-
-                return;
-
- 
-
-              }
-
- 
-
- 
-
-              wowFinalLines.forEach(
-
-                (
-
-                  line,
-
-                  index
-
-                ) => {
-
- 
-
-                  setTimeout(
-
-                    () => {
-
- 
-
-                      line.classList.add(
-
-                        "wow-final-in"
-
-                      );
-
- 
-
-                    },
-
- 
-
-                    index * 260
-
- 
-
-                  );
-
- 
-
-                }
-
+                index * 260,
               );
-
- 
-
- 
-
-              finalWowObserver.unobserve(
-
-                entry.target
-
-              );
-
- 
-
-            }
-
+            },
           );
 
- 
+          finalWowObserver.unobserve(entry.target);
+        });
+      },
 
-        },
-
- 
-
-        {
-
- 
-
-          threshold:
-
-            0.28
-
- 
-
-        }
-
- 
-
-      );
-
- 
-
- 
-
-    finalWowObserver.observe(
-
-      wowFinalSection
-
+      {
+        threshold: 0.28,
+      },
     );
 
- 
-
+    finalWowObserver.observe(wowFinalSection);
   }
-
- 
-
- 
 
   /* =======================================================
 
@@ -6582,165 +2172,49 @@ function updateWowOrbit() {
 
   ======================================================= */
 
- 
-
-  let careerWowTicking =
-
-    false;
-
- 
-
- 
+  let careerWowTicking = false;
 
   function updateCareerWowScroll() {
-
- 
-
-    const scrollTop =
-
-      window.scrollY ||
-
-      document.documentElement
-
-        .scrollTop;
-
- 
-
- 
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
     const scrollHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
 
-      document.documentElement
-
-        .scrollHeight -
-
-      window.innerHeight;
-
- 
-
- 
-
-    const progress =
-
-      scrollHeight > 0
-
-        ? (
-
-            scrollTop /
-
-            scrollHeight
-
-          ) * 100
-
-        : 0;
-
- 
-
- 
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
 
     document.body.style.setProperty(
-
       "--career-scroll-progress",
 
-      progress + "%"
-
+      progress + "%",
     );
-
- 
-
- 
 
     updateCareerWowHero();
 
- 
-
     updateWowOrbit();
 
- 
-
- 
-
-    careerWowTicking =
-
-      false;
-
- 
-
+    careerWowTicking = false;
   }
 
- 
-
- 
-
   window.addEventListener(
-
     "scroll",
 
     () => {
-
- 
-
-      if (
-
-        careerWowTicking
-
-      ) {
-
- 
-
+      if (careerWowTicking) {
         return;
-
- 
-
       }
 
- 
+      careerWowTicking = true;
 
- 
-
-      careerWowTicking =
-
-        true;
-
- 
-
- 
-
-      requestAnimationFrame(
-
-        updateCareerWowScroll
-
-      );
-
- 
-
+      requestAnimationFrame(updateCareerWowScroll);
     },
 
- 
-
     {
-
-      passive:
-
-        true
-
-    }
-
- 
-
+      passive: true,
+    },
   );
 
- 
-
- 
-
   updateCareerWowScroll();
-
- 
-
 }
-
- 
 
 /* =========================================================
 
@@ -6748,65 +2222,29 @@ function updateWowOrbit() {
 
 ========================================================= */
 
- 
-
-const facultyTransitionLink =
-
-  document.querySelector(
-
-    ".faculty-transition-link"
-
-  );
-
- 
-
- 
+const facultyTransitionLink = document.querySelector(
+  ".faculty-transition-link",
+);
 
 if (facultyTransitionLink) {
-
- 
-
   facultyTransitionLink.addEventListener(
-
     "click",
 
     function (event) {
-
- 
-
       event.preventDefault();
-
- 
 
       event.stopImmediatePropagation();
 
- 
-
- 
-
       startPageTransition(
-
         "faculty.html",
 
-        "MEET THE FACULTY"
-
+        "MEET THE FACULTY",
       );
-
- 
-
     },
 
- 
-
-    true
-
+    true,
   );
-
- 
-
 }
-
- 
 
 /* =========================================================
 
@@ -6814,79 +2252,23 @@ if (facultyTransitionLink) {
 
 ========================================================= */
 
- 
-
-if (
-
-  document.body.classList.contains("faculty-body")
-
-) {
-
- 
-
-  const facultyEntry =
-
-    document.getElementById("facultyEntry");
-
- 
-
- 
+if (document.body.classList.contains("faculty-body")) {
+  const facultyEntry = document.getElementById("facultyEntry");
 
   if (facultyEntry) {
-
- 
-
     document.body.style.overflow = "hidden";
 
- 
-
- 
-
     setTimeout(() => {
-
- 
-
-      facultyEntry.classList.add(
-
-        "faculty-entry-exit"
-
-      );
-
- 
-
+      facultyEntry.classList.add("faculty-entry-exit");
     }, 2100);
 
- 
-
- 
-
     setTimeout(() => {
-
- 
-
-      facultyEntry.classList.add(
-
-        "faculty-entry-gone"
-
-      );
-
- 
+      facultyEntry.classList.add("faculty-entry-gone");
 
       document.body.style.overflow = "";
-
- 
-
     }, 3100);
-
- 
-
   }
-
- 
-
 }
-
- 
 
 /* =========================================================
 
@@ -6896,57 +2278,29 @@ if (
 
 ========================================================= */
 
- 
-
-const facultyPageTransitionButton =
-
-  document.querySelector(
-
-    'a.faculty-transition-link[href="faculty.html"]'
-
-  );
-
- 
+const facultyPageTransitionButton = document.querySelector(
+  'a.faculty-transition-link[href="faculty.html"]',
+);
 
 if (facultyPageTransitionButton) {
-
- 
-
   facultyPageTransitionButton.addEventListener(
-
     "click",
 
     function (event) {
-
- 
-
       event.preventDefault();
 
       event.stopImmediatePropagation();
 
- 
-
       startPageTransition(
-
         "faculty.html",
 
-        "MEET THE FACULTY"
-
+        "MEET THE FACULTY",
       );
-
- 
-
     },
 
-    true
-
+    true,
   );
-
- 
-
 }
-
- 
 
 /* =========================================================
 
@@ -6954,36 +2308,15 @@ if (facultyPageTransitionButton) {
 
 ========================================================= */
 
- 
-
-if (
-
-  document.body.classList.contains("faculty-body")
-
-) {
-
- 
-
+if (document.body.classList.contains("faculty-body")) {
   /* Put hero into starting animation state immediately */
 
-  document.body.classList.add(
-
-    "faculty-arriving"
-
-  );
-
- 
-
- 
+  document.body.classList.add("faculty-arriving");
 
   window.addEventListener(
-
     "load",
 
     function () {
-
- 
-
       /*
 
         Small delay allows the browser to actually
@@ -6992,53 +2325,16 @@ if (
 
       */
 
- 
-
       requestAnimationFrame(() => {
-
- 
-
         requestAnimationFrame(() => {
+          document.body.classList.remove("faculty-arriving");
 
- 
-
-          document.body.classList.remove(
-
-            "faculty-arriving"
-
-          );
-
- 
-
-          document.body.classList.add(
-
-            "faculty-arrived"
-
-          );
-
- 
-
+          document.body.classList.add("faculty-arrived");
         });
-
- 
-
       });
-
- 
-
-    }
-
+    },
   );
-
- 
-
 }
-
- 
-
- 
-
- 
 
 /* =========================================================
 
@@ -7049,22 +2345,15 @@ if (
 ========================================================= */
 
 (function () {
-
   const body = document.body;
 
   if (!body || !body.classList.contains("faculty-body")) return;
 
- 
-
   /* Remove any inline transforms left by older Faculty experiments. */
 
-  document.querySelectorAll(".faculty-grid-item").forEach(item => {
-
+  document.querySelectorAll(".faculty-grid-item").forEach((item) => {
     item.style.removeProperty("transform");
-
   });
-
- 
 
   /* Top loading / scroll progress line */
 
@@ -7076,211 +2365,134 @@ if (
 
   body.appendChild(track);
 
- 
-
   const loadBar = track.querySelector(".faculty-load-bar");
-
- 
 
   /* Start as a quick page-load animation, then become scroll progress. */
 
   requestAnimationFrame(() => {
-
-    loadBar.style.transition =
-
-      "transform 1s cubic-bezier(.16,1,.3,1)";
+    loadBar.style.transition = "transform 1s cubic-bezier(.16,1,.3,1)";
 
     loadBar.style.transform = "scaleX(.72)";
-
   });
 
- 
-
   window.addEventListener("load", () => {
-
     loadBar.style.transform = "scaleX(1)";
 
     setTimeout(() => {
-
       loadBar.style.transition = "none";
 
       updateFacultyProgress();
-
     }, 700);
-
   });
 
- 
-
   function updateFacultyProgress() {
+    const max = Math.max(
+      1,
+      document.documentElement.scrollHeight - innerHeight,
+    );
 
-    const max =
-
-      Math.max(1, document.documentElement.scrollHeight - innerHeight);
-
-    const value =
-
-      Math.max(0, Math.min(1, scrollY / max));
+    const value = Math.max(0, Math.min(1, scrollY / max));
 
     loadBar.style.transform = `scaleX(${value})`;
-
   }
-
- 
 
   window.addEventListener("scroll", updateFacultyProgress, { passive: true });
 
   window.addEventListener("resize", updateFacultyProgress, { passive: true });
 
- 
-
   /* Faculty cards — dossier reveal without changing Bootstrap layout */
 
   const cards = [...document.querySelectorAll(".faculty-card")];
 
- 
-
-  cards.forEach(card => {
-
+  cards.forEach((card) => {
     if (!card.querySelector(".faculty-dossier-scan")) {
-
       const scan = document.createElement("span");
 
       scan.className = "faculty-dossier-scan";
 
       card.appendChild(scan);
-
     }
-
   });
 
- 
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-  const cardObserver = new IntersectionObserver(entries => {
+        const card = entry.target;
 
-    entries.forEach(entry => {
+        const index = cards.indexOf(card);
 
-      if (!entry.isIntersecting) return;
+        setTimeout(
+          () => {
+            card.classList.add("faculty-dossier-in");
+          },
+          (index % 3) * 140,
+        );
 
- 
+        cardObserver.unobserve(card);
+      });
+    },
+    {
+      threshold: 0.14,
 
-      const card = entry.target;
+      rootMargin: "0px 0px -7% 0px",
+    },
+  );
 
-      const index = cards.indexOf(card);
-
- 
-
-      setTimeout(() => {
-
-        card.classList.add("faculty-dossier-in");
-
-      }, (index % 3) * 140);
-
- 
-
-      cardObserver.unobserve(card);
-
-    });
-
-  }, {
-
-    threshold: .14,
-
-    rootMargin: "0px 0px -7% 0px"
-
-  });
-
- 
-
-  cards.forEach(card => cardObserver.observe(card));
-
- 
+  cards.forEach((card) => cardObserver.observe(card));
 
   /* Directory heading line */
 
-  const directoryHeading =
-
-    document.querySelector(".faculty-directory-heading");
-
- 
+  const directoryHeading = document.querySelector(".faculty-directory-heading");
 
   if (directoryHeading) {
+    const headingObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          directoryHeading.classList.add("faculty-directory-live");
 
-    const headingObserver = new IntersectionObserver(entries => {
-
-      if (entries[0].isIntersecting) {
-
-        directoryHeading.classList.add("faculty-directory-live");
-
-        headingObserver.disconnect();
-
-      }
-
-    }, { threshold: .28 });
-
- 
+          headingObserver.disconnect();
+        }
+      },
+      { threshold: 0.28 },
+    );
 
     headingObserver.observe(directoryHeading);
-
   }
-
- 
 
   /* Closing section: scanner sweep + staggered title lock-in */
 
   const closing = document.querySelector(".faculty-closing");
 
- 
-
   if (closing) {
+    const lines = [...closing.querySelectorAll(".faculty-closing-text span")];
 
-    const lines =
+    const closingObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
 
-      [...closing.querySelectorAll(".faculty-closing-text span")];
+        closing.classList.add("faculty-closing-live");
 
- 
+        lines.forEach((line, index) => {
+          setTimeout(
+            () => {
+              line.classList.add("faculty-lock-in");
+            },
+            220 + index * 190,
+          );
+        });
 
-    const closingObserver = new IntersectionObserver(entries => {
-
-      if (!entries[0].isIntersecting) return;
-
- 
-
-      closing.classList.add("faculty-closing-live");
-
- 
-
-      lines.forEach((line, index) => {
-
-        setTimeout(() => {
-
-          line.classList.add("faculty-lock-in");
-
-        }, 220 + index * 190);
-
-      });
-
- 
-
-      closingObserver.disconnect();
-
-    }, {
-
-      threshold: .28
-
-    });
-
- 
+        closingObserver.disconnect();
+      },
+      {
+        threshold: 0.28,
+      },
+    );
 
     closingObserver.observe(closing);
-
   }
-
 })();
-
- 
-
- 
 
 /* =========================================================
 
@@ -7291,48 +2503,26 @@ if (
 ========================================================= */
 
 (function () {
-
   const body = document.body;
 
   if (!body || !body.classList.contains("faculty-body")) return;
 
- 
-
   body.classList.add("faculty-type-prep");
 
- 
-
   requestAnimationFrame(() => {
-
     requestAnimationFrame(() => {
-
       body.classList.add("faculty-type-show");
-
     });
-
   });
-
- 
 
   /* After the entrance, remove the prep state so the title
 
      stays in its normal final layout. */
 
   setTimeout(() => {
-
     body.classList.remove("faculty-type-prep");
-
   }, 2200);
-
 })();
-
- 
-
- 
-
- 
-
- 
 
 /* =========================================================
 
@@ -7343,32 +2533,20 @@ if (
 ========================================================= */
 
 (function () {
-
   const closing = document.querySelector(".faculty-body .faculty-closing");
 
   if (!closing) return;
 
- 
-
   let ticking = false;
 
- 
-
   function clamp01(value) {
-
     return Math.max(0, Math.min(1, value));
-
   }
 
- 
-
   function updateFacultyClosingTakeover() {
-
     const rect = closing.getBoundingClientRect();
 
     const vh = window.innerHeight || document.documentElement.clientHeight;
-
- 
 
     /* Starts when the section approaches the bottom of the viewport,
 
@@ -7376,69 +2554,47 @@ if (
 
     const progress = clamp01((vh - rect.top) / (vh * 0.72));
 
- 
-
     /* 50% -> 0% makes the black panel open from center to full width. */
 
     const inset = 50 * (1 - progress);
-
- 
 
     /* Let the title appear after the black panel has visibly opened. */
 
     const contentProgress = clamp01((progress - 0.32) / 0.46);
 
- 
-
     closing.style.setProperty(
-
       "--faculty-close-inset",
 
-      inset.toFixed(3) + "%"
-
+      inset.toFixed(3) + "%",
     );
-
- 
 
     closing.style.setProperty(
-
       "--faculty-close-content",
 
-      contentProgress.toFixed(3)
-
+      contentProgress.toFixed(3),
     );
 
- 
-
     ticking = false;
-
   }
 
- 
-
   function requestFacultyClosingTakeover() {
-
     if (ticking) return;
 
     ticking = true;
 
     requestAnimationFrame(updateFacultyClosingTakeover);
-
   }
 
- 
+  window.addEventListener("scroll", requestFacultyClosingTakeover, {
+    passive: true,
+  });
 
-  window.addEventListener("scroll", requestFacultyClosingTakeover, { passive: true });
-
-  window.addEventListener("resize", requestFacultyClosingTakeover, { passive: true });
-
- 
+  window.addEventListener("resize", requestFacultyClosingTakeover, {
+    passive: true,
+  });
 
   updateFacultyClosingTakeover();
-
 })();
-
- 
 
 /* =========================================================
 
@@ -7449,12 +2605,9 @@ if (
 ========================================================= */
 
 (function () {
-
   const body = document.body;
 
   if (!body) return;
-
- 
 
   /* Homepage Explore card -> SCPES.
 
@@ -7465,50 +2618,30 @@ if (
      yet have a dedicated transition class in index.html. */
 
   const scpesTransitionLinks = document.querySelectorAll(
-
-    'a.scpes-transition-link[href^="scpes.html"], a.featured-card[href="scpes.html"]'
-
+    'a.scpes-transition-link[href^="scpes.html"], a.featured-card[href="scpes.html"]',
   );
 
- 
-
-  scpesTransitionLinks.forEach(link => {
-
+  scpesTransitionLinks.forEach((link) => {
     link.addEventListener(
-
       "click",
 
-      event => {
-
+      (event) => {
         event.preventDefault();
 
         event.stopImmediatePropagation();
 
- 
-
         if (typeof startPageTransition === "function") {
-
           startPageTransition("scpes.html?from=explore", "SCPES");
-
         } else {
-
           window.location.href = "scpes.html?from=explore";
-
         }
-
       },
 
-      true
-
+      true,
     );
-
   });
 
- 
-
   if (!body.classList.contains("scpes-body")) return;
-
- 
 
   /* Continue the black curtain on SCPES only when opened from Explore. */
 
@@ -7518,59 +2651,35 @@ if (
 
   const scpesExploreLoader = document.getElementById("scpes-explore-loader");
 
- 
-
   if (openedFromExplore && scpesExploreLoader) {
-
     requestAnimationFrame(() => {
-
       requestAnimationFrame(() => {
-
         scpesExploreLoader.classList.add("page-transition-out");
-
       });
-
     });
 
- 
-
     setTimeout(() => {
-
       scpesExploreLoader.style.display = "none";
 
       document.documentElement.classList.remove("scpes-from-explore");
 
- 
-
       if (window.history && window.history.replaceState) {
-
         window.history.replaceState(
-
           {},
 
           document.title,
 
-          window.location.pathname + window.location.hash
-
+          window.location.pathname + window.location.hash,
         );
-
       }
-
     }, 900);
-
   }
-
- 
 
   /* Network hero constructs itself — no reused title wipe. */
 
   requestAnimationFrame(() => {
-
     requestAnimationFrame(() => body.classList.add("scpes-ready"));
-
   });
-
- 
 
   /* Reveal content safely: sections are visible if IO is unsupported. */
 
@@ -7578,49 +2687,31 @@ if (
 
   const finale = document.querySelector(".scpes-finale");
 
- 
-
   if (!("IntersectionObserver" in window)) {
-
-    revealSections.forEach(section => section.classList.add("is-visible"));
+    revealSections.forEach((section) => section.classList.add("is-visible"));
 
     if (finale) finale.classList.add("is-visible");
 
     return;
-
   }
 
- 
-
   const observer = new IntersectionObserver(
-
-    entries => {
-
-      entries.forEach(entry => {
-
+    (entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-
           entry.target.classList.add("is-visible");
 
           observer.unobserve(entry.target);
-
         }
-
       });
-
     },
 
-    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
   );
 
- 
-
-  revealSections.forEach(section => observer.observe(section));
+  revealSections.forEach((section) => observer.observe(section));
 
   if (finale) observer.observe(finale);
-
- 
 
   /* Small depth response in the network only. */
 
@@ -7628,10 +2719,7 @@ if (
 
   let ticking = false;
 
- 
-
   function updateScpesDepth() {
-
     ticking = false;
 
     if (!network) return;
@@ -7642,43 +2730,32 @@ if (
 
     const rect = hero.getBoundingClientRect();
 
-    const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height)));
+    const progress = Math.max(
+      0,
+      Math.min(1, -rect.top / Math.max(1, rect.height)),
+    );
 
     network.style.transform = `translate3d(0, ${progress * 38}px, 0) scale(${1 + progress * 0.025})`;
 
     network.style.opacity = String(Math.max(0.28, 0.95 - progress * 0.45));
-
   }
 
- 
-
   window.addEventListener(
-
     "scroll",
 
     () => {
-
       if (!ticking) {
-
         ticking = true;
 
         requestAnimationFrame(updateScpesDepth);
-
       }
-
     },
 
-    { passive: true }
-
+    { passive: true },
   );
 
- 
-
   updateScpesDepth();
-
 })();
-
- 
 
 /* =========================================================
 
@@ -7689,68 +2766,49 @@ if (
 ========================================================= */
 
 (() => {
-
   const faqItems = document.querySelectorAll(".faq-item");
 
-  faqItems.forEach(item => {
-
+  faqItems.forEach((item) => {
     const button = item.querySelector(".faq-question");
 
     if (!button) return;
 
     button.addEventListener("click", () => {
-
       const willOpen = !item.classList.contains("is-open");
 
-      faqItems.forEach(other => {
-
+      faqItems.forEach((other) => {
         other.classList.remove("is-open");
 
         const otherButton = other.querySelector(".faq-question");
 
         if (otherButton) otherButton.setAttribute("aria-expanded", "false");
-
       });
 
       if (willOpen) {
-
         item.classList.add("is-open");
 
         button.setAttribute("aria-expanded", "true");
-
       }
-
     });
-
   });
-
- 
 
   const revealTargets = document.querySelectorAll("[data-faq-reveal]");
 
   if ("IntersectionObserver" in window) {
+    const faqObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.14 },
+    );
 
-    const faqObserver = new IntersectionObserver(entries => {
-
-      entries.forEach(entry => {
-
-        entry.target.classList.toggle("is-visible", entry.isIntersecting);
-
-      });
-
-    }, { threshold: 0.14 });
-
-    revealTargets.forEach(target => faqObserver.observe(target));
-
+    revealTargets.forEach((target) => faqObserver.observe(target));
   } else {
-
-    revealTargets.forEach(target => target.classList.add("is-visible"));
-
+    revealTargets.forEach((target) => target.classList.add("is-visible"));
   }
-
 })();
-
- 
 
 /* =========================================================
 
@@ -7759,53 +2817,57 @@ if (
 ========================================================= */
 
 (() => {
-
-  const section = document.querySelector('.home-faq-contact');
+  const section = document.querySelector(".home-faq-contact");
 
   if (!section) return;
 
-  const heading = section.querySelector('.faq-contact-heading');
+  const heading = section.querySelector(".faq-contact-heading");
 
-  const panel = section.querySelector('.learn-more-panel');
+  const panel = section.querySelector(".learn-more-panel");
 
   let ticking = false;
 
   const update = () => {
-
     const rect = section.getBoundingClientRect();
 
     const vh = window.innerHeight || 1;
 
-    const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
+    const progress = Math.max(
+      0,
+      Math.min(1, (vh - rect.top) / (vh + rect.height)),
+    );
 
-    if (heading) heading.style.transform = `translate3d(0, ${progress * -18}px, 0)`;
+    if (heading)
+      heading.style.transform = `translate3d(0, ${progress * -18}px, 0)`;
 
-    if (panel) panel.style.setProperty('--contact-progress', progress.toFixed(3));
+    if (panel)
+      panel.style.setProperty("--contact-progress", progress.toFixed(3));
 
     ticking = false;
-
   };
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
 
-    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  section
+    .querySelectorAll(".learn-more-links a, .faq-question")
+    .forEach((el) => {
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
 
-  }, { passive: true });
+        el.style.setProperty("--mx", `${e.clientX - r.left}px`);
 
-  section.querySelectorAll('.learn-more-links a, .faq-question').forEach(el => {
-
-    el.addEventListener('mousemove', e => {
-
-      const r = el.getBoundingClientRect();
-
-      el.style.setProperty('--mx', `${e.clientX-r.left}px`);
-
-      el.style.setProperty('--my', `${e.clientY-r.top}px`);
-
+        el.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
     });
 
-  });
-
   update();
-
-})(); 
+})();

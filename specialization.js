@@ -7,62 +7,36 @@
    ========================================================= */
 
 window.addEventListener("DOMContentLoaded", () => {
-
   const params = new URLSearchParams(window.location.search);
 
   const cameFromExplore = params.get("from") === "explore";
 
   const loader = document.querySelector("#explore-specialization-loader");
 
- 
-
   if (loader) {
-
     if (cameFromExplore) {
-
       loader.classList.add("from-explore");
 
- 
-
       requestAnimationFrame(() => {
-
         requestAnimationFrame(() => {
-
           loader.classList.add("page-transition-out");
-
         });
-
       });
 
- 
-
       setTimeout(() => {
-
         const cleanURL = window.location.pathname + window.location.hash;
 
         window.history.replaceState({}, "", cleanURL);
-
       }, 900);
 
- 
-
       setTimeout(() => {
-
         loader.style.display = "none";
-
       }, 1000);
-
     } else {
-
       loader.classList.add("no-explore-transition");
-
     }
-
   }
-
 });
-
- 
 
 /* =========================================================
 
@@ -72,10 +46,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 ========================================================= */
 
- 
-
- 
-
 /* =========================================================
 
    PIXEL CURSOR + SQUARE TRAIL
@@ -84,189 +54,58 @@ window.addEventListener("DOMContentLoaded", () => {
 
 ========================================================= */
 
- 
-
 const supportsCustomCursor =
-
   window.matchMedia("(hover: hover)").matches ||
-
   window.matchMedia("(any-pointer: fine)").matches;
 
- 
-
- 
-
 if (supportsCustomCursor) {
-
- 
-
-  let pixelCursor =
-
-    document.querySelector(
-
-      ".pixel-cursor"
-
-    );
-
- 
-
- 
+  let pixelCursor = document.querySelector(".pixel-cursor");
 
   if (!pixelCursor) {
+    pixelCursor = document.createElement("div");
 
- 
+    pixelCursor.className = "pixel-cursor";
 
-    pixelCursor =
-
-      document.createElement(
-
-        "div"
-
-      );
-
- 
-
-    pixelCursor.className =
-
-      "pixel-cursor";
-
- 
-
-    document.body.appendChild(
-
-      pixelCursor
-
-    );
-
- 
-
+    document.body.appendChild(pixelCursor);
   }
-
- 
-
- 
 
   /* Remove any old trail blocks before creating the new trail. */
 
   document
 
-    .querySelectorAll(
+    .querySelectorAll(".cursor-pixel")
 
-      ".cursor-pixel"
-
-    )
-
-    .forEach(
-
-      pixel => pixel.remove()
-
-    );
-
- 
-
- 
+    .forEach((pixel) => pixel.remove());
 
   const trail = [];
 
- 
-
   const trailCount = 8;
 
- 
+  for (let i = 0; i < trailCount; i++) {
+    const pixel = document.createElement("div");
 
- 
-
-  for (
-
-    let i = 0;
-
-    i < trailCount;
-
-    i++
-
-  ) {
-
- 
-
-    const pixel =
-
-      document.createElement(
-
-        "div"
-
-      );
-
- 
-
-    pixel.className =
-
-      "cursor-pixel";
-
- 
+    pixel.className = "cursor-pixel";
 
     pixel.style.setProperty(
-
       "--trail-index",
 
-      i
-
+      i,
     );
 
- 
-
-    document.body.appendChild(
-
-      pixel
-
-    );
-
- 
-
- 
+    document.body.appendChild(pixel);
 
     trail.push({
-
- 
-
       element: pixel,
 
- 
+      x: window.innerWidth / 2,
 
-      x:
-
-        window.innerWidth / 2,
-
- 
-
-      y:
-
-        window.innerHeight / 2
-
- 
-
+      y: window.innerHeight / 2,
     });
-
- 
-
   }
 
- 
+  let mouseX = window.innerWidth / 2;
 
- 
-
-  let mouseX =
-
-    window.innerWidth / 2;
-
- 
-
-  let mouseY =
-
-    window.innerHeight / 2;
-
- 
-
- 
+  let mouseY = window.innerHeight / 2;
 
   /* =========================================================
 
@@ -274,41 +113,20 @@ if (supportsCustomCursor) {
 
   ========================================================= */
 
- 
-
   function detectDarkBackground(
-
     x,
 
-    y
-
+    y,
   ) {
+    const elementUnderCursor = document.elementFromPoint(
+      x,
 
- 
-
-    const elementUnderCursor =
-
-      document.elementFromPoint(
-
-        x,
-
-        y
-
-      );
-
- 
-
- 
+      y,
+    );
 
     if (!elementUnderCursor) {
-
       return false;
-
     }
-
- 
-
- 
 
     /*
 
@@ -318,29 +136,13 @@ if (supportsCustomCursor) {
 
     */
 
- 
-
-    const lightSection =
-
-      elementUnderCursor.closest(
-
-        ".spec-hero, .field-explorer, .spec-final"
-
-      );
-
- 
-
- 
+    const lightSection = elementUnderCursor.closest(
+      ".spec-hero, .field-explorer, .spec-final",
+    );
 
     if (lightSection) {
-
       return false;
-
     }
-
- 
-
- 
 
     /*
 
@@ -350,29 +152,13 @@ if (supportsCustomCursor) {
 
     */
 
- 
-
-    const darkSection =
-
-      elementUnderCursor.closest(
-
-        ".program-highlights, .signal-map, .menu-overlay, .cursor-dark-zone"
-
-      );
-
- 
-
- 
+    const darkSection = elementUnderCursor.closest(
+      ".program-highlights, .signal-map, .menu-overlay, .cursor-dark-zone",
+    );
 
     if (darkSection) {
-
       return true;
-
     }
-
- 
-
- 
 
     /*
 
@@ -382,175 +168,46 @@ if (supportsCustomCursor) {
 
     */
 
- 
+    let current = elementUnderCursor;
 
-    let current =
-
-      elementUnderCursor;
-
- 
-
- 
-
-    while (
-
-      current &&
-
-      current !== document.documentElement
-
-    ) {
-
- 
-
-      const background =
-
-        window.getComputedStyle(
-
-          current
-
-        ).backgroundColor;
-
- 
-
- 
+    while (current && current !== document.documentElement) {
+      const background = window.getComputedStyle(current).backgroundColor;
 
       if (
-
         background &&
-
         background !== "transparent" &&
-
         background !== "rgba(0, 0, 0, 0)"
-
       ) {
-
- 
-
-        const match =
-
-          background.match(
-
-            /rgba?\(([^)]+)\)/
-
-          );
-
- 
-
- 
+        const match = background.match(/rgba?\(([^)]+)\)/);
 
         if (match) {
+          const values = match[1]
 
- 
+            .split(",")
 
-          const values =
+            .map((value) => parseFloat(value.trim()));
 
-            match[1]
+          const r = values[0] || 0;
 
-              .split(",")
+          const g = values[1] || 0;
 
-              .map(
+          const b = values[2] || 0;
 
-                value =>
-
-                  parseFloat(
-
-                    value.trim()
-
-                  )
-
-              );
-
- 
-
- 
-
-          const r =
-
-            values[0] || 0;
-
- 
-
-          const g =
-
-            values[1] || 0;
-
- 
-
-          const b =
-
-            values[2] || 0;
-
- 
-
- 
-
-          const a =
-
-            values.length > 3
-
-              ? values[3]
-
-              : 1;
-
- 
-
- 
+          const a = values.length > 3 ? values[3] : 1;
 
           if (a > 0.05) {
-
- 
-
-            const luminance =
-
-              (0.299 * r) +
-
-              (0.587 * g) +
-
-              (0.114 * b);
-
- 
-
- 
+            const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
 
             return luminance < 145;
-
- 
-
           }
-
- 
-
         }
-
- 
-
       }
 
- 
-
- 
-
-      current =
-
-        current.parentElement;
-
- 
-
+      current = current.parentElement;
     }
 
- 
-
- 
-
     return false;
-
- 
-
   }
-
- 
-
- 
 
   /* =========================================================
 
@@ -558,119 +215,43 @@ if (supportsCustomCursor) {
 
   ========================================================= */
 
- 
-
   window.addEventListener(
-
     "mousemove",
 
-    event => {
+    (event) => {
+      mouseX = event.clientX;
 
- 
+      mouseY = event.clientY;
 
-      mouseX =
+      pixelCursor.style.left = mouseX + "px";
 
-        event.clientX;
+      pixelCursor.style.top = mouseY + "px";
 
- 
+      pixelCursor.classList.add("cursor-ready");
 
-      mouseY =
+      const isDark = detectDarkBackground(
+        mouseX,
 
-        event.clientY;
-
- 
-
- 
-
-      pixelCursor.style.left =
-
-        mouseX + "px";
-
- 
-
-      pixelCursor.style.top =
-
-        mouseY + "px";
-
- 
-
- 
-
-      pixelCursor.classList.add(
-
-        "cursor-ready"
-
+        mouseY,
       );
-
- 
-
- 
-
-      const isDark =
-
-        detectDarkBackground(
-
-          mouseX,
-
-          mouseY
-
-        );
-
- 
-
- 
 
       pixelCursor.classList.toggle(
-
         "cursor-on-dark",
 
-        isDark
-
+        isDark,
       );
 
- 
+      trail.forEach((pixel) => {
+        pixel.element.classList.add("cursor-ready");
 
- 
+        pixel.element.classList.toggle(
+          "cursor-on-dark",
 
-      trail.forEach(
-
-        pixel => {
-
- 
-
-          pixel.element.classList.add(
-
-            "cursor-ready"
-
-          );
-
- 
-
- 
-
-          pixel.element.classList.toggle(
-
-            "cursor-on-dark",
-
-            isDark
-
-          );
-
- 
-
-        }
-
-      );
-
- 
-
-    }
-
+          isDark,
+        );
+      });
+    },
   );
-
- 
-
- 
 
   /* =========================================================
 
@@ -678,137 +259,38 @@ if (supportsCustomCursor) {
 
   ========================================================= */
 
- 
-
   function animateCursorTrail() {
+    let targetX = mouseX;
 
- 
-
-    let targetX =
-
-      mouseX;
-
- 
-
-    let targetY =
-
-      mouseY;
-
- 
-
- 
+    let targetY = mouseY;
 
     trail.forEach(
-
       (
-
         pixel,
 
-        index
-
+        index,
       ) => {
+        const followSpeed = 0.3 - index * 0.018;
 
- 
+        pixel.x += (targetX - pixel.x) * followSpeed;
 
-        const followSpeed =
+        pixel.y += (targetY - pixel.y) * followSpeed;
 
-          0.30 -
+        pixel.element.style.left = pixel.x + "px";
 
-          (index * 0.018);
+        pixel.element.style.top = pixel.y + "px";
 
- 
+        targetX = pixel.x;
 
- 
-
-        pixel.x +=
-
-          (
-
-            targetX -
-
-            pixel.x
-
-          ) *
-
-          followSpeed;
-
- 
-
- 
-
-        pixel.y +=
-
-          (
-
-            targetY -
-
-            pixel.y
-
-          ) *
-
-          followSpeed;
-
- 
-
- 
-
-        pixel.element.style.left =
-
-          pixel.x + "px";
-
- 
-
-        pixel.element.style.top =
-
-          pixel.y + "px";
-
- 
-
- 
-
-        targetX =
-
-          pixel.x;
-
- 
-
-        targetY =
-
-          pixel.y;
-
- 
-
-      }
-
+        targetY = pixel.y;
+      },
     );
 
- 
-
- 
-
-    requestAnimationFrame(
-
-      animateCursorTrail
-
-    );
-
- 
-
+    requestAnimationFrame(animateCursorTrail);
   }
 
- 
-
- 
-
   animateCursorTrail();
-
- 
-
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -816,277 +298,79 @@ if (supportsCustomCursor) {
 
 ========================================================= */
 
- 
+const menuButton = document.getElementById("menuButton");
 
-const menuButton =
+const menuOverlay = document.getElementById("menuOverlay");
 
-  document.getElementById(
-
-    "menuButton"
-
-  );
-
- 
-
- 
-
-const menuOverlay =
-
-  document.getElementById(
-
-    "menuOverlay"
-
-  );
-
- 
-
- 
-
-const closeMenu =
-
-  document.getElementById(
-
-    "closeMenu"
-
-  );
-
- 
-
- 
+const closeMenu = document.getElementById("closeMenu");
 
 function openMenu() {
-
- 
-
   if (!menuOverlay) {
-
     return;
-
   }
 
- 
+  menuOverlay.classList.add("active");
 
- 
+  menuOverlay.classList.add("cursor-dark-zone");
 
-  menuOverlay.classList.add(
-
-    "active"
-
-  );
-
- 
-
- 
-
-  menuOverlay.classList.add(
-
-    "cursor-dark-zone"
-
-  );
-
- 
-
- 
-
-  document.body.classList.add(
-
-    "menu-open"
-
-  );
-
- 
-
+  document.body.classList.add("menu-open");
 }
-
- 
-
- 
 
 function closeMenuFunction() {
-
- 
-
   if (!menuOverlay) {
-
     return;
-
   }
 
- 
+  menuOverlay.classList.remove("active");
 
- 
+  menuOverlay.classList.remove("cursor-dark-zone");
 
-  menuOverlay.classList.remove(
-
-    "active"
-
-  );
-
- 
-
- 
-
-  menuOverlay.classList.remove(
-
-    "cursor-dark-zone"
-
-  );
-
- 
-
- 
-
-  document.body.classList.remove(
-
-    "menu-open"
-
-  );
-
- 
-
+  document.body.classList.remove("menu-open");
 }
-
- 
-
- 
 
 if (menuButton) {
-
- 
-
   menuButton.addEventListener(
-
     "click",
 
-    openMenu
-
+    openMenu,
   );
-
- 
-
 }
-
- 
-
- 
 
 if (closeMenu) {
-
- 
-
   closeMenu.addEventListener(
-
     "click",
 
-    closeMenuFunction
-
+    closeMenuFunction,
   );
-
- 
-
 }
 
- 
-
- 
-
 document.addEventListener(
-
   "keydown",
 
-  event => {
-
- 
-
-    if (
-
-      event.key === "Escape"
-
-    ) {
-
- 
-
+  (event) => {
+    if (event.key === "Escape") {
       closeMenuFunction();
-
- 
-
     }
-
- 
-
-  }
-
+  },
 );
-
- 
-
- 
 
 document
 
-  .querySelectorAll(
+  .querySelectorAll(".menu-item")
 
-    ".menu-item"
+  .forEach((item) => {
+    item.addEventListener(
+      "click",
 
-  )
+      () => {
+        const href = item.getAttribute("href");
 
-  .forEach(
-
-    item => {
-
- 
-
-      item.addEventListener(
-
-        "click",
-
-        () => {
-
- 
-
-          const href =
-
-            item.getAttribute(
-
-              "href"
-
-            );
-
- 
-
- 
-
-          if (
-
-            href === "#" ||
-
-            href === null
-
-          ) {
-
- 
-
-            closeMenuFunction();
-
- 
-
-          }
-
- 
-
+        if (href === "#" || href === null) {
+          closeMenuFunction();
         }
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
+      },
+    );
+  });
 
 /* =========================================================
 
@@ -1096,33 +380,10 @@ document
 
 ========================================================= */
 
- 
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-const chars =
-
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
- 
-
- 
-
-function scramble(
-
-  element
-
-) {
-
- 
-
-  const finalText =
-
-    element.dataset.text ||
-
-    element.textContent.trim();
-
- 
-
- 
+function scramble(element) {
+  const finalText = element.dataset.text || element.textContent.trim();
 
   /*
 
@@ -1130,151 +391,57 @@ function scramble(
 
   */
 
- 
-
-  element.dataset.originalText =
-
-    finalText;
-
- 
-
- 
+  element.dataset.originalText = finalText;
 
   let progress = 0;
 
- 
+  clearInterval(element._timer);
 
- 
+  element._timer = setInterval(
+    () => {
+      element.textContent = finalText
 
-  clearInterval(
+        .split("")
 
-    element._timer
+        .map(
+          (
+            character,
 
-  );
-
- 
-
- 
-
-  element._timer =
-
-    setInterval(
-
-      () => {
-
- 
-
-        element.textContent =
-
-          finalText
-
-            .split("")
-
-            .map(
-
-              (
-
-                character,
-
-                index
-
-              ) => {
-
- 
-
-                /*
+            index,
+          ) => {
+            /*
 
                    Keep spaces, slash and period.
 
                 */
 
- 
+            if (character === " " || character === "/" || character === ".") {
+              return character;
+            }
 
-                if (
-
-                  character === " " ||
-
-                  character === "/" ||
-
-                  character === "."
-
-                ) {
-
- 
-
-                  return character;
-
- 
-
-                }
-
- 
-
- 
-
-                /*
+            /*
 
                    Reveal correct characters gradually.
 
                 */
 
- 
+            if (index < progress) {
+              return character;
+            }
 
-                if (
-
-                  index < progress
-
-                ) {
-
- 
-
-                  return character;
-
- 
-
-                }
-
- 
-
- 
-
-               
-
- 
-
- /*
+            /*
 
                    Random scramble character.
 
                 */
 
- 
+            return chars[Math.floor(Math.random() * chars.length)];
+          },
+        )
 
-                return chars[
+        .join("");
 
-                  Math.floor(
-
-                    Math.random() *
-
-                    chars.length
-
-                  )
-
-                ];
-
- 
-
-              }
-
-            )
-
-            .join("");
-
- 
-
- 
-
-        /*
+      /*
 
            SLOW SCRAMBLE SPEED
 
@@ -1284,59 +451,18 @@ function scramble(
 
         */
 
- 
+      progress += 0.25;
 
-        progress += .25;
+      if (progress >= finalText.length) {
+        clearInterval(element._timer);
 
- 
+        element.textContent = finalText;
+      }
+    },
 
- 
-
-        if (
-
-          progress >=
-
-          finalText.length
-
-        ) {
-
- 
-
-          clearInterval(
-
-            element._timer
-
-          );
-
- 
-
- 
-
-          element.textContent =
-
-            finalText;
-
- 
-
-        }
-
- 
-
-      },
-
- 
-
-      55
-
-    );
-
- 
-
+    55,
+  );
 }
-
- 
-
- 
 
 /* =========================================================
 
@@ -1344,85 +470,26 @@ function scramble(
 
 ========================================================= */
 
- 
+const scrambleElements = document.querySelectorAll("[data-spec-scramble]");
 
-const scrambleElements =
-
-  document.querySelectorAll(
-
-    "[data-spec-scramble]"
-
-  );
-
- 
-
- 
-
-const specializationObserver =
-
-  new IntersectionObserver(
-
-    entries => {
-
- 
-
-      entries.forEach(
-
-        entry => {
-
- 
-
-          /*
+const specializationObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      /*
 
              ENTERING SCREEN
 
           */
 
- 
+      if (entry.isIntersecting) {
+        if (entry.target.dataset.scrambleActive !== "1") {
+          entry.target.dataset.scrambleActive = "1";
 
-          if (
+          scramble(entry.target);
+        }
+      } else {
 
-            entry.isIntersecting
-
-          ) {
-
- 
-
-            if (
-
-              entry.target.dataset.scrambleActive !== "1"
-
-            ) {
-
- 
-
-              entry.target.dataset.scrambleActive =
-
-                "1";
-
- 
-
- 
-
-              scramble(
-
-                entry.target
-
-              );
-
- 
-
-            }
-
- 
-
-          }
-
- 
-
- 
-
-          /*
+      /*
 
              LEAVING SCREEN
 
@@ -1433,100 +500,28 @@ const specializationObserver =
              happen again when scrolling back.
 
           */
+        entry.target.dataset.scrambleActive = "0";
 
- 
+        clearInterval(entry.target._timer);
 
-          else {
+        const originalText =
+          entry.target.dataset.text || entry.target.dataset.originalText;
 
- 
-
-            entry.target.dataset.scrambleActive =
-
-              "0";
-
- 
-
- 
-
-            clearInterval(
-
-              entry.target._timer
-
-            );
-
- 
-
- 
-
-            const originalText =
-
-              entry.target.dataset.text ||
-
-              entry.target.dataset.originalText;
-
- 
-
- 
-
-            if (originalText) {
-
- 
-
-              entry.target.textContent =
-
-                originalText;
-
- 
-
-            }
-
- 
-
-          }
-
- 
-
+        if (originalText) {
+          entry.target.textContent = originalText;
         }
+      }
+    });
+  },
 
-      );
-
- 
-
-    },
-
- 
-
-    {
-
-      threshold: .35
-
-    }
-
-  );
-
- 
-
- 
-
-scrambleElements.forEach(
-
-  element => {
-
- 
-
-    specializationObserver.observe(
-
-      element
-
-    );
-
- 
-
-  }
-
+  {
+    threshold: 0.35,
+  },
 );
 
- 
+scrambleElements.forEach((element) => {
+  specializationObserver.observe(element);
+});
 
 /* =========================================================
 
@@ -1536,23 +531,10 @@ scrambleElements.forEach(
 
 ========================================================= */
 
- 
-
-const revealObserver =
-
-  new IntersectionObserver(
-
-    entries => {
-
- 
-
-      entries.forEach(
-
-        entry => {
-
- 
-
-          /*
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      /*
 
              ENTER SCREEN
 
@@ -1560,100 +542,33 @@ const revealObserver =
 
           */
 
- 
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+      } else {
 
-          if (entry.isIntersecting) {
-
- 
-
-            entry.target.classList.add(
-
-              "is-visible"
-
-            );
-
- 
-
-          }
-
- 
-
-          /*
+      /*
 
              LEAVE SCREEN
 
              Reset animation.
 
           */
+        entry.target.classList.remove("is-visible");
+      }
+    });
+  },
 
- 
-
-          else {
-
- 
-
-            entry.target.classList.remove(
-
-              "is-visible"
-
-            );
-
- 
-
-          }
-
- 
-
-        }
-
-      );
-
- 
-
-    },
-
-    {
-
-      threshold: .12
-
-    }
-
-  );
-
- 
+  {
+    threshold: 0.12,
+  },
+);
 
 document
 
-  .querySelectorAll(
+  .querySelectorAll(".reveal, .reveal-card")
 
-    ".reveal, .reveal-card"
+  .forEach((element) => {
+    revealObserver.observe(element);
+  });
 
-  )
-
-  .forEach(
-
-    element => {
-
- 
-
-      revealObserver.observe(
-
-        element
-
-      );
-
- 
-
-    }
-
-  );
-
- 
-
- 
-
-console.log(
-
-  "UE / CpE — Specialization loaded successfully."
-
-);
+console.log("UE / CpE — Specialization loaded successfully.");
